@@ -1,4 +1,4 @@
-package vn.its.rest.service;
+package vn.its.rest.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

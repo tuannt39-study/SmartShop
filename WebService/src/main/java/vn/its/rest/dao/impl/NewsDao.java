@@ -13,7 +13,4 @@ public class NewsDao {
 	public void setSessionFactory(SessionFactory sf) {
 		this.sessionFactory=sf;
 	}
-	
-	public List
-	
 }
