@@ -13,6 +13,15 @@
         <link href="<c:url value="/assets/global/plugins/bootstrap/css/bootstrap.min.css" />" rel="stylesheet" type="text/css" />
         <link href="<c:url value="/assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" />" rel="stylesheet" type="text/css" />
         <!-- END GLOBAL MANDATORY STYLES -->
+        <!-- BEGIN PAGE LEVEL PLUGINS -->
+        <link href="<c:url value="/assets/global/plugins/select2/css/select2.min.css" />" rel="stylesheet" type="text/css" />
+        <link href="<c:url value="/assets/global/plugins/select2/css/select2-bootstrap.min.css" />" rel="stylesheet" type="text/css" />
+        <link href="<c:url value="/assets/global/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css" />" rel="stylesheet" type="text/css" />
+        <!-- END PAGE LEVEL PLUGINS -->
+        <!-- BEGIN PAGE LEVEL PLUGINS -->
+        <link href="<c:url value="/assets/global/plugins/datatables/datatables.min.css" />" rel="stylesheet" type="text/css" />
+        <link href="<c:url value="/assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.css" /> " rel="stylesheet" type="text/css" />
+        <!-- END PAGE LEVEL PLUGINS -->
         <!-- BEGIN THEME GLOBAL STYLES -->
         <link href="<c:url value="/assets/global/css/components-md.min.css" />" rel="stylesheet" id="style_components" type="text/css" />
         <link href="<c:url value="/assets/global/css/plugins-md.min.css" />" rel="stylesheet" type="text/css" />

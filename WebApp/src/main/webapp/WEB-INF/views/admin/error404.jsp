@@ -1,6 +1,6 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+     pageEncoding="UTF-8"%> 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="en">
     <!--<![endif]-->
@@ -56,17 +56,24 @@
                                     <i class="fa fa-circle"></i>
                                 </li>
                                 <li>
-                                    <span>Thống kê</span>
+                                    <span>Hệ thống</span>
                                 </li>
                             </ul>
                         </div>
                         <!-- END PAGE BAR -->
                         <!-- BEGIN PAGE TITLE-->
-                        <h1 class="page-title"> Thống kê
-                            <small>trang thống kê</small>
-                        </h1>
+                        <h1 class="page-title"> Lỗi 404 </h1>
                         <!-- END PAGE TITLE-->
                         <!-- END PAGE HEADER-->
+                        <div class="row">
+                            <div class="col-md-12 page-404">
+                                <div class="number font-green"> 404 </div>
+                                <div class="details">
+                                    <h3>Oops! You're lost.</h3>
+                                    <p> We can not find the page you're looking for.</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <!-- END CONTENT BODY -->
                 </div>
