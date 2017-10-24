@@ -9,31 +9,20 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-@Entity
-@Table(name = "News")
 public class News {
 	
-	@Id
-	@Column(name="id")
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long id;
 	
-	@Column(name="title")
 	private String title;
 	
-	@Column(name="brief")
 	private String brief;
 	
-	@Column(name="content")
 	private String content;
 	
-	@Column(name="category_id")
 	private long categoryID;
 	
-	@Column(name="users_id")
 	private long userID;
 	
-	@Column(name="created_time")
 	private Timestamp createdTime;
 
 	public News() {
