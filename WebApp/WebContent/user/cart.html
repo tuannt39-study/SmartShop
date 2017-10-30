@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>SMART-SHOP | Giỏ hàng</title>
+    <link href="../assets/users/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../assets/users/css/font-awesome.min.css" rel="stylesheet">
+    <link href="../assets/users/css/prettyPhoto.css" rel="stylesheet">
+    <link href="../assets/users/css/price-range.css" rel="stylesheet">
+    <link href="../assets/users/css/animate.css" rel="stylesheet">
+	<link href="../assets/users/css/main.css" rel="stylesheet">
+	<link href="../assets/users/css/responsive.css" rel="stylesheet">
+    <!--[if lt IE 9]>
+    <script src="../assets/users/js/html5shiv.js"></script>
+    <script src="../assets/users/js/respond.min.js"></script>
+    <![endif]-->       
+    <link rel="shortcut icon" href="../assets/users/images/home/icon.png">
+</head><!--/head-->
+
+<body>
+	<header id="header"><!--header-->
+		<div class="header_top"><!--header_top-->
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-6">
+						<div class="contactinfo">
+							<ul class="nav nav-pills">
+								<li><a href="javascript:;"><i class="fa fa-phone"></i> +2 95 01 88 871</a></li>
+								<li><a href="javascript:;"><i class="fa fa-envelope"></i> itsol@domain.com</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-sm-6">
+						<div class="social-icons pull-right">
+							<ul class="nav navbar-nav">
+								<li><a href="javascript:;"><i class="fa fa-facebook"></i></a></li>
+								<li><a href="javascript:;"><i class="fa fa-twitter"></i></a></li>
+								<li><a href="javascript:;"><i class="fa fa-linkedin"></i></a></li>
+								<li><a href="javascript:;"><i class="fa fa-dribbble"></i></a></li>
+								<li><a href="javascript:;"><i class="fa fa-google-plus"></i></a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div><!--/header_top-->
+		
+		<div class="header-middle"><!--header-middle-->
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-4">
+						<div class="logo pull-left">
+							<a href="../index.html"><img src="../assets/users/images/home/logo.png" alt="" /></a>
+						</div>
+						<div class="btn-group pull-right">
+						</div>
+					</div>
+					<div class="col-sm-8">
+						<div class="shop-menu pull-right">
+							<ul class="nav navbar-nav">
+								<li><a href="checkout.html"><i class="fa fa-crosshairs"></i> Đơn đặt hàng</a></li>
+								<li><a href="cart.html"><i class="fa fa-shopping-cart"></i> Giỏ hàng</a></li>
+								<li><a href="login.html"><i class="fa fa-lock"></i> Đăng nhập</a></li>
+								<li><a href="register.html"><i class="fa fa-unlock"></i> Đăng ký</a></li>
+								<li><a href="../admin/home.html"> ADMIN</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div><!--/header-middle-->
+	
+		<div class="header-bottom"><!--header-bottom-->
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-9">
+						<div class="navbar-header">
+							<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+								<span class="sr-only">Toggle navigation</span>
+								<span class="icon-bar"></span>
+								<span class="icon-bar"></span>
+								<span class="icon-bar"></span>
+							</button>
+						</div>
+						<div class="mainmenu pull-left">
+							<ul class="nav navbar-nav collapse navbar-collapse">
+								<li><a href="../index.html" class="active">Trang chủ</a></li>
+								<li class="dropdown"><a href="javascript:;">Nam<i class="fa fa-angle-down"></i></a>
+                                    <ul role="menu" class="sub-menu">
+                                        <li><a href="products.html">Quần áo</a></li>
+										<li><a href="products.html">Giày dép</a></li> 
+                                    </ul>
+                                </li> 
+                                <li class="dropdown"><a href="javascript:;">Nữ<i class="fa fa-angle-down"></i></a>
+                                    <ul role="menu" class="sub-menu">
+                                        <li><a href="products.html">Quần áo</a></li>
+										<li><a href="products.html">Giày dép</a></li> 
+                                    </ul>
+                                </li>
+                                <li><a href="news_home.html">Tin tức</a></li>
+								<li><a href="contact.html">Liên hệ</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-sm-3">
+						<div class="search_box pull-right">
+							<input type="text" placeholder="Tìm kiếm..."/>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div><!--/header-bottom-->
+	</header><!--/header-->
+	
+
+	<section id="cart_items">
+		<div class="container">
+			<div class="breadcrumbs">
+				<h4>Giỏ hàng</h4>
+			</div>
+			<div class="table-responsive cart_info">
+				<table class="table table-condensed">
+					<thead>
+						<tr class="cart_menu">
+							<td class="description">Mã sản phẩm</td>
+							<td class="image">Sản phẩm</td>
+							<td class="description">Thông tin</td>
+							<td class="price">Giá</td>
+							<td class="quantity">Số lượng</td>
+							<td class="total">Tổng tiền</td>
+							<td></td>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td class="cart_description"><p>1089771</p></td>
+							<td class="cart_product">
+								<a href=""><img src="../assets/users/images/cart/one.png" alt=""></a>
+							</td>
+							<td class="cart_description">
+								<h4><a href="">Black Scuba</a></h4>
+							</td>
+							<td class="cart_price">
+								<p>$59</p>
+							</td>
+							<td class="cart_quantity">
+								<div class="cart_quantity_button">
+									<a class="cart_quantity_up" href=""> + </a>
+									<input class="cart_quantity_input" type="text" name="quantity" value="1" autocomplete="off" size="2">
+									<a class="cart_quantity_down" href=""> - </a>
+								</div>
+							</td>
+							<td class="cart_total">
+								<p class="cart_total_price">$59</p>
+							</td>
+							<td class="cart_delete">
+								<a class="cart_quantity_delete" href=""><i class="fa fa-times"></i></a>
+							</td>
+						</tr>
+
+						<tr>
+							<td class="cart_description"><p>1089772</p></td>
+							<td class="cart_product">
+								<a href=""><img src="../assets/users/images/cart/two.png" alt=""></a>
+							</td>
+							<td class="cart_description">
+								<h4><a href="">Spink Scuba</a></h4>
+							</td>
+							<td class="cart_price">
+								<p>$59</p>
+							</td>
+							<td class="cart_quantity">
+								<div class="cart_quantity_button">
+									<a class="cart_quantity_up" href=""> + </a>
+									<input class="cart_quantity_input" type="text" name="quantity" value="1" autocomplete="off" size="2">
+									<a class="cart_quantity_down" href=""> - </a>
+								</div>
+							</td>
+							<td class="cart_total">
+								<p class="cart_total_price">$59</p>
+							</td>
+							<td class="cart_delete">
+								<a class="cart_quantity_delete" href=""><i class="fa fa-times"></i></a>
+							</td>
+						</tr>
+						<tr>
+							<td class="cart_description"><p>1089773</p></td>
+							<td class="cart_product">
+								<a href=""><img src="../assets/users/images/cart/three.png" alt=""></a>
+							</td>
+							<td class="cart_description">
+								<h4><a href="">Solid Scuba</a></h4>
+							</td>
+							<td class="cart_price">
+								<p>$59</p>
+							</td>
+							<td class="cart_quantity">
+								<div class="cart_quantity_button">
+									<a class="cart_quantity_up" href=""> + </a>
+									<input class="cart_quantity_input" type="text" name="quantity" value="1" autocomplete="off" size="2">
+									<a class="cart_quantity_down" href=""> - </a>
+								</div>
+							</td>
+							<td class="cart_total">
+								<p class="cart_total_price">$59</p>
+							</td>
+							<td class="cart_delete">
+								<a class="cart_quantity_delete" href=""><i class="fa fa-times"></i></a>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</section> <!--/#cart_items-->
+
+	<section id="do_action">
+					<div class="total_area">
+						<ul>
+							<li>Tổng tiền <span>$177</span></li>
+						</ul>
+							<a class="btn btn-default update" href="products.html">Tiếp tục mua hàng</a>
+							<a class="btn btn-default check_out" href="checkout.html">Đặt hàng</a>
+					</div>
+	</section><!--/#do_action-->
+
+	<footer id="footer"><!--Footer-->
+		<div class="footer-top">
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-2">
+						<div class="companyinfo">
+							<h2><span>smart</span>-shop</h2>
+							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit,sed do eiusmod tempor</p>
+						</div>
+					</div>
+					<div class="col-sm-7">
+						<div class="col-sm-3">
+							<div class="video-gallery text-center">
+								<div class="iframe-img">
+									<a href="javascript:;"><img src="../assets/users/images/home/iframe1.png" alt="" /></a>
+								</div>
+								<div class="overlay-icon">
+									<i class="fa fa-play-circle-o"></i>
+								</div>
+								<p>Le Minh Duong</p>
+								<h2>24 DEC 2014</h2>
+							</div>
+						</div>
+						
+						<div class="col-sm-3">
+							<div class="video-gallery text-center">
+								<div class="iframe-img">
+									<a href="javascript:;"><img src="../assets/users/images/home/iframe2.png" alt="" /></a>
+								</div>
+								<div class="overlay-icon">
+									<i class="fa fa-play-circle-o"></i>
+								</div>
+								<p>Giao su Tuan</p>
+								<h2>24 DEC 2014</h2>
+							</div>
+						</div>
+						
+						<div class="col-sm-3">
+							<div class="video-gallery text-center">
+								<div class="iframe-img">
+									<a href="javascript:;"><img src="../assets/users/images/home/iframe3.png" alt="" /></a>
+								</div>
+								<div class="overlay-icon">
+									<i class="fa fa-play-circle-o"></i>
+								</div>
+								<p>Bui Van Duc</p>
+								<h2>24 DEC 2014</h2>
+							</div>
+						</div>
+						
+						<div class="col-sm-3">
+							<div class="video-gallery text-center">
+								<div class="iframe-img">
+									<a href="javascript:;"><img src="../assets/users/images/home/iframe4.png" alt="" /></a>
+								</div>
+								<div class="overlay-icon">
+									<i class="fa fa-play-circle-o"></i>
+								</div>
+								<p>Circle of Hands</p>
+								<h2>24 DEC 2014</h2>
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-3">
+						<div class="address">
+							<img src="../assets/users/images/home/map.png" alt="" />
+							<p>82 Duy Tan, Ha Noi, VN(VietNam)</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="footer-widget">
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-2">
+						<div class="single-widget">
+							<h2>Dịch vụ</h2>
+							<ul class="nav nav-pills nav-stacked">
+								<li><a href="javascript:;">Trợ giúp</a></li>
+								<li><a href="javascript:;">Liện hệ với chúng tôi</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-sm-2">
+						<div class="single-widget">
+							<h2>Smart Shop</h2>
+							<ul class="nav nav-pills nav-stacked">
+								<li><a href="javascript:;">Áo thun</a></li>
+								<li><a href="javascript:;">Nam</a></li>
+								<li><a href="javascript:;">Nữ</a></li>
+								<li><a href="javascript:;">Thẻ quà</a></li>
+								<li><a href="javascript:;">Giày</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-sm-2">
+						<div class="single-widget">
+							<h2>Chính sách</h2>
+							<ul class="nav nav-pills nav-stacked">
+								<li><a href="javascript:;">Điều khoản sử dụng</a></li>
+								<li><a href="javascript:;">Chính sách riêng tư</a></li>
+								<li><a href="javascript:;">Chính sách hoàn tiền</a></li>
+								<li><a href="javascript:;">Hệ thống thanh toán</a></li>
+								<li><a href="javascript:;">Vé</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-sm-2">
+						<div class="single-widget">
+							<h2>Về chúng tôi</h2>
+							<ul class="nav nav-pills nav-stacked">
+								<li><a href="javascript:;">Thông tin cửa hàng</a></li>
+								<li><a href="javascript:;">Tuyển dụng</a></li>
+								<li><a href="javascript:;">Vị trí cửa hàng</a></li>
+								<li><a href="javascript:;">Copyright</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-sm-3 col-sm-offset-1">
+						<div class="single-widget">
+							<h2>Liên hệ</h2>
+							<form action="#" class="searchform">
+								<input type="text" placeholder="Địa chỉ email của bạn" />
+								<button type="submit" class="btn btn-default"><i class="fa fa-arrow-circle-o-right"></i></button>
+								<p>Get the most recent updates from <br />our site and be updated your self...</p>
+							</form>
+						</div>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+		
+		<div class="footer-bottom">
+			<div class="container">
+				<div class="row">
+					<p class="pull-left">Copyright © 2017 SMART-SHOP Inc. All rights reserved.</p>
+					<p class="pull-right">Designed by <span><a target="_blank" href="http://itsol.vn/">ITSOL</a></span></p>
+				</div>
+			</div>
+		</div>
+		
+	</footer><!--/Footer-->
+	
+
+
+    <script src="../assets/users/js/jquery.js"></script>
+	<script src="../assets/users/js/bootstrap.min.js"></script>
+	<script src="../assets/users/js/jquery.scrollUp.min.js"></script>
+    <script src="../assets/users/js/jquery.prettyPhoto.js"></script>
+    <script src="../assets/users/js/main.js"></script>
+</body>
+</html>
