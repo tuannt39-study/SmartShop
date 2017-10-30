@@ -1,5 +1,6 @@
 package vn.its.rest.controller;
 
+import java.util.Date;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -34,13 +35,11 @@ public class UserRestController {
 
 //	http://localhost:8083/WebService/api/tai-khoan/add
 //	{
-//	    "email": "duong2@gmail.com",
-//	    "username": "duong2",
+//	    "email": "duong10@gmail.com",
+//	    "username": "duong10",
 //	    "fullname": "Mặt Dương",
 //	    "phone": "0963349512",
 //	    "address": "Hà Nội",
-//	    "avartar": "/assets/layouts/layout/img/avartar.png",
-//	    "createdTime": "30-10-2017 11:06:32",
 //	    "status": "ACTIVE",
 //	    "password": "1234"
 //	}
@@ -52,9 +51,9 @@ public class UserRestController {
 			logger.error("Unable to Add. A User with email {} already exist", user.getEmail());
 			return new ResponseEntity<Void>(HttpStatus.CONFLICT);
 		} else {
-			
+			user.setAvartar("/assets/layouts/layout/img/avartar.png");
+			user.setCreatedTime(new Date());
 			userService.saveUser(user);
-			
 			HttpHeaders headers = new HttpHeaders();
 			headers.setLocation(ucbuilder.path("{id}").buildAndExpand(user.getId()).toUri());
 			ResponseEntity<Void> addUser = new ResponseEntity<Void>(headers, HttpStatus.CREATED);
@@ -93,13 +92,11 @@ public class UserRestController {
 
 //	http://localhost:8083/WebService/api/tai-khoan/update/25
 //	{
-//	    "email": "tuannt25@gmail.com",
-//	    "username": "tuannt25",
-//	    "fullname": "nguyen the25",
-//	    "phone": "096538525",
-//	    "address": "Ha Noi25",
-//	    "avartar": "/assets/layouts/layout/img/avartar.png",
-//	    "createdTime": "30-10-2017 10:06:16",
+//	    "email": "duong11@gmail.com",
+//	    "username": "duong11",
+//	    "fullname": "Mặt Dương",
+//	    "phone": "0963349512",
+//	    "address": "Hà Nội",
 //	    "status": "ACTIVE",
 //	    "password": "1234"
 //	}
@@ -117,8 +114,8 @@ public class UserRestController {
 			currentUser.setFullname(user.getFullname());
 			currentUser.setPhone(user.getPhone());
 			currentUser.setAddress(user.getAddress());
-			currentUser.setAvartar(user.getAvartar());
-			currentUser.setCreatedTime(user.getCreatedTime());
+			currentUser.setAvartar("/assets/layouts/layout/img/avartar.png");
+			currentUser.setCreatedTime(new Date());
 			currentUser.setStatus(user.getStatus());
 			currentUser.setPassword(user.getPassword());
 			userService.updateUser(currentUser);
