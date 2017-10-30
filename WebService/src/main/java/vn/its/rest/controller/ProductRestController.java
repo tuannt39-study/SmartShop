@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,6 +23,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import vn.its.rest.model.Product;
 import vn.its.rest.service.ProductService;
 
+@CrossOrigin(origins = "http://localhost:8083", maxAge = 3600)
 @RestController
 @RequestMapping("/api/san-pham")
 public class ProductRestController {
@@ -30,6 +32,7 @@ public class ProductRestController {
 	@Autowired
 	private ProductService productService;
 	
+	@CrossOrigin
 	@PostMapping("/add")
 	public ResponseEntity<Void> createProduct(@RequestBody Product product, UriComponentsBuilder ucbuilder){
 		logger.info("Add product : {}", product);
@@ -47,6 +50,7 @@ public class ProductRestController {
 	}
 	
 	//http://localhost:8080/WebService/san-pham/all
+	@CrossOrigin
 	@GetMapping("/all")
 	public ResponseEntity<List<Product>> findAllProduct(){
 		List<Product> findAllProduct = productService.findAllProduct();
@@ -58,6 +62,7 @@ public class ProductRestController {
 		}
 	}
 	
+	@CrossOrigin
 	@DeleteMapping("/delete/{id}")
 	public  ResponseEntity<Void> deleteProduct(@PathVariable("id") long id, @RequestBody Product product){
 		logger.info("Fetching & Deleting product with id {} ", + id);
@@ -72,6 +77,7 @@ public class ProductRestController {
 		}
 	}
 	
+	@CrossOrigin
 	@PutMapping("/update/{id}")
 	public ResponseEntity<Product> updateProduct(@PathVariable("id") long id, @RequestBody Product product){
 		logger.info("Update product with id {}", id);
@@ -86,6 +92,7 @@ public class ProductRestController {
 		}
 	}
 	
+	@CrossOrigin
 	@GetMapping("/{id}")
 	public ResponseEntity<Product> findProduct(@PathVariable("id") long id){
 		logger.info("Fetching product with id {}", id);

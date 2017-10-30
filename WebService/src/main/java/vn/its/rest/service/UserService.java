@@ -10,7 +10,7 @@ public interface UserService {
 
 	public void deleteUser(long id);
 
-	public User updateUser(User user);
+	public void updateUser(User user);
 
 	public boolean isUserExist(User user);
 

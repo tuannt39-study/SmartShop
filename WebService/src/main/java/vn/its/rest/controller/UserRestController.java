@@ -34,11 +34,11 @@ public class UserRestController {
 
 //	http://localhost:8080/WebService/api/tai-khoan/add
 //	{
-//		"email": "tuannt33@gmail.com",
-//		"username": "tuannt33",
-//		"fullname": "nguyen the33",
-//		"phone": "096538533",
-//		"address": "Ha Noi33",
+//		"email": "tuannt26@gmail.com",
+//		"username": "tuannt26",
+//		"fullname": "nguyen the26",
+//		"phone": "096538526",
+//		"address": "Ha Noi26",
 //		"avartar": "/assets/layouts/layout/img/avartar.png",
 //		"createdTime": "30-10-2017 08:06:16",
 //		"status": "ACTIVE",
@@ -91,29 +91,38 @@ public class UserRestController {
 		}
 	}
 
-//	http://localhost:8080/WebService/api/tai-khoan/update/21
+//	http://localhost:8080/WebService/api/tai-khoan/update/25
 //	{
-//    "email": "tuannt2@gmail.com",
-//    "username": "tuannt",
-//    "fullname": "nguyen the",
-//    "phone": "096538561",
-//    "address": "Ha Noi",
-//    "avartar": "/assets/layouts/layout/img/avartar.png",
-//    "createdTime": "30-10-2017 06:06:16",
-//    "status": "ACTIVE",
-//    "password": "1234"
+//	    "email": "tuannt25@gmail.com",
+//	    "username": "tuannt25",
+//	    "fullname": "nguyen the25",
+//	    "phone": "096538525",
+//	    "address": "Ha Noi25",
+//	    "avartar": "/assets/layouts/layout/img/avartar.png",
+//	    "createdTime": "30-10-2017 10:06:16",
+//	    "status": "ACTIVE",
+//	    "password": "1234"
 //	}
 	@CrossOrigin
 	@PutMapping("/update/{id}")
 	public ResponseEntity<User> updateUser(@PathVariable("id") long id, @RequestBody User user) {
 		logger.info("Updating User with id {}", id);
-		User currentUser = userService.findById(id);
-		if (currentUser == null) {
+		user = userService.findById(id);
+		if (user == null) {
 			logger.error("Unable to update. User with id " + id + " not found.");
 			return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
 		} else {
-			userService.updateUser(currentUser);
-			ResponseEntity<User> updateUser = new ResponseEntity<User>(currentUser, HttpStatus.OK);
+//			currentUser.setEmail(user.getEmail());
+//			currentUser.setUsername(user.getUsername());
+//			currentUser.setFullname(user.getFullname());
+//			currentUser.setPhone(user.getPhone());
+//			currentUser.setAddress(user.getAddress());
+//			currentUser.setAvartar(user.getAvartar());
+//			currentUser.setCreatedTime(user.getCreatedTime());
+//			currentUser.setStatus(user.getStatus());
+//			currentUser.setPassword(user.getPassword());
+			userService.updateUser(user);
+			ResponseEntity<User> updateUser = new ResponseEntity<User>(user, HttpStatus.OK);
 			return updateUser;
 		}
 	}

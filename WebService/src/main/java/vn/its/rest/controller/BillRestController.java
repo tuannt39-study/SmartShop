@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,6 +22,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import vn.its.rest.model.Bill;
 import vn.its.rest.service.BillService;
 
+@CrossOrigin(origins = "http://localhost:8083", maxAge = 3600)
 @RestController
 @RequestMapping("/api/hoa-don")
 public class BillRestController {
@@ -29,6 +31,7 @@ public class BillRestController {
 	@Autowired
 	private BillService billService;
 	
+	@CrossOrigin
 	@PostMapping("/add")
 	public ResponseEntity<Void> createBill(@RequestBody Bill bill, UriComponentsBuilder ucbuilder){
 		logger.info("Add bill : {}", bill);
@@ -42,6 +45,7 @@ public class BillRestController {
 	}
 	
 	//http://localhost:8080/WebService/api/hoa-don/all
+	@CrossOrigin
 	@GetMapping("/all")
 	public ResponseEntity<List<Bill>> findAllBill(){
 		List<Bill> findAllBill = billService.findAllBill();
@@ -53,6 +57,7 @@ public class BillRestController {
 		}
 	}
 	
+	@CrossOrigin
 	@DeleteMapping("/delete/{id}")
 	public  ResponseEntity<Void> deleteBill(@PathVariable("id") long id, @RequestBody Bill bill){
 		logger.info("Fetching & Deleting bill with id {} ", + id);
@@ -67,6 +72,7 @@ public class BillRestController {
 		}
 	}
 	
+	@CrossOrigin
 	@PutMapping("/update/{id}")
 	public ResponseEntity<Bill> updateBill(@PathVariable("id") long id, @RequestBody Bill bill){
 		logger.info("Update product with id {}", id);
@@ -81,6 +87,7 @@ public class BillRestController {
 		}
 	}
 	
+	@CrossOrigin
 	@GetMapping("/{id}")
 	public ResponseEntity<Bill> findBill(@PathVariable("id") long id){
 		logger.info("Fetching bill with id {}", id);

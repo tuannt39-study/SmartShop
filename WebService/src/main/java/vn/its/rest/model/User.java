@@ -68,18 +68,6 @@ public class User {
 		this.password = password;
 	}
 
-	public User(int id, String email, String username, String fullname, String phone, String address, String status, String password) {
-		super();
-		this.id = id;
-		this.email = email;
-		this.username = username;
-		this.fullname = fullname;
-		this.phone = phone;
-		this.address = address;
-		this.status = status;
-		this.password = password;
-	}
-
 	public long getId() {
 		return id;
 	}

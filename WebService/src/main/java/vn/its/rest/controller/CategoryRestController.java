@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,6 +22,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import vn.its.rest.model.Category;
 import vn.its.rest.service.CategoryService;
 
+@CrossOrigin(origins = "http://localhost:8083", maxAge = 3600)
 @RestController
 @RequestMapping("/api/danh-muc")
 public class CategoryRestController {
@@ -30,6 +32,7 @@ public class CategoryRestController {
 	@Autowired
 	private CategoryService categoryService;
 
+	@CrossOrigin
 	@PostMapping("/add")
 	public ResponseEntity<Void> createCategory(@RequestBody Category category, UriComponentsBuilder ucbuilder) {
 		logger.info("Add category : {}", category);
@@ -49,6 +52,7 @@ public class CategoryRestController {
 	}
 
 	// http://localhost:8080/WebService/api/danh-muc/all
+	@CrossOrigin
 	@GetMapping("/all")
 	public ResponseEntity<List<Category>> findAllCategory() {
 		List<Category> findAllCategory = categoryService.findAllCategory();
@@ -60,6 +64,7 @@ public class CategoryRestController {
 		}
 	}
 
+	@CrossOrigin
 	@DeleteMapping("/delete/{id}")
 	public ResponseEntity<Void> deleteCategory(@PathVariable("id") long id, @RequestBody Category category) {
 		logger.info("Fetching & Deleting category with id {} ", +id);
@@ -75,6 +80,7 @@ public class CategoryRestController {
 		}
 	}
 
+	@CrossOrigin
 	@PutMapping("/update/{id}")
 	public ResponseEntity<Category> updateCategory(@PathVariable("id") long id, @RequestBody Category category) {
 		logger.info("Update category with id {}", id);
@@ -89,6 +95,7 @@ public class CategoryRestController {
 		}
 	}
 
+	@CrossOrigin
 	@GetMapping("/{id}")
 	public ResponseEntity<Category> findCategory(@PathVariable("id") long id) {
 		logger.info("Fetching category with id {}", id);

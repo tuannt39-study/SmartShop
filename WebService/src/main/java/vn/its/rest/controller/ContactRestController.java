@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,6 +22,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import vn.its.rest.model.Contact;
 import vn.its.rest.service.ContactService;
 
+@CrossOrigin(origins = "http://localhost:8083", maxAge = 3600)
 @RestController
 @RequestMapping("/api/lien-he")
 public class ContactRestController {
@@ -30,6 +32,7 @@ public class ContactRestController {
 	@Autowired
 	private ContactService contactService;
 	
+	@CrossOrigin
 	@PostMapping("/add")
 	public ResponseEntity<Void> createContact(@RequestBody Contact contact, UriComponentsBuilder ucbuilder) {
 		logger.info("Add contact : {}", contact);
@@ -49,6 +52,7 @@ public class ContactRestController {
 	}
 
 	// http://localhost:8080/WebService/api/lien-he/all
+	@CrossOrigin
 	@GetMapping("/all")
 	public ResponseEntity<List<Contact>> findAllContact() {
 		List<Contact> findAllContact = contactService.findAllContact();
@@ -60,6 +64,7 @@ public class ContactRestController {
 		}
 	}
 
+	@CrossOrigin
 	@DeleteMapping("/delete/{id}")
 	public ResponseEntity<Void> deleteContact(@PathVariable("id") long id, @RequestBody Contact contact) {
 		logger.info("Fetching & Deleting contact with id {} ", +id);
@@ -75,6 +80,7 @@ public class ContactRestController {
 		}
 	}
 
+	@CrossOrigin
 	@PutMapping("/update/{id}")
 	public ResponseEntity<Contact> updateContact(@PathVariable("id") long id, @RequestBody Contact contact) {
 		logger.info("Update contact with id {}", id);
@@ -89,6 +95,7 @@ public class ContactRestController {
 		}
 	}
 
+	@CrossOrigin
 	@GetMapping("/{id}")
 	public ResponseEntity<Contact> findContact(@PathVariable("id") long id) {
 		logger.info("Fetching contact with id {}", id);

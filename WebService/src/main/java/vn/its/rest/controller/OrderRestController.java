@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,6 +22,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import vn.its.rest.model.Order;
 import vn.its.rest.service.OrderService;
 
+@CrossOrigin(origins = "http://localhost:8083", maxAge = 3600)
 @RestController
 @RequestMapping("/api/don-dat-hang")
 public class OrderRestController {
@@ -30,6 +32,7 @@ public class OrderRestController {
 	@Autowired
 	private OrderService orderService;
 	
+	@CrossOrigin
 	@PostMapping("/add")
 	public ResponseEntity<Void> createOrder(@RequestBody Order order, UriComponentsBuilder ucbuilder){
 		logger.info("Add order : {}", order);
@@ -44,6 +47,7 @@ public class OrderRestController {
 	}
 	
 	//http://localhost:8080/WebService/api/hoa-don/all
+	@CrossOrigin
 	@GetMapping("/all")
 	public ResponseEntity<List<Order>> findAllOrder(){
 		List<Order> findAllOrder = orderService.findAllOrder();
@@ -55,6 +59,7 @@ public class OrderRestController {
 		}
 	}
 	
+	@CrossOrigin
 	@DeleteMapping("/delete/{id}")
 	public  ResponseEntity<Void> deleteBill(@PathVariable("id") long id, @RequestBody Order order){
 		logger.info("Fetching & Deleting order with id {} ", + id);
@@ -69,6 +74,7 @@ public class OrderRestController {
 		}
 	}
 	
+	@CrossOrigin
 	@PutMapping("/update/{id}")
 	public ResponseEntity<Order> updateOrder(@PathVariable("id") long id, @RequestBody Order order){
 		logger.info("Update order with id {}", id);
@@ -83,6 +89,7 @@ public class OrderRestController {
 		}
 	}
 	
+	@CrossOrigin
 	@GetMapping("/{id}")
 	public ResponseEntity<Order> findBill(@PathVariable("id") long id){
 		logger.info("Fetching order with id {}", id);
