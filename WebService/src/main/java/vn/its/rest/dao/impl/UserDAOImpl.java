@@ -2,6 +2,7 @@ package vn.its.rest.dao.impl;
 
 import java.util.List;
 
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -36,7 +37,17 @@ public class UserDAOImpl implements UserDAO {
 
 	@Override
 	public void updateUser(User user) {
-		sessionFactory.getCurrentSession().update(user);
+		Session session = sessionFactory.getCurrentSession();
+		user.setUsername(user.getUsername());
+		user.setFullname(user.getFullname());
+		user.setEmail(user.getEmail());
+		user.setAddress(user.getAddress());
+		user.setPassword(user.getPassword());
+		user.setAvartar(user.getAvartar());
+		user.setCreatedTime(user.getCreatedTime());
+		user.setPhone(user.getPhone());
+		user.setStatus(user.getStatus());
+		session.flush();
 	}
 
 	@Override
@@ -51,7 +62,7 @@ public class UserDAOImpl implements UserDAO {
 
 	@Override
 	public boolean isUserExist(User user) {
-		return findUserByEmail(user.getEmail())!=null;
+		return findUserByEmail(user.getEmail()) != null;
 	}
 
 }

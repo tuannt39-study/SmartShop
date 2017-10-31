@@ -22,7 +22,6 @@ import org.springframework.web.util.UriComponentsBuilder;
 import vn.its.rest.model.Contact;
 import vn.its.rest.service.ContactService;
 
-@CrossOrigin(origins = "http://localhost:8083", maxAge = 3600)
 @RestController
 @RequestMapping("/api/lien-he")
 public class ContactRestController {
@@ -89,6 +88,12 @@ public class ContactRestController {
 			logger.error("Unable to update. Contact with id " + id + " not found.");
 			return new ResponseEntity<Contact>(HttpStatus.NOT_FOUND);
 		} else {
+			currentContact.setName(contact.getName());
+			currentContact.setEmail(contact.getEmail());
+			currentContact.setPhone(contact.getPhone());
+			currentContact.setFax(contact.getFax());
+			currentContact.setNote(contact.getNote());
+			currentContact.setAddress(contact.getAddress());
 			contactService.updateContact(currentContact);
 			ResponseEntity<Contact> updateContact = new ResponseEntity<Contact>(currentContact, HttpStatus.OK);
 			return updateContact;
