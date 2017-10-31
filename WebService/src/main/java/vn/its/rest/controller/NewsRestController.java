@@ -22,7 +22,6 @@ import org.springframework.web.util.UriComponentsBuilder;
 import vn.its.rest.model.News;
 import vn.its.rest.service.NewsService;
 
-@CrossOrigin(origins = "http://localhost:8083", maxAge = 3600)
 @RestController
 @RequestMapping("/api/news")
 public class NewsRestController {
@@ -32,7 +31,7 @@ public class NewsRestController {
 	@Autowired
 	private NewsService newsService;
 
-//	http://localhost:8080/WebService/api/tai-khoan/all
+	// http://localhost:8080/WebService/api/tai-khoan/all
 	@CrossOrigin
 	@GetMapping("/all")
 	public ResponseEntity<List<News>> getAllNews() {
@@ -53,13 +52,13 @@ public class NewsRestController {
 	@GetMapping("/{id}")
 	public ResponseEntity<News> getNewsById(@PathVariable("id") long id) {
 
-		logger.info("Fetching User with id {}", id);
+		logger.info("Fetching news with id {}", id);
 
 		News getNews = newsService.searchNewsById(id);
 
 		if (getNews == null) {
 
-			logger.error("User with id {} not found.", id);
+			logger.error("News with id {} not found.", id);
 
 			return new ResponseEntity<News>(HttpStatus.NOT_FOUND);
 		}
@@ -69,24 +68,24 @@ public class NewsRestController {
 		return news;
 	}
 
-//	http://localhost:8080/WebService/api/news/add
-//	{
-//	    "title": "a2",
-//	    "brief": "b2",
-//	    "content": "c2",
-//	    "categoryID": 1,
-//	    "userID": 23,
-//	    "createdTime": "30-10-2017 05:46:28"
-//	}
+	// http://localhost:8080/WebService/api/news/add
+	// {
+	// "title": "a2",
+	// "brief": "b2",
+	// "content": "c2",
+	// "categoryID": 1,
+	// "userID": 23,
+	// "createdTime": "30-10-2017 05:46:28"
+	// }
 	@CrossOrigin
 	@PostMapping("/add")
 	public ResponseEntity<Void> addNews(@RequestBody News news, UriComponentsBuilder ucbuilder) {
 
-		logger.info("Add User : {}", news);
+		logger.info("Add news : {}", news);
 
 		if (newsService.isNewsExist(news)) {
 
-			logger.error("Unable to Add. A User with email {} already exist", news.getTitle());
+			logger.error("Unable to Add. A news with email {} already exist", news.getTitle());
 
 			return new ResponseEntity<Void>(HttpStatus.CONFLICT);
 		}
@@ -99,39 +98,40 @@ public class NewsRestController {
 
 		return addNews;
 	}
-	
-//	http://localhost:8083/WebService/api/news/update/2
-//	{
-//	    "title": "a23",
-//	    "brief": "b2",
-//	    "content": "c2",
-//	    "categoryID": 1,
-//	    "userID": 23,
-//	    "createdTime": "30-10-2017 05:46:28"
-//	}
+
+	// http://localhost:8083/WebService/api/news/update/2
+	// {
+	// "title": "a23",
+	// "brief": "b2",
+	// "content": "c2",
+	// "categoryID": 1,
+	// "userID": 23,
+	// "createdTime": "30-10-2017 05:46:28"
+	// }
 	@CrossOrigin
 	@PutMapping("update/{id}")
-	public ResponseEntity<News> updateNews(@PathVariable("id") long id,@RequestBody News news) {
+	public ResponseEntity<News> updateNews(@PathVariable("id") long id, @RequestBody News news) {
 
-		logger.info("Updating User with id {}", id);
+		logger.info("Updating news with id {}", id);
 
 		News currentNews = newsService.searchNewsById(id);
 
 		if (currentNews == null) {
 
-			logger.error("Unable to update. User with id " + id + " not found.");
+			logger.error("Unable to update. News with id " + id + " not found.");
 
 			return new ResponseEntity<News>(HttpStatus.NOT_FOUND);
 		}
 
+		currentNews.setBrief(news.getBrief() );
+		currentNews.setContent(news.getContent());
 		currentNews.setTitle(news.getTitle());
-		currentNews.setBrief(news.getBrief());
-		
+
 		newsService.updateNews(currentNews);
 
-		ResponseEntity<News> NewsIsUpdated = new ResponseEntity<News>(currentNews, HttpStatus.OK);
+		ResponseEntity<News> newsUpdated = new ResponseEntity<News>(currentNews, HttpStatus.OK);
 
-		return NewsIsUpdated;
+		return newsUpdated;
 
 	}
 
@@ -144,7 +144,7 @@ public class NewsRestController {
 		News currentNews = newsService.searchNewsById(id);
 
 		if (currentNews == null) {
-			logger.error("Unable to update. User with id {} not found.", id);
+			logger.error("Unable to update. News with id {} not found.", id);
 
 			return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
 		}

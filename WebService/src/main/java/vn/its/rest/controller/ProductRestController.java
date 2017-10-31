@@ -23,7 +23,6 @@ import org.springframework.web.util.UriComponentsBuilder;
 import vn.its.rest.model.Product;
 import vn.its.rest.service.ProductService;
 
-@CrossOrigin(origins = "http://localhost:8083", maxAge = 3600)
 @RestController
 @RequestMapping("/api/san-pham")
 public class ProductRestController {
