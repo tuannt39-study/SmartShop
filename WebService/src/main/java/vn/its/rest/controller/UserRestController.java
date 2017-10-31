@@ -1,5 +1,6 @@
 package vn.its.rest.controller;
 
+import java.util.Date;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -22,7 +23,6 @@ import org.springframework.web.util.UriComponentsBuilder;
 import vn.its.rest.model.User;
 import vn.its.rest.service.UserService;
 
-@CrossOrigin(origins = "http://localhost:8083", maxAge = 3600)
 @RestController
 @RequestMapping("/api/tai-khoan")
 public class UserRestController {
@@ -32,17 +32,15 @@ public class UserRestController {
 	@Autowired
 	private UserService userService;
 
-//	http://localhost:8080/WebService/api/tai-khoan/add
+//	http://localhost:8083/WebService/api/tai-khoan/add
 //	{
-//		"email": "tuannt26@gmail.com",
-//		"username": "tuannt26",
-//		"fullname": "nguyen the26",
-//		"phone": "096538526",
-//		"address": "Ha Noi26",
-//		"avartar": "/assets/layouts/layout/img/avartar.png",
-//		"createdTime": "30-10-2017 08:06:16",
-//		"status": "ACTIVE",
-//		"password": "1234"
+//	    "email": "duong10@gmail.com",
+//	    "username": "duong10",
+//	    "fullname": "Mặt Dương",
+//	    "phone": "0963349512",
+//	    "address": "Hà Nội",
+//	    "status": "ACTIVE",
+//	    "password": "1234"
 //	}
 	@CrossOrigin
 	@PostMapping("/add")
@@ -52,9 +50,9 @@ public class UserRestController {
 			logger.error("Unable to Add. A User with email {} already exist", user.getEmail());
 			return new ResponseEntity<Void>(HttpStatus.CONFLICT);
 		} else {
-			
+			user.setAvartar("/assets/layouts/layout/img/avartar.png");
+			user.setCreatedTime(new Date());
 			userService.saveUser(user);
-			
 			HttpHeaders headers = new HttpHeaders();
 			headers.setLocation(ucbuilder.path("{id}").buildAndExpand(user.getId()).toUri());
 			ResponseEntity<Void> addUser = new ResponseEntity<Void>(headers, HttpStatus.CREATED);
@@ -62,7 +60,7 @@ public class UserRestController {
 		}
 	}
 
-//	http://localhost:8080/WebService/api/tai-khoan/all
+//	http://localhost:8083/WebService/api/tai-khoan/all
 	@CrossOrigin
 	@GetMapping("/all")
 	public ResponseEntity<List<User>> getAllUsers(){
@@ -75,7 +73,7 @@ public class UserRestController {
 		}
 	}
 
-//	http://localhost:8080/WebService/api/tai-khoan/delete/21
+//	http://localhost:8083/WebService/api/tai-khoan/delete/6
 	@CrossOrigin
 	@DeleteMapping("/delete/{id}")
 	public ResponseEntity<Void> deleteUser(@PathVariable("id") long id){
@@ -91,15 +89,13 @@ public class UserRestController {
 		}
 	}
 
-//	http://localhost:8080/WebService/api/tai-khoan/update/25
+//	http://localhost:8083/WebService/api/tai-khoan/update/25
 //	{
-//	    "email": "tuannt25@gmail.com",
-//	    "username": "tuannt25",
-//	    "fullname": "nguyen the25",
-//	    "phone": "096538525",
-//	    "address": "Ha Noi25",
-//	    "avartar": "/assets/layouts/layout/img/avartar.png",
-//	    "createdTime": "30-10-2017 10:06:16",
+//	    "email": "duong11@gmail.com",
+//	    "username": "duong11",
+//	    "fullname": "Mặt Dương",
+//	    "phone": "0963349512",
+//	    "address": "Hà Nội",
 //	    "status": "ACTIVE",
 //	    "password": "1234"
 //	}
@@ -107,27 +103,27 @@ public class UserRestController {
 	@PutMapping("/update/{id}")
 	public ResponseEntity<User> updateUser(@PathVariable("id") long id, @RequestBody User user) {
 		logger.info("Updating User with id {}", id);
-		user = userService.findById(id);
+		User currentUser = userService.findById(id);
 		if (user == null) {
 			logger.error("Unable to update. User with id " + id + " not found.");
 			return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
 		} else {
-//			currentUser.setEmail(user.getEmail());
-//			currentUser.setUsername(user.getUsername());
-//			currentUser.setFullname(user.getFullname());
-//			currentUser.setPhone(user.getPhone());
-//			currentUser.setAddress(user.getAddress());
-//			currentUser.setAvartar(user.getAvartar());
-//			currentUser.setCreatedTime(user.getCreatedTime());
-//			currentUser.setStatus(user.getStatus());
-//			currentUser.setPassword(user.getPassword());
-			userService.updateUser(user);
-			ResponseEntity<User> updateUser = new ResponseEntity<User>(user, HttpStatus.OK);
+			currentUser.setEmail(user.getEmail());
+			currentUser.setUsername(user.getUsername());
+			currentUser.setFullname(user.getFullname());
+			currentUser.setPhone(user.getPhone());
+			currentUser.setAddress(user.getAddress());
+			currentUser.setAvartar("/assets/layouts/layout/img/avartar.png");
+			currentUser.setCreatedTime(new Date());
+			currentUser.setStatus(user.getStatus());
+			currentUser.setPassword(user.getPassword());
+			userService.updateUser(currentUser);
+			ResponseEntity<User> updateUser = new ResponseEntity<User>(currentUser, HttpStatus.OK);
 			return updateUser;
 		}
 	}
 
-//	http://localhost:8080/WebService/api/tai-khoan/1
+//	http://localhost:8083/WebService/api/tai-khoan/1
 	@CrossOrigin
 	@GetMapping("/{id}")
 	public ResponseEntity<User> getUser(@PathVariable("id") long id){
