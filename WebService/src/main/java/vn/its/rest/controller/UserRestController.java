@@ -23,7 +23,6 @@ import org.springframework.web.util.UriComponentsBuilder;
 import vn.its.rest.model.User;
 import vn.its.rest.service.UserService;
 
-@CrossOrigin(origins = "http://localhost:8083", maxAge = 3600)
 @RestController
 @RequestMapping("/api/tai-khoan")
 public class UserRestController {

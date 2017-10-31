@@ -45,9 +45,5 @@
 		class="org.springframework.orm.hibernate5.HibernateTransactionManager">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
-	
-	<mvc:cors>
-		<mvc:mapping path="/**" allowed-origins="http://localhost:8083, http://localhost:8082" allowed-methods="GET, POST, PUT, DELETE, OPTIONS" allowed-headers="header1, header2, header3" exposed-headers="header1, header2" allow-credentials="false" max-age="123" />
-	</mvc:cors>
 
 </beans>
