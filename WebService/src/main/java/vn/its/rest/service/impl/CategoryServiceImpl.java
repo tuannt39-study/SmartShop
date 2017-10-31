@@ -57,4 +57,16 @@ public class CategoryServiceImpl implements CategoryService{
 		categoryDAO.saveCategory(category);
 	}
 
+	@Override
+	public List<Category> findCategoryNews() {
+		// TODO Auto-generated method stub
+		return categoryDAO.findCategoryNews();
+	}
+
+	@Override
+	public List<Category> findCategoryProducts() {
+		// TODO Auto-generated method stub
+		return categoryDAO.findCategoryProducts();
+	}
+
 }

@@ -9,6 +9,10 @@ public interface CategoryService {
 	public List<Category> findAllCategory();
 
 	public Category findCategoryById(long id);
+	
+	public List<Category> findCategoryNews();
+	
+	public List<Category> findCategoryProducts();
 
 	public Category updateCategory(Category category);
 

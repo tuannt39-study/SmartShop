@@ -62,6 +62,31 @@ public class CategoryRestController {
 			return list;
 		}
 	}
+	
+	@CrossOrigin
+	@GetMapping("/news/all")
+	public ResponseEntity<List<Category>> findCategoryNews() {
+		List<Category> findCategoryNews = categoryService.findCategoryNews();
+		if (findCategoryNews.isEmpty()) {
+			return new ResponseEntity<List<Category>>(HttpStatus.NO_CONTENT);
+		} else {
+			ResponseEntity<List<Category>> list = new ResponseEntity<List<Category>>(findCategoryNews, HttpStatus.OK);
+			return list;
+		}
+	}
+	
+//	http://localhost:8083/WebService/api/danh-muc/product/all
+	@CrossOrigin
+	@GetMapping("/product/all")
+	public ResponseEntity<List<Category>> findCategoryProducts() {
+		List<Category> findCategoryProducts = categoryService.findCategoryProducts();
+		if (findCategoryProducts.isEmpty()) {
+			return new ResponseEntity<List<Category>>(HttpStatus.NO_CONTENT);
+		} else {
+			ResponseEntity<List<Category>> list = new ResponseEntity<List<Category>>(findCategoryProducts, HttpStatus.OK);
+			return list;
+		}
+	}
 
 	@CrossOrigin
 	@DeleteMapping("/delete/{id}")

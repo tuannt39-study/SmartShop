@@ -10,7 +10,6 @@ angular.module('myApp').controller('UserController', ['$scope', 'UserService', f
     self.remove = remove;
     self.reset = reset;
 
-
     fetchAllUsers();
 
     function fetchAllUsers(){

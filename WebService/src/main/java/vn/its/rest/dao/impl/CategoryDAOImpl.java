@@ -34,6 +34,20 @@ public class CategoryDAOImpl implements CategoryDAO {
 		return sessionFactory.getCurrentSession().get(Category.class, name);
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Category> findCategoryNews() {
+		// TODO Auto-generated method stub
+		return sessionFactory.getCurrentSession().createQuery("from Category where note = 4").list();
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Category> findCategoryProducts() {
+		// TODO Auto-generated method stub
+		return sessionFactory.getCurrentSession().createQuery("from Category where note != 4").list();
+	}
+
 	@Override
 	public Category updateCategory(Category category) {
 		// TODO Auto-generated method stub

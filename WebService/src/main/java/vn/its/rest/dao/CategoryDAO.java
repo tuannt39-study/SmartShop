@@ -11,6 +11,10 @@ public interface CategoryDAO {
 	public Category findCategoryById(long id);
 
 	public Category findCategoryByName(String name);
+	
+	public List<Category> findCategoryNews();
+	
+	public List<Category> findCategoryProducts();
 
 	public Category updateCategory(Category category);
 
