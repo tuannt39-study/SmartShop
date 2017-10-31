@@ -22,7 +22,6 @@ import org.springframework.web.util.UriComponentsBuilder;
 import vn.its.rest.model.News;
 import vn.its.rest.service.NewsService;
 
-@CrossOrigin(origins = "http://localhost:8083", maxAge = 3600)
 @RestController
 @RequestMapping("/api/news")
 public class NewsRestController {
@@ -32,7 +31,7 @@ public class NewsRestController {
 	@Autowired
 	private NewsService newsService;
 
-//	http://localhost:8080/WebService/api/tai-khoan/all
+//	http://localhost:8083/WebService/api/news/all
 	@CrossOrigin
 	@GetMapping("/all")
 	public ResponseEntity<List<News>> getAllNews() {

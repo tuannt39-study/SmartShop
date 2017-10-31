@@ -22,7 +22,6 @@ import org.springframework.web.util.UriComponentsBuilder;
 import vn.its.rest.model.Order;
 import vn.its.rest.service.OrderService;
 
-@CrossOrigin(origins = "http://localhost:8083", maxAge = 3600)
 @RestController
 @RequestMapping("/api/don-dat-hang")
 public class OrderRestController {
@@ -46,7 +45,7 @@ public class OrderRestController {
 		
 	}
 	
-	//http://localhost:8080/WebService/api/hoa-don/all
+	//http://localhost:8080/WebService/api/don-dat-hang/all
 	@CrossOrigin
 	@GetMapping("/all")
 	public ResponseEntity<List<Order>> findAllOrder(){

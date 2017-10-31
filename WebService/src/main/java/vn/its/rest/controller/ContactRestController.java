@@ -50,7 +50,7 @@ public class ContactRestController {
 		}
 	}
 
-	// http://localhost:8080/WebService/api/lien-he/all
+	// http://localhost:8083/WebService/api/lien-he/all
 	@CrossOrigin
 	@GetMapping("/all")
 	public ResponseEntity<List<Contact>> findAllContact() {
