@@ -40,10 +40,19 @@ public class Contact {
 	@Column(name = "FAX")
 	private String fax;
 	
+	@Column(name = "ADDRESS")
+	private String address;
+	
+	public String getAddress() {
+		return address;
+	}
+	public void setAddress(String address) {
+		this.address = address;
+	}
 	public Contact() {
 		super();
 	}
-	public Contact(long id, String name, String email, String phone, String note, Timestamp createdTime, String fax) {
+	public Contact(long id, String name, String email, String phone, String note, Timestamp createdTime, String fax, String address) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -52,6 +61,7 @@ public class Contact {
 		this.note = note;
 		this.createdTime = createdTime;
 		this.fax = fax;
+		this.address = address;
 	}
 	public long getId() {
 		return id;

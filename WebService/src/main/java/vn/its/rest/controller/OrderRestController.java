@@ -83,6 +83,16 @@ public class OrderRestController {
 			logger.error("Unable to update. Order with id " + id + " not found.");
 			return new ResponseEntity<Order>(HttpStatus.NOT_FOUND);
 		} else {
+			
+			currentOrder.setName(order.getName());
+			currentOrder.setAddress(order.getAddress());
+			currentOrder.setAmount(order.getAmount());
+			currentOrder.setEmail(order.getEmail());
+			currentOrder.setPayment(order.getPayment());
+			currentOrder.setPaymentInfo(order.getPaymentInfo());
+			currentOrder.setNote(order.getNote());
+			currentOrder.setPhone(order.getPhone());
+			currentOrder.setUserID(order.getUserID());
 			orderService.updateOrder(currentOrder);
 			ResponseEntity<Order> updateOrder = new ResponseEntity<Order>(currentOrder, HttpStatus.OK);
 			return updateOrder;

@@ -86,6 +86,14 @@ public class ProductRestController {
 			logger.error("Unable to update. Product with id " + id + " not found.");
 			return new ResponseEntity<Product>(HttpStatus.NOT_FOUND);
 		} else {
+			currentProduct.setName(product.getName());
+			currentProduct.setPrice(product.getPrice());
+			currentProduct.setDescription(product.getDescription());
+			currentProduct.setDiscount(product.getDiscount());
+			currentProduct.setQuantity(product.getQuantity());
+			currentProduct.setCategoryId(product.getCategoryId());
+			currentProduct.setStatus(product.getStatus());
+			currentProduct.setImage(product.getImage());
 			productService.updateProduct(currentProduct);
 			ResponseEntity<Product> updateProduct = new ResponseEntity<Product>(currentProduct, HttpStatus.OK);
 			return updateProduct;

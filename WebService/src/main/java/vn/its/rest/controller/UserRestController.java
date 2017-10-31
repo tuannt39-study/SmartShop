@@ -50,8 +50,8 @@ public class UserRestController {
 			logger.error("Unable to Add. A User with email {} already exist", user.getEmail());
 			return new ResponseEntity<Void>(HttpStatus.CONFLICT);
 		} else {
-			user.setAvartar("/assets/layouts/layout/img/avartar.png");
-			user.setCreatedTime(new Date());
+//			user.setAvartar("/assets/layouts/layout/img/avartar.png");
+//			user.setCreatedTime(new Date());
 			userService.saveUser(user);
 			HttpHeaders headers = new HttpHeaders();
 			headers.setLocation(ucbuilder.path("{id}").buildAndExpand(user.getId()).toUri());
@@ -84,21 +84,12 @@ public class UserRestController {
 			return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
 		} else {
 			userService.deleteUser(id);
-			ResponseEntity<Void> deleteUser = new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+			ResponseEntity<Void> deleteUser = new ResponseEntity<Void>(HttpStatus.OK);
 			return deleteUser;
 		}
 	}
 
 //	http://localhost:8083/WebService/api/tai-khoan/update/25
-//	{
-//	    "email": "duong11@gmail.com",
-//	    "username": "duong11",
-//	    "fullname": "Mặt Dương",
-//	    "phone": "0963349512",
-//	    "address": "Hà Nội",
-//	    "status": "ACTIVE",
-//	    "password": "1234"
-//	}
 	@CrossOrigin
 	@PutMapping("/update/{id}")
 	public ResponseEntity<User> updateUser(@PathVariable("id") long id, @RequestBody User user) {
@@ -127,7 +118,7 @@ public class UserRestController {
 	@CrossOrigin
 	@GetMapping("/{id}")
 	public ResponseEntity<User> getUser(@PathVariable("id") long id){
-		logger.info("Fetching User with id {}", id);
+		logger.info("Fetching user with id {}", id);
 		User getUser = userService.findById(id);
 		if (getUser == null) {
 			logger.error("User with id {} not found.", id);
