@@ -76,6 +76,18 @@ public class ProductRestController {
 		}
 	}
 	
+//	http://localhost:8083/WebService/api/san-pham/update/3
+//	{
+//	    "name": " 33 Thắt lưng da nam cao cấp TLG HK203880-24",
+//	    "price": 125000,
+//	    "image": "/assets/users/images/cart/that-lung-da-nam-cao-cap-tlg-hk203880.jpg",
+//	    "description": "Chất liệu da bền đẹp An toàn cho người dùng Kiểu dáng thời trang Dễ dàng phối trang phục",
+//	    "discount": "20",
+//	    "quantity": 10,
+//	    "views": 100,
+//	    "status": "NORMAL",
+//	    "categoryId": 6
+//	}
 	@CrossOrigin
 	@PutMapping("/update/{id}")
 	public ResponseEntity<Product> updateProduct(@PathVariable("id") long id, @RequestBody Product product){

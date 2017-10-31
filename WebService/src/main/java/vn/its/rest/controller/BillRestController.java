@@ -22,7 +22,6 @@ import org.springframework.web.util.UriComponentsBuilder;
 import vn.its.rest.model.Bill;
 import vn.its.rest.service.BillService;
 
-@CrossOrigin(origins = "http://localhost:8083", maxAge = 3600)
 @RestController
 @RequestMapping("/api/hoa-don")
 public class BillRestController {
@@ -81,6 +80,12 @@ public class BillRestController {
 			logger.error("Unable to update. Bill with id " + id + " not found.");
 			return new ResponseEntity<Bill>(HttpStatus.NOT_FOUND);
 		} else {
+			currentBill.setOrderId(bill.getOrderId());
+			currentBill.setProductId(bill.getProductId());
+			currentBill.setQuantity(bill.getQuantity());
+			currentBill.setAmount(bill.getAmount());
+			currentBill.setNote(bill.getNote());
+			currentBill.setStatus(bill.getStatus());
 			billService.updateBill(currentBill);
 			ResponseEntity<Bill> updateBill = new ResponseEntity<Bill>(currentBill, HttpStatus.OK);
 			return updateBill;

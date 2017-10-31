@@ -45,7 +45,7 @@ public class OrderRestController {
 		
 	}
 	
-	//http://localhost:8080/WebService/api/hoa-don/all
+	//http://localhost:8080/WebService/api/don-dat-hang/all
 	@CrossOrigin
 	@GetMapping("/all")
 	public ResponseEntity<List<Order>> findAllOrder(){

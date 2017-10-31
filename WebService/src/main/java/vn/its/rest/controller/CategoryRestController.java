@@ -22,7 +22,6 @@ import org.springframework.web.util.UriComponentsBuilder;
 import vn.its.rest.model.Category;
 import vn.its.rest.service.CategoryService;
 
-@CrossOrigin(origins = "http://localhost:8083", maxAge = 3600)
 @RestController
 @RequestMapping("/api/danh-muc")
 public class CategoryRestController {
@@ -89,6 +88,8 @@ public class CategoryRestController {
 			logger.error("Unable to update. Category with id " + id + " not found.");
 			return new ResponseEntity<Category>(HttpStatus.NOT_FOUND);
 		} else {
+			currentCategory.setName(category.getName());
+			currentCategory.setNote(category.getNote());
 			categoryService.updateCategory(currentCategory);
 			ResponseEntity<Category> updateCategory = new ResponseEntity<Category>(currentCategory, HttpStatus.OK);
 			return updateCategory;

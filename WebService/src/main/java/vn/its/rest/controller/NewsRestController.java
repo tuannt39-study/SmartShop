@@ -30,8 +30,8 @@ public class NewsRestController {
 
 	@Autowired
 	private NewsService newsService;
-
-	// http://localhost:8080/WebService/api/tai-khoan/all
+	
+//	http://localhost:8083/WebService/api/news/all
 	@CrossOrigin
 	@GetMapping("/all")
 	public ResponseEntity<List<News>> getAllNews() {
