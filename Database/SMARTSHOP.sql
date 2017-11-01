@@ -1,18 +1,317 @@
-DROP USER SMARTSHOP CASCADE;
-CREATE USER SMARTSHOP IDENTIFIED BY 1234;
-GRANT dba TO SMARTSHOP WITH ADMIN OPTION;
-CREATE TABLE ROLE 
-(
-  ID NUMBER NOT NULL,
-  NAME VARCHAR2(20) DEFAULT 'PUBLIC',
-  PRIMARY KEY (ID)
-);
+111--------------------------------------------------------
+--  File created - Monday-October-30-2017   
+--------------------------------------------------------
+--------------------------------------------------------
+--  DDL for Table BILL
+--------------------------------------------------------
+  CREATE TABLE "SMARTSHOP"."BILL" 
+   (	"ID" NUMBER, 
+	"ORDERS_ID" NUMBER, 
+	"PRODUCT_ID" NUMBER, 
+	"QUANTITY" NUMBER, 
+	"AMOUNT" NUMBER, 
+	"NOTE" NVARCHAR2(500), 
+	"STATUS" VARCHAR2(10 BYTE) DEFAULT 'WAITING'
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "SYSTEM" ;
+--------------------------------------------------------
+--  DDL for Table CATEGORY
+--------------------------------------------------------
 
---ROLE_NAME: PUBLIC, CUSTOMER, SALES, MARKETING, MANAGER
+  CREATE TABLE "SMARTSHOP"."CATEGORY" 
+   (	"ID" NUMBER, 
+	"NAME" NVARCHAR2(50), 
+	"NOTE" NVARCHAR2(50)
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "SYSTEM" ;
+--------------------------------------------------------
+--  DDL for Table CONTACT
+--------------------------------------------------------
 
-CREATE SEQUENCE IDROLE START WITH 1;
+  CREATE TABLE "SMARTSHOP"."CONTACT" 
+   (	"ID" NUMBER, 
+	"NAME" NVARCHAR2(100), 
+	"EMAIL" VARCHAR2(100 BYTE), 
+	"PHONE" VARCHAR2(15 BYTE), 
+	"FAX" VARCHAR2(25 BYTE), 
+	"ADDRESS" NVARCHAR2(100)
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "SYSTEM" ;
+--------------------------------------------------------
+--  DDL for Table FEEDBACK
+--------------------------------------------------------
 
-CREATE OR REPLACE TRIGGER TRIGGER1
+  CREATE TABLE "SMARTSHOP"."FEEDBACK" 
+   (	"ID" NUMBER, 
+	"NAME" NVARCHAR2(100), 
+	"EMAIL" VARCHAR2(100 BYTE), 
+	"PHONE" VARCHAR2(15 BYTE), 
+	"NOTE" NVARCHAR2(1000), 
+	"CREATED_TIME" TIMESTAMP (6) DEFAULT CURRENT_TIMESTAMP
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "SYSTEM" ;
+--------------------------------------------------------
+--  DDL for Table LOGIN_LOG
+--------------------------------------------------------
+
+  CREATE TABLE "SMARTSHOP"."LOGIN_LOG" 
+   (	"ID" NUMBER, 
+	"USER_ID" NUMBER, 
+	"TOKEN" VARCHAR2(100 BYTE), 
+	"LAST_ACCESS" TIMESTAMP (6) DEFAULT CURRENT_TIMESTAMP
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "SYSTEM" ;
+--------------------------------------------------------
+--  DDL for Table NEW
+--------------------------------------------------------
+
+  CREATE TABLE "SMARTSHOP"."NEW" 
+   (	"ID" NUMBER, 
+	"TITLE" NVARCHAR2(100), 
+	"BRIEF" NVARCHAR2(500), 
+	"CONTENT" NVARCHAR2(1000), 
+	"CATEGORY_ID" NUMBER, 
+	"USERS_ID" NUMBER, 
+	"CREATED_TIME" TIMESTAMP (6) DEFAULT CURRENT_TIMESTAMP
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "SYSTEM" ;
+--------------------------------------------------------
+--  DDL for Table ORDERS
+--------------------------------------------------------
+
+  CREATE TABLE "SMARTSHOP"."ORDERS" 
+   (	"ID" NUMBER, 
+	"NAME" NVARCHAR2(50), 
+	"PHONE" VARCHAR2(15 BYTE), 
+	"EMAIL" VARCHAR2(50 BYTE), 
+	"ADDRESS" VARCHAR2(50 BYTE), 
+	"NOTE" NVARCHAR2(500), 
+	"AMOUNT" NUMBER, 
+	"PAYMENT" VARCHAR2(50 BYTE), 
+	"PAYMENT_INFO" VARCHAR2(50 BYTE), 
+	"SECURITY" VARCHAR2(10 BYTE), 
+	"USER_ID" NUMBER, 
+	"CREATED_TIME" TIMESTAMP (6) DEFAULT CURRENT_TIMESTAMP, 
+	"STATUS" VARCHAR2(10 BYTE) DEFAULT 'WAITING'
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "SYSTEM" ;
+--------------------------------------------------------
+--  DDL for Table PRODUCT
+--------------------------------------------------------
+
+  CREATE TABLE "SMARTSHOP"."PRODUCT" 
+   (	"ID" NUMBER, 
+	"NAME" NVARCHAR2(100), 
+	"PRICE" NUMBER, 
+	"IMAGE" VARCHAR2(200 BYTE), 
+	"DESCRIPTION" NVARCHAR2(1000), 
+	"DISCOUNT" VARCHAR2(10 BYTE), 
+	"QUANTITY" NUMBER, 
+	"VIEWS" NUMBER, 
+	"STATUS" VARCHAR2(15 BYTE) DEFAULT 'NEW', 
+	"CATEGORY_ID" NUMBER
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "SYSTEM" ;
+--------------------------------------------------------
+--  DDL for Table ROLE
+--------------------------------------------------------
+
+  CREATE TABLE "SMARTSHOP"."ROLE" 
+   (	"ID" NUMBER, 
+	"NAME" VARCHAR2(20 BYTE) DEFAULT 'PUBLIC'
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "SYSTEM" ;
+--------------------------------------------------------
+--  DDL for Table USERS
+--------------------------------------------------------
+
+  CREATE TABLE "SMARTSHOP"."USERS" 
+   (	"ID" NUMBER, 
+	"EMAIL" VARCHAR2(50 BYTE), 
+	"USERNAME" VARCHAR2(50 BYTE), 
+	"FULLNAME" NVARCHAR2(50), 
+	"PASSWORD" VARCHAR2(20 BYTE), 
+	"PHONE" VARCHAR2(15 BYTE), 
+	"ADDRESS" VARCHAR2(50 BYTE), 
+	"AVARTAR" VARCHAR2(500 BYTE) DEFAULT '/assets/layouts/layout/img/avartar.png', 
+	"CREATED_TIME" TIMESTAMP (6) DEFAULT CURRENT_TIMESTAMP, 
+	"STATUS" VARCHAR2(10 BYTE) DEFAULT 'ACTIVE'
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "SYSTEM" ;
+--------------------------------------------------------
+--  DDL for Table USER_ROLE
+--------------------------------------------------------
+
+  CREATE TABLE "SMARTSHOP"."USER_ROLE" 
+   (	"USER_ID" NUMBER, 
+	"ROLE_ID" NUMBER
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "SYSTEM" ;
+--------------------------------------------------------
+--  DDL for Sequence IDBILL
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "SMARTSHOP"."IDBILL"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 21 CACHE 20 NOORDER  NOCYCLE ;
+--------------------------------------------------------
+--  DDL for Sequence IDCATEGORY
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "SMARTSHOP"."IDCATEGORY"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 21 CACHE 20 NOORDER  NOCYCLE ;
+--------------------------------------------------------
+--  DDL for Sequence IDCONTACT
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "SMARTSHOP"."IDCONTACT"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 21 CACHE 20 NOORDER  NOCYCLE ;
+--------------------------------------------------------
+--  DDL for Sequence IDFEEDBACK
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "SMARTSHOP"."IDFEEDBACK"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 21 CACHE 20 NOORDER  NOCYCLE ;
+--------------------------------------------------------
+--  DDL for Sequence IDLOGINLOG
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "SMARTSHOP"."IDLOGINLOG"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 21 CACHE 20 NOORDER  NOCYCLE ;
+--------------------------------------------------------
+--  DDL for Sequence IDNEW
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "SMARTSHOP"."IDNEW"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 21 CACHE 20 NOORDER  NOCYCLE ;
+--------------------------------------------------------
+--  DDL for Sequence IDORDERS
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "SMARTSHOP"."IDORDERS"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 21 CACHE 20 NOORDER  NOCYCLE ;
+--------------------------------------------------------
+--  DDL for Sequence IDPRODUCT
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "SMARTSHOP"."IDPRODUCT"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 21 CACHE 20 NOORDER  NOCYCLE ;
+--------------------------------------------------------
+--  DDL for Sequence IDROLE
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "SMARTSHOP"."IDROLE"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 21 CACHE 20 NOORDER  NOCYCLE ;
+--------------------------------------------------------
+--  DDL for Sequence IDUSERS
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "SMARTSHOP"."IDUSERS"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 21 CACHE 20 NOORDER  NOCYCLE ;
+REM INSERTING into SMARTSHOP.BILL
+SET DEFINE OFF;
+Insert into SMARTSHOP.BILL (ID,ORDERS_ID,PRODUCT_ID,QUANTITY,AMOUNT,NOTE,STATUS) values (1,1,1,3,552000,null,'WAITING');
+Insert into SMARTSHOP.BILL (ID,ORDERS_ID,PRODUCT_ID,QUANTITY,AMOUNT,NOTE,STATUS) values (2,1,2,2,736000,null,'WAITING');
+Insert into SMARTSHOP.BILL (ID,ORDERS_ID,PRODUCT_ID,QUANTITY,AMOUNT,NOTE,STATUS) values (3,2,2,3,1104000,null,'WAITING');
+Insert into SMARTSHOP.BILL (ID,ORDERS_ID,PRODUCT_ID,QUANTITY,AMOUNT,NOTE,STATUS) values (4,2,3,2,200000,null,'WAITING');
+Insert into SMARTSHOP.BILL (ID,ORDERS_ID,PRODUCT_ID,QUANTITY,AMOUNT,NOTE,STATUS) values (5,3,1,4,736000,null,'WAITING');
+Insert into SMARTSHOP.BILL (ID,ORDERS_ID,PRODUCT_ID,QUANTITY,AMOUNT,NOTE,STATUS) values (6,3,3,2,200000,null,'WAITING');
+REM INSERTING into SMARTSHOP.CATEGORY
+SET DEFINE OFF;
+Insert into SMARTSHOP.CATEGORY (ID,NAME,NOTE) values (1,'Thời trang nam','1');
+Insert into SMARTSHOP.CATEGORY (ID,NAME,NOTE) values (2,'Thời trang nữ','1');
+Insert into SMARTSHOP.CATEGORY (ID,NAME,NOTE) values (3,'Giày nam','2');
+Insert into SMARTSHOP.CATEGORY (ID,NAME,NOTE) values (4,'Trang phục nam','2');
+Insert into SMARTSHOP.CATEGORY (ID,NAME,NOTE) values (5,'Ba lô nam','2');
+Insert into SMARTSHOP.CATEGORY (ID,NAME,NOTE) values (6,'Phụ kiện nam','2');
+Insert into SMARTSHOP.CATEGORY (ID,NAME,NOTE) values (7,'Ví nam','2');
+Insert into SMARTSHOP.CATEGORY (ID,NAME,NOTE) values (8,'Túi xách tay nữ','3');
+Insert into SMARTSHOP.CATEGORY (ID,NAME,NOTE) values (9,'Giày nữ','3');
+Insert into SMARTSHOP.CATEGORY (ID,NAME,NOTE) values (10,'Trang phục nữ','3');
+Insert into SMARTSHOP.CATEGORY (ID,NAME,NOTE) values (11,'Phụ kiện nữ','3');
+Insert into SMARTSHOP.CATEGORY (ID,NAME,NOTE) values (12,'Ba lô nữ','3');
+Insert into SMARTSHOP.CATEGORY (ID,NAME,NOTE) values (13,'Sao style','4');
+Insert into SMARTSHOP.CATEGORY (ID,NAME,NOTE) values (14,'Xu hướng','4');
+Insert into SMARTSHOP.CATEGORY (ID,NAME,NOTE) values (15,'Tư vấn','4');
+REM INSERTING into SMARTSHOP.CONTACT
+SET DEFINE OFF;
+Insert into SMARTSHOP.CONTACT (ID,NAME,EMAIL,PHONE,FAX,ADDRESS) values (1,'Công ty Cổ phần giải pháp và nguồn lực công nghệ ITSOL','itsol@gmail.com','09563856385','09563856385','Tòa nhà 3A, 82 Duy Tân, Cầu Giấy, Hà Nội');
+Insert into SMARTSHOP.CONTACT (ID,NAME,EMAIL,PHONE,FAX,ADDRESS) values (2,'Tập đoàn NextTech','itsol@gmail.com','09563856385','09563856385','18 Tam Trinh');
+REM INSERTING into SMARTSHOP.FEEDBACK
+SET DEFINE OFF;
+Insert into SMARTSHOP.FEEDBACK (ID,NAME,EMAIL,PHONE,NOTE,CREATED_TIME) values (1,'Nguyễn Thế Tuân','tuan87@gmail.com','09563856385','Đưa hàng nhanh, chất lượng ok, cảm thấy tốt.',to_timestamp('30-OCT-17 06.07.21.855000000 PM','DD-MON-RR HH.MI.SSXFF AM'));
+Insert into SMARTSHOP.FEEDBACK (ID,NAME,EMAIL,PHONE,NOTE,CREATED_TIME) values (2,'Dương','duongml@gmail.com','09563856385','Đưa hàng nhanh, chất lượng ok, cảm thấy tốt.',to_timestamp('30-OCT-17 06.07.21.871000000 PM','DD-MON-RR HH.MI.SSXFF AM'));
+REM INSERTING into SMARTSHOP.LOGIN_LOG
+SET DEFINE OFF;
+Insert into SMARTSHOP.LOGIN_LOG (ID,USER_ID,TOKEN,LAST_ACCESS) values (1,1,'cedL7QgFHUxyFqcordBl',to_timestamp('30-OCT-17 06.06.42.460000000 PM','DD-MON-RR HH.MI.SSXFF AM'));
+Insert into SMARTSHOP.LOGIN_LOG (ID,USER_ID,TOKEN,LAST_ACCESS) values (2,2,'B2EWubuFc327WDIe933z',to_timestamp('30-OCT-17 06.06.42.476000000 PM','DD-MON-RR HH.MI.SSXFF AM'));
+Insert into SMARTSHOP.LOGIN_LOG (ID,USER_ID,TOKEN,LAST_ACCESS) values (3,3,'Is2PzORKprEEoAYkN9fi',to_timestamp('30-OCT-17 06.06.42.491000000 PM','DD-MON-RR HH.MI.SSXFF AM'));
+Insert into SMARTSHOP.LOGIN_LOG (ID,USER_ID,TOKEN,LAST_ACCESS) values (4,4,'yuXCcoyDrEdQVuAZxBS1',to_timestamp('30-OCT-17 06.06.42.507000000 PM','DD-MON-RR HH.MI.SSXFF AM'));
+Insert into SMARTSHOP.LOGIN_LOG (ID,USER_ID,TOKEN,LAST_ACCESS) values (5,5,'2aIjtV13nwZwoyo11qPl',to_timestamp('30-OCT-17 06.06.42.523000000 PM','DD-MON-RR HH.MI.SSXFF AM'));
+Insert into SMARTSHOP.LOGIN_LOG (ID,USER_ID,TOKEN,LAST_ACCESS) values (6,1,'bRhQfbo50eVHYW2LoAq1',to_timestamp('30-OCT-17 06.06.42.538000000 PM','DD-MON-RR HH.MI.SSXFF AM'));
+REM INSERTING into SMARTSHOP.NEW
+SET DEFINE OFF;
+Insert into SMARTSHOP.NEW (ID,TITLE,BRIEF,CONTENT,CATEGORY_ID,USERS_ID,CREATED_TIME) values (1,'Sao Việt làm ''sống dậy'' xu hướng mũ nồi','Phụ kiện thịnh hành ở những năm 80 - 90 được nhiều người đẹp ''hâm nóng'' trở lại.','Ngày 29 và 30/10 - trước khi Vietnam International Fashion Week Thu đông 2017 chính thức diễn ra, nhiều bạn trẻ Hà Nội đã tập trung ở khu vực gần hồ Hoàn Kiếm để tham gia sự kiện street style. Hầu hết tín đồ thời trang đều tìm cách giúp mình nổi bật bằng những trang phục kiểu dáng khác lạ, màu sắc rực rỡ.  cần quan tâm tổng thể set đồ có rối mắt hay không, họ cố gắng khoác lên mình thật nhiều phụ kiện. Họa tiết dày đặc, phủ kín từ trên xuống dưới được nhiều người lựa chọn. Không ít bạn nam diện đồ unisex, trang điểm và mang giày cao gót như phụ nữ. Quán quân Next Top 2016 Ngọc Châu chọn phong cách khá đơn giản so với nhiều tín đồ thời trang khác.',14,1,to_timestamp('30-OCT-17 06.07.11.401000000 PM','DD-MON-RR HH.MI.SSXFF AM'));
+Insert into SMARTSHOP.NEW (ID,TITLE,BRIEF,CONTENT,CATEGORY_ID,USERS_ID,CREATED_TIME) values (2,'Street style ''quái'' của giới trẻ Hà Nội trước thềm Tuần thời trang quốc tế Việt Nam','Nhiều tín đồ thời trang và cả các mẫu nhí chọn phong cách khác biệt để ghi dấu ấn trên đường phố.','Sau một thời gian dài bị nhấn chìm bởi các xu hướng mũ fedora, mũ snapback, mũ nồi xinh xắn đánh dấu sự trở lại của mình ở mùa mốt thu đông 2017. Góp phần khiến mẫu phụ kiện cổ điển trở nên thu hút hơn là sự lăng xê nhiệt tình của nhiều người đẹp Việt.',15,2,to_timestamp('30-OCT-17 06.07.11.416000000 PM','DD-MON-RR HH.MI.SSXFF AM'));
+REM INSERTING into SMARTSHOP.ORDERS
+SET DEFINE OFF;
+Insert into SMARTSHOP.ORDERS (ID,NAME,PHONE,EMAIL,ADDRESS,NOTE,AMOUNT,PAYMENT,PAYMENT_INFO,SECURITY,USER_ID,CREATED_TIME,STATUS) values (1,'Lê Minh Dương','04857895749','duongml@gmail.com','Hà Nội','Chuyển nhanh em nhé',1288000,null,null,null,null,to_timestamp('30-OCT-17 06.06.59.931000000 PM','DD-MON-RR HH.MI.SSXFF AM'),'WAITING');
+Insert into SMARTSHOP.ORDERS (ID,NAME,PHONE,EMAIL,ADDRESS,NOTE,AMOUNT,PAYMENT,PAYMENT_INFO,SECURITY,USER_ID,CREATED_TIME,STATUS) values (2,'Trần Trung Đức','03485789453543','ductr@gmail.com','HÀ Nội','Chuyển thứ 3 tuần này nhé',1304000,null,null,null,null,to_timestamp('30-OCT-17 06.06.59.946000000 PM','DD-MON-RR HH.MI.SSXFF AM'),'WAITING');
+Insert into SMARTSHOP.ORDERS (ID,NAME,PHONE,EMAIL,ADDRESS,NOTE,AMOUNT,PAYMENT,PAYMENT_INFO,SECURITY,USER_ID,CREATED_TIME,STATUS) values (3,'Nguyễn Linh','05736979','linhhg@gmail.com','Hà Nội','Chuyển nhanh đê',936000,null,null,null,null,to_timestamp('30-OCT-17 06.06.59.962000000 PM','DD-MON-RR HH.MI.SSXFF AM'),'WAITING');
+REM INSERTING into SMARTSHOP.PRODUCT
+SET DEFINE OFF;
+Insert into SMARTSHOP.PRODUCT (ID,NAME,PRICE,IMAGE,DESCRIPTION,DISCOUNT,QUANTITY,VIEWS,STATUS,CATEGORY_ID) values (1,'ÁO KHOÁC KAKI BOMBER OCEAN NAM (ĐEN)  ',230000,'/assets/users/images/cart/ao-khoac-kaki-bomber-ocean-nam-den.jpg','Thiết kế tinh tế với cổ bẻ, tay dài phối bo tay sành điệu, cá tính, form dáng khỏe khoắn cho bạn phong cách trẻ trung, chỉnh chu và không kém phần lịch lãm','20',10,100,'NORMAL',4);
+Insert into SMARTSHOP.PRODUCT (ID,NAME,PRICE,IMAGE,DESCRIPTION,DISCOUNT,QUANTITY,VIEWS,STATUS,CATEGORY_ID) values (2,'Giày tây Zapas công sở kiểu xỏ - GT016 (Màu Đen)',460000,'/assets/users/images/cart/giay-tay-zapas-cong-so-kieu-xo-gt016.jpg','Giày tây da nam của thương hiệu Zapas có thiết kế đơn giản, sang trọng nhưng không kém phần nam tính và lịch lãm dành cho các quý ông. Thiết kế thanh lịch với những điểm nhấn mới lạ kết hợp cùng chất liệu da PU cao cấp tạo cảm giác mềm mại, êm ái và thoải mái khi di chuyển trong khoảng thời gian dài. Sản phẩm giày tây Zapas luôn là sự lựa chọn hàng đầu trong việc thể hiện phong cách thời trang nổi bật của các quý ông sang trọng, đẳng cấp','20',10,100,'NORMAL',3);
+Insert into SMARTSHOP.PRODUCT (ID,NAME,PRICE,IMAGE,DESCRIPTION,DISCOUNT,QUANTITY,VIEWS,STATUS,CATEGORY_ID) values (3,'Thắt lưng da nam cao cấp TLG HK203880-24',125000,'/assets/users/images/cart/that-lung-da-nam-cao-cap-tlg-hk203880.jpg','Chất liệu da bền đẹp An toàn cho người dùng Kiểu dáng thời trang Dễ dàng phối trang phục','20',10,100,'NORMAL',6);
+REM INSERTING into SMARTSHOP.ROLE
+SET DEFINE OFF;
+Insert into SMARTSHOP.ROLE (ID,NAME) values (1,'PUBLIC');
+Insert into SMARTSHOP.ROLE (ID,NAME) values (2,'CUSTOMER');
+Insert into SMARTSHOP.ROLE (ID,NAME) values (3,'SALES');
+Insert into SMARTSHOP.ROLE (ID,NAME) values (4,'MARKETING');
+Insert into SMARTSHOP.ROLE (ID,NAME) values (5,'MANAGER');
+REM INSERTING into SMARTSHOP.USERS
+SET DEFINE OFF;
+Insert into SMARTSHOP.USERS (ID,EMAIL,USERNAME,FULLNAME,PASSWORD,PHONE,ADDRESS,AVARTAR,CREATED_TIME,STATUS) values (1,'tuan@gmail.com','tuan','Nguyễn Thế Tuân','1234','0963349511','Hà Nội','/assets/layouts/layout/img/avartar.png',to_timestamp('30-OCT-17 06.06.32.428000000 PM','DD-MON-RR HH.MI.SSXFF AM'),'ACTIVE');
+Insert into SMARTSHOP.USERS (ID,EMAIL,USERNAME,FULLNAME,PASSWORD,PHONE,ADDRESS,AVARTAR,CREATED_TIME,STATUS) values (2,'duong@gmail.com','duong','Mặt Dương','1234','0963349512','Hà Nội','/assets/layouts/layout/img/avartar.png',to_timestamp('30-OCT-17 06.06.32.443000000 PM','DD-MON-RR HH.MI.SSXFF AM'),'ACTIVE');
+Insert into SMARTSHOP.USERS (ID,EMAIL,USERNAME,FULLNAME,PASSWORD,PHONE,ADDRESS,AVARTAR,CREATED_TIME,STATUS) values (3,'duc@gmail.com','duc','BD Đức','1234','0963349513','Hà Nội','/assets/layouts/layout/img/avartar.png',to_timestamp('30-OCT-17 06.06.32.459000000 PM','DD-MON-RR HH.MI.SSXFF AM'),'ACTIVE');
+Insert into SMARTSHOP.USERS (ID,EMAIL,USERNAME,FULLNAME,PASSWORD,PHONE,ADDRESS,AVARTAR,CREATED_TIME,STATUS) values (4,'linh@gmail.com','linh','Nguyễn Linh','1234','0963349514','Hà Nội','/assets/layouts/layout/img/avartar.png',to_timestamp('30-OCT-17 06.06.32.475000000 PM','DD-MON-RR HH.MI.SSXFF AM'),'ACTIVE');
+Insert into SMARTSHOP.USERS (ID,EMAIL,USERNAME,FULLNAME,PASSWORD,PHONE,ADDRESS,AVARTAR,CREATED_TIME,STATUS) values (5,'thinh@gmail.com','thinh','Nguyễn Thịnh','1234','0963349515','Hà Nội','/assets/layouts/layout/img/avartar.png',to_timestamp('30-OCT-17 06.06.32.490000000 PM','DD-MON-RR HH.MI.SSXFF AM'),'ACTIVE');
+REM INSERTING into SMARTSHOP.USER_ROLE
+SET DEFINE OFF;
+Insert into SMARTSHOP.USER_ROLE (USER_ID,ROLE_ID) values (1,1);
+Insert into SMARTSHOP.USER_ROLE (USER_ID,ROLE_ID) values (1,5);
+Insert into SMARTSHOP.USER_ROLE (USER_ID,ROLE_ID) values (2,1);
+Insert into SMARTSHOP.USER_ROLE (USER_ID,ROLE_ID) values (3,1);
+Insert into SMARTSHOP.USER_ROLE (USER_ID,ROLE_ID) values (4,1);
+Insert into SMARTSHOP.USER_ROLE (USER_ID,ROLE_ID) values (5,1);
+--------------------------------------------------------
+--  DDL for Trigger TRIGGER1
+--------------------------------------------------------
+
+  CREATE OR REPLACE TRIGGER "SMARTSHOP"."TRIGGER1" 
 BEFORE INSERT ON SMARTSHOP.ROLE 
 FOR EACH ROW
 BEGIN
@@ -20,232 +319,13 @@ BEGIN
   INTO   :new.ID
   FROM   dual;
 END;
+/
+ALTER TRIGGER "SMARTSHOP"."TRIGGER1" ENABLE;
+--------------------------------------------------------
+--  DDL for Trigger TRIGGER10
+--------------------------------------------------------
 
-CREATE TABLE USERS 
-(
-  ID NUMBER NOT NULL,
-  EMAIL VARCHAR2(50) NOT NULL,
-  USERNAME VARCHAR2(50) NOT NULL,
-  FULLNAME NVARCHAR2(50) NOT NULL,
-  PASSWORD VARCHAR2(20) NOT NULL,
-  PHONE VARCHAR2(15) NOT NULL,
-  ADDRESS VARCHAR2(50) NOT NULL,
-  AVARTAR VARCHAR2(500) DEFAULT '/assets/layouts/layout/img/avartar.png',
-  CREATED_TIME TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  STATUS VARCHAR(10) DEFAULT 'ACTIVE',
-  PRIMARY KEY (ID)
-);
-
---USER_STATUS: ACTIVE, INACTIVE, DELETED, LOCKED
-
-CREATE SEQUENCE IDUSERS START WITH 1;
-
-CREATE OR REPLACE TRIGGER TRIGGER2
-BEFORE INSERT ON SMARTSHOP.USERS
-FOR EACH ROW
-BEGIN
-  SELECT IDUSERS.NEXTVAL
-  INTO   :new.ID
-  FROM   dual;
-END;
-
-CREATE TABLE USER_ROLE 
-(
-  USER_ID NUMBER NOT NULL,
-  ROLE_ID NUMBER NOT NULL,
-  PRIMARY KEY (USER_ID, ROLE_ID),
-  CONSTRAINT FK_USER_ROLE_USER_ID FOREIGN KEY (USER_ID) REFERENCES USERS (ID),
-  CONSTRAINT FK_USER_ROLE_ROLE_ID FOREIGN KEY (ROLE_ID) REFERENCES ROLE (ID)
-);
-
-CREATE TABLE LOGIN_LOG 
-(
-  ID NUMBER NOT NULL,
-  USER_ID NUMBER NOT NULL,
-  TOKEN VARCHAR2(100),
-  LAST_ACCESS TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (ID),
-  CONSTRAINT FK_LOGIN_LOG_USER_ID FOREIGN KEY (USER_ID) REFERENCES USERS (ID)
-);
-
-CREATE SEQUENCE IDLOGINLOG START WITH 1;
-
-CREATE OR REPLACE TRIGGER TRIGGER3
-BEFORE INSERT ON SMARTSHOP.LOGIN_LOG
-FOR EACH ROW
-BEGIN
-  SELECT IDLOGINLOG.NEXTVAL
-  INTO   :new.ID
-  FROM   dual;
-END;
-
-CREATE TABLE CATEGORY 
-(
-  ID NUMBER NOT NULL,
-  NAME NVARCHAR2(50) NOT NULL,
-  NOTE NVARCHAR2(50),
-  PRIMARY KEY (ID)
-);
-
-CREATE SEQUENCE IDCATEGORY START WITH 1;
-
-CREATE OR REPLACE TRIGGER TRIGGER4
-BEFORE INSERT ON SMARTSHOP.CATEGORY
-FOR EACH ROW
-BEGIN
-  SELECT IDCATEGORY.NEXTVAL
-  INTO   :new.ID
-  FROM   dual;
-END;
-
-CREATE TABLE PRODUCT
-(
-  ID NUMBER NOT NULL,
-  NAME NVARCHAR2(100) NOT NULL,
-  PRICE NUMBER NOT NULL,
-  IMAGE VARCHAR2(200),
-  DESCRIPTION NVARCHAR2(1000),
-  DISCOUNT VARCHAR2(10),
-  QUANTITY NUMBER,
-  VIEWS NUMBER,
-  STATUS VARCHAR(15) DEFAULT 'NEW',
-  CATEGORY_ID NUMBER NOT NULL,
-  PRIMARY KEY (ID),
-  CONSTRAINT FK_PRODUCT_CATEGORY_ID FOREIGN KEY (CATEGORY_ID) REFERENCES CATEGORY (ID)
-);
-
---PRODUCT_STATUS: HOT, NEW, NORMAL, OUT OF STOCK
-
-CREATE SEQUENCE IDPRODUCT START WITH 1;
-
-CREATE OR REPLACE TRIGGER TRIGGER5
-BEFORE INSERT ON SMARTSHOP.PRODUCT
-FOR EACH ROW
-BEGIN
-  SELECT IDPRODUCT.NEXTVAL
-  INTO   :new.ID
-  FROM   dual;
-END;
-
-CREATE TABLE ORDERS 
-(
-  ID NUMBER NOT NULL,
-  NAME NVARCHAR2(50) NOT NULL,
-  PHONE VARCHAR2(15) NOT NULL,
-  EMAIL VARCHAR2(50) NOT NULL,
-  ADDRESS VARCHAR2(50) NOT NULL,
-  NOTE NVARCHAR2(500),
-  AMOUNT NUMBER NOT NULL,
-  PAYMENT VARCHAR2(50),
-  PAYMENT_INFO VARCHAR2(50),
-  SECURITY VARCHAR2(10),
-  USER_ID NUMBER,
-  CREATED_TIME TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  STATUS VARCHAR(10) DEFAULT 'WAITING',
-  PRIMARY KEY (ID)
-);
-
---ORDERS_STATUS: CANCEL, WAITING, DONE
-
-CREATE SEQUENCE IDORDERS START WITH 1;
-
-CREATE OR REPLACE TRIGGER TRIGGER6
-BEFORE INSERT ON SMARTSHOP.ORDERS
-FOR EACH ROW
-BEGIN
-  SELECT IDORDERS.NEXTVAL
-  INTO   :new.ID
-  FROM   dual;
-END;
-
-CREATE TABLE BILL 
-(
-  ID NUMBER NOT NULL,
-  ORDERS_ID NUMBER NOT NULL,
-  PRODUCT_ID NUMBER NOT NULL,
-  QUANTITY NUMBER NOT NULL,
-  AMOUNT NUMBER,
-  NOTE NVARCHAR2(500),
-  STATUS VARCHAR(10) DEFAULT 'WAITING',
-  PRIMARY KEY (ID),
-  CONSTRAINT FK_BILL_ODERS_ID FOREIGN KEY (ORDERS_ID) REFERENCES ORDERS (ID),
-  CONSTRAINT FK_BILL_PRODUCT_ID FOREIGN KEY (PRODUCT_ID) REFERENCES PRODUCT (ID)
-);
-
---BILL_STATUS: DONE, WAITING, CANCEL
-
-CREATE SEQUENCE IDBILL START WITH 1;
-
-CREATE OR REPLACE TRIGGER TRIGGER7
-BEFORE INSERT ON SMARTSHOP.BILL
-FOR EACH ROW
-BEGIN
-  SELECT IDBILL.NEXTVAL
-  INTO   :new.ID
-  FROM   dual;
-END;
-
-CREATE TABLE NEW
-(
-  ID NUMBER NOT NULL,
-  TITLE NVARCHAR2(100) NOT NULL,
-  BRIEF NVARCHAR2(500) NOT NULL,
-  CONTENT NVARCHAR2(1000) NOT NULL,
-  CATEGORY_ID NUMBER NOT NULL,
-  USERS_ID NUMBER NOT NULL,
-  CREATED_TIME TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (ID),
-  CONSTRAINT FK_NEW_CATEGORY_ID FOREIGN KEY (CATEGORY_ID) REFERENCES CATEGORY (ID),
-  CONSTRAINT FK_NEW_USERS_ID FOREIGN KEY (USERS_ID) REFERENCES USERS (ID)
-);
-
-CREATE SEQUENCE IDNEW START WITH 1;
-
-CREATE OR REPLACE TRIGGER TRIGGER8
-BEFORE INSERT ON SMARTSHOP.NEW
-FOR EACH ROW
-BEGIN
-  SELECT IDNEW.NEXTVAL
-  INTO   :new.ID
-  FROM   dual;
-END;
-
-CREATE TABLE FEEDBACK 
-(
-  ID NUMBER NOT NULL,
-  NAME NVARCHAR2(100) NOT NULL,
-  EMAIL VARCHAR2(100) NOT NULL,
-  PHONE VARCHAR2(15) NOT NULL,
-  NOTE NVARCHAR2(1000) NOT NULL,
-  CREATED_TIME TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (ID)
-);
-
-CREATE SEQUENCE IDFEEDBACK START WITH 1;
-
-CREATE OR REPLACE TRIGGER TRIGGER9
-BEFORE INSERT ON SMARTSHOP.FEEDBACK
-FOR EACH ROW
-BEGIN
-  SELECT IDFEEDBACK.NEXTVAL
-  INTO   :new.ID
-  FROM   dual;
-END;
-
-CREATE TABLE CONTACT 
-(
-  ID NUMBER NOT NULL,
-  NAME NVARCHAR2(100) NOT NULL,
-  EMAIL VARCHAR2(100) NOT NULL,
-  PHONE VARCHAR2(15) NOT NULL,
-  FAX VARCHAR2(25) NOT NULL,
-  ADDRESS NVARCHAR2(100) NOT NULL,
-  PRIMARY KEY (ID)
-);
-
-CREATE SEQUENCE IDCONTACT START WITH 1;
-
-CREATE OR REPLACE TRIGGER TRIGGER10
+  CREATE OR REPLACE TRIGGER "SMARTSHOP"."TRIGGER10" 
 BEFORE INSERT ON SMARTSHOP.CONTACT
 FOR EACH ROW
 BEGIN
@@ -253,81 +333,297 @@ BEGIN
   INTO   :new.ID
   FROM   dual;
 END;
+/
+ALTER TRIGGER "SMARTSHOP"."TRIGGER10" ENABLE;
+--------------------------------------------------------
+--  DDL for Trigger TRIGGER2
+--------------------------------------------------------
 
---TABLE 'ROLE'
-INSERT INTO "SMARTSHOP"."ROLE" (NAME) VALUES ('PUBLIC');
-INSERT INTO "SMARTSHOP"."ROLE" (NAME) VALUES ('CUSTOMER');
-INSERT INTO "SMARTSHOP"."ROLE" (NAME) VALUES ('SALES');
-INSERT INTO "SMARTSHOP"."ROLE" (NAME) VALUES ('MARKETING');
-INSERT INTO "SMARTSHOP"."ROLE" (NAME) VALUES ('MANAGER');
+  CREATE OR REPLACE TRIGGER "SMARTSHOP"."TRIGGER2" 
+BEFORE INSERT ON SMARTSHOP.USERS
+FOR EACH ROW
+BEGIN
+  SELECT IDUSERS.NEXTVAL
+  INTO   :new.ID
+  FROM   dual;
+END;
+/
+ALTER TRIGGER "SMARTSHOP"."TRIGGER2" ENABLE;
+--------------------------------------------------------
+--  DDL for Trigger TRIGGER3
+--------------------------------------------------------
 
---TABLE 'USERS'
-INSERT INTO "SMARTSHOP"."USERS" (EMAIL, USERNAME, FULLNAME, PASSWORD, PHONE, ADDRESS) VALUES ('tuan@gmail.com', 'tuan', 'Nguyễn Thế Tuân', '1234', '0963349511', 'Hà Nội');
-INSERT INTO "SMARTSHOP"."USERS" (EMAIL, USERNAME, FULLNAME, PASSWORD, PHONE, ADDRESS) VALUES ('duong@gmail.com', 'duong', 'Mặt Dương', '1234', '0963349512', 'Hà Nội');
-INSERT INTO "SMARTSHOP"."USERS" (EMAIL, USERNAME, FULLNAME, PASSWORD, PHONE, ADDRESS) VALUES ('duc@gmail.com', 'duc', 'BD Đức', '1234', '0963349513', 'Hà Nội');
-INSERT INTO "SMARTSHOP"."USERS" (EMAIL, USERNAME, FULLNAME, PASSWORD, PHONE, ADDRESS) VALUES ('linh@gmail.com', 'linh', 'Nguyễn Linh', '1234', '0963349514', 'Hà Nội');
-INSERT INTO "SMARTSHOP"."USERS" (EMAIL, USERNAME, FULLNAME, PASSWORD, PHONE, ADDRESS) VALUES ('thinh@gmail.com', 'thinh', 'Nguyễn Thịnh', '1234', '0963349515', 'Hà Nội');
+  CREATE OR REPLACE TRIGGER "SMARTSHOP"."TRIGGER3" 
+BEFORE INSERT ON SMARTSHOP.LOGIN_LOG
+FOR EACH ROW
+BEGIN
+  SELECT IDLOGINLOG.NEXTVAL
+  INTO   :new.ID
+  FROM   dual;
+END;
+/
+ALTER TRIGGER "SMARTSHOP"."TRIGGER3" ENABLE;
+--------------------------------------------------------
+--  DDL for Trigger TRIGGER4
+--------------------------------------------------------
 
---TABLE 'USER_ROLE'
-INSERT INTO "SMARTSHOP"."USER_ROLE" (USER_ID, ROLE_ID) VALUES ('1', '1');
-INSERT INTO "SMARTSHOP"."USER_ROLE" (USER_ID, ROLE_ID) VALUES ('1', '5');
-INSERT INTO "SMARTSHOP"."USER_ROLE" (USER_ID, ROLE_ID) VALUES ('2', '1');
-INSERT INTO "SMARTSHOP"."USER_ROLE" (USER_ID, ROLE_ID) VALUES ('3', '1');
-INSERT INTO "SMARTSHOP"."USER_ROLE" (USER_ID, ROLE_ID) VALUES ('4', '1');
-INSERT INTO "SMARTSHOP"."USER_ROLE" (USER_ID, ROLE_ID) VALUES ('5', '1');
+  CREATE OR REPLACE TRIGGER "SMARTSHOP"."TRIGGER4" 
+BEFORE INSERT ON SMARTSHOP.CATEGORY
+FOR EACH ROW
+BEGIN
+  SELECT IDCATEGORY.NEXTVAL
+  INTO   :new.ID
+  FROM   dual;
+END;
+/
+ALTER TRIGGER "SMARTSHOP"."TRIGGER4" ENABLE;
+--------------------------------------------------------
+--  DDL for Trigger TRIGGER5
+--------------------------------------------------------
 
---TABLE 'LOGIN_LOG'
-INSERT INTO "SMARTSHOP"."LOGIN_LOG" (USER_ID, TOKEN) VALUES ('1', 'cedL7QgFHUxyFqcordBl');
-INSERT INTO "SMARTSHOP"."LOGIN_LOG" (USER_ID, TOKEN) VALUES ('2', 'B2EWubuFc327WDIe933z');
-INSERT INTO "SMARTSHOP"."LOGIN_LOG" (USER_ID, TOKEN) VALUES ('3', 'Is2PzORKprEEoAYkN9fi');
-INSERT INTO "SMARTSHOP"."LOGIN_LOG" (USER_ID, TOKEN) VALUES ('4', 'yuXCcoyDrEdQVuAZxBS1');
-INSERT INTO "SMARTSHOP"."LOGIN_LOG" (USER_ID, TOKEN) VALUES ('5', '2aIjtV13nwZwoyo11qPl');
-INSERT INTO "SMARTSHOP"."LOGIN_LOG" (USER_ID, TOKEN) VALUES ('1', 'bRhQfbo50eVHYW2LoAq1');
+  CREATE OR REPLACE TRIGGER "SMARTSHOP"."TRIGGER5" 
+BEFORE INSERT ON SMARTSHOP.PRODUCT
+FOR EACH ROW
+BEGIN
+  SELECT IDPRODUCT.NEXTVAL
+  INTO   :new.ID
+  FROM   dual;
+END;
+/
+ALTER TRIGGER "SMARTSHOP"."TRIGGER5" ENABLE;
+--------------------------------------------------------
+--  DDL for Trigger TRIGGER6
+--------------------------------------------------------
 
---TABLE 'CATEGORY'
-INSERT INTO "SMARTSHOP"."CATEGORY" (NAME, NOTE) VALUES ('Thời trang nam', '1');
-INSERT INTO "SMARTSHOP"."CATEGORY" (NAME, NOTE) VALUES ('Thời trang nữ', '1');
-INSERT INTO "SMARTSHOP"."CATEGORY" (NAME, NOTE) VALUES ('Giày nam', '2');
-INSERT INTO "SMARTSHOP"."CATEGORY" (NAME, NOTE) VALUES ('Trang phục nam', '2');
-INSERT INTO "SMARTSHOP"."CATEGORY" (NAME, NOTE) VALUES ('Ba lô nam', '2');
-INSERT INTO "SMARTSHOP"."CATEGORY" (NAME, NOTE) VALUES ('Phụ kiện nam', '2');
-INSERT INTO "SMARTSHOP"."CATEGORY" (NAME, NOTE) VALUES ('Ví nam', '2');
-INSERT INTO "SMARTSHOP"."CATEGORY" (NAME, NOTE) VALUES ('Túi xách tay nữ', '3');
-INSERT INTO "SMARTSHOP"."CATEGORY" (NAME, NOTE) VALUES ('Giày nữ', '3');
-INSERT INTO "SMARTSHOP"."CATEGORY" (NAME, NOTE) VALUES ('Trang phục nữ', '3');
-INSERT INTO "SMARTSHOP"."CATEGORY" (NAME, NOTE) VALUES ('Phụ kiện nữ', '3');
-INSERT INTO "SMARTSHOP"."CATEGORY" (NAME, NOTE) VALUES ('Ba lô nữ', '3');
-INSERT INTO "SMARTSHOP"."CATEGORY" (NAME, NOTE) VALUES ('Sao style', '4');
-INSERT INTO "SMARTSHOP"."CATEGORY" (NAME, NOTE) VALUES ('Xu hướng', '4');
-INSERT INTO "SMARTSHOP"."CATEGORY" (NAME, NOTE) VALUES ('Tư vấn', '4');
+  CREATE OR REPLACE TRIGGER "SMARTSHOP"."TRIGGER6" 
+BEFORE INSERT ON SMARTSHOP.ORDERS
+FOR EACH ROW
+BEGIN
+  SELECT IDORDERS.NEXTVAL
+  INTO   :new.ID
+  FROM   dual;
+END;
+/
+ALTER TRIGGER "SMARTSHOP"."TRIGGER6" ENABLE;
+--------------------------------------------------------
+--  DDL for Trigger TRIGGER7
+--------------------------------------------------------
 
---TABLE 'PRODUCT'
-INSERT INTO "SMARTSHOP"."PRODUCT" (NAME, PRICE, IMAGE, DESCRIPTION, DISCOUNT, QUANTITY, VIEWS, STATUS, CATEGORY_ID) VALUES ('ÁO KHOÁC KAKI BOMBER OCEAN NAM (ĐEN)  ', '230000', '/assets/users/images/cart/ao-khoac-kaki-bomber-ocean-nam-den.jpg', 'Thiết kế tinh tế với cổ bẻ, tay dài phối bo tay sành điệu, cá tính, form dáng khỏe khoắn cho bạn phong cách trẻ trung, chỉnh chu và không kém phần lịch lãm', '20', '10', '100', 'NORMAL', '4');
-INSERT INTO "SMARTSHOP"."PRODUCT" (NAME, PRICE, IMAGE, DESCRIPTION, DISCOUNT, QUANTITY, VIEWS, STATUS, CATEGORY_ID) VALUES ('Giày tây Zapas công sở kiểu xỏ - GT016 (Màu Đen)', '460000', '/assets/users/images/cart/giay-tay-zapas-cong-so-kieu-xo-gt016.jpg', 'Giày tây da nam của thương hiệu Zapas có thiết kế đơn giản, sang trọng nhưng không kém phần nam tính và lịch lãm dành cho các quý ông. Thiết kế thanh lịch với những điểm nhấn mới lạ kết hợp cùng chất liệu da PU cao cấp tạo cảm giác mềm mại, êm ái và thoải mái khi di chuyển trong khoảng thời gian dài. Sản phẩm giày tây Zapas luôn là sự lựa chọn hàng đầu trong việc thể hiện phong cách thời trang nổi bật của các quý ông sang trọng, đẳng cấp', '20', '10', '100', 'NORMAL', '3');
-INSERT INTO "SMARTSHOP"."PRODUCT" (NAME, PRICE, IMAGE, DESCRIPTION, DISCOUNT, QUANTITY, VIEWS, STATUS, CATEGORY_ID) VALUES ('Thắt lưng da nam cao cấp TLG HK203880-24', '125000', '/assets/users/images/cart/that-lung-da-nam-cao-cap-tlg-hk203880.jpg', 'Chất liệu da bền đẹp An toàn cho người dùng Kiểu dáng thời trang Dễ dàng phối trang phục', '20', '10', '100', 'NORMAL', '6');
+  CREATE OR REPLACE TRIGGER "SMARTSHOP"."TRIGGER7" 
+BEFORE INSERT ON SMARTSHOP.BILL
+FOR EACH ROW
+BEGIN
+  SELECT IDBILL.NEXTVAL
+  INTO   :new.ID
+  FROM   dual;
+END;
+/
+ALTER TRIGGER "SMARTSHOP"."TRIGGER7" ENABLE;
+--------------------------------------------------------
+--  DDL for Trigger TRIGGER8
+--------------------------------------------------------
 
---TABLE 'ORDERS'
-INSERT INTO "SMARTSHOP"."ORDERS" (NAME, PHONE, EMAIL, ADDRESS, NOTE, AMOUNT) VALUES ('Lê Minh Dương', '04857895749', 'duongml@gmail.com', 'Hà Nội', 'Chuyển nhanh em nhé', '1288000');
-INSERT INTO "SMARTSHOP"."ORDERS" (NAME, PHONE, EMAIL, ADDRESS, NOTE, AMOUNT) VALUES ('Trần Trung Đức', '03485789453543', 'ductr@gmail.com', 'HÀ Nội', 'Chuyển thứ 3 tuần này nhé', '1304000');
-INSERT INTO "SMARTSHOP"."ORDERS" (NAME, PHONE, EMAIL, ADDRESS, NOTE, AMOUNT) VALUES ('Nguyễn Linh', '05736979', 'linhhg@gmail.com', 'Hà Nội', 'Chuyển nhanh đê', '936000');
+  CREATE OR REPLACE TRIGGER "SMARTSHOP"."TRIGGER8" 
+BEFORE INSERT ON SMARTSHOP.NEW
+FOR EACH ROW
+BEGIN
+  SELECT IDNEW.NEXTVAL
+  INTO   :new.ID
+  FROM   dual;
+END;
+/
+ALTER TRIGGER "SMARTSHOP"."TRIGGER8" ENABLE;
+--------------------------------------------------------
+--  DDL for Trigger TRIGGER9
+--------------------------------------------------------
 
---TABLE 'BILL'
-INSERT INTO "SMARTSHOP"."BILL" (ORDERS_ID, PRODUCT_ID, QUANTITY, AMOUNT) VALUES ('1', '1', '3', '552000');
-INSERT INTO "SMARTSHOP"."BILL" (ORDERS_ID, PRODUCT_ID, QUANTITY, AMOUNT) VALUES ('1', '2', '2', '736000');
-INSERT INTO "SMARTSHOP"."BILL" (ORDERS_ID, PRODUCT_ID, QUANTITY, AMOUNT) VALUES ('2', '2', '3', '1104000');
-INSERT INTO "SMARTSHOP"."BILL" (ORDERS_ID, PRODUCT_ID, QUANTITY, AMOUNT) VALUES ('2', '3', '2', '200000');
-INSERT INTO "SMARTSHOP"."BILL" (ORDERS_ID, PRODUCT_ID, QUANTITY, AMOUNT) VALUES ('3', '1', '4', '736000');
-INSERT INTO "SMARTSHOP"."BILL" (ORDERS_ID, PRODUCT_ID, QUANTITY, AMOUNT) VALUES ('3', '3', '2', '200000');
+  CREATE OR REPLACE TRIGGER "SMARTSHOP"."TRIGGER9" 
+BEFORE INSERT ON SMARTSHOP.FEEDBACK
+FOR EACH ROW
+BEGIN
+  SELECT IDFEEDBACK.NEXTVAL
+  INTO   :new.ID
+  FROM   dual;
+END;
+/
+ALTER TRIGGER "SMARTSHOP"."TRIGGER9" ENABLE;
+--------------------------------------------------------
+--  Constraints for Table CATEGORY
+--------------------------------------------------------
 
---TABLE 'NEW'
-INSERT INTO "SMARTSHOP"."NEW" (TITLE, BRIEF, CONTENT, CATEGORY_ID, USERS_ID) VALUES ('Sao Việt làm ''sống dậy'' xu hướng mũ nồi', 'Phụ kiện thịnh hành ở những năm 80 - 90 được nhiều người đẹp ''hâm nóng'' trở lại.', 'Ngày 29 và 30/10 - trước khi Vietnam International Fashion Week Thu đông 2017 chính thức diễn ra, nhiều bạn trẻ Hà Nội đã tập trung ở khu vực gần hồ Hoàn Kiếm để tham gia sự kiện street style. Hầu hết tín đồ thời trang đều tìm cách giúp mình nổi bật bằng những trang phục kiểu dáng khác lạ, màu sắc rực rỡ.  cần quan tâm tổng thể set đồ có rối mắt hay không, họ cố gắng khoác lên mình thật nhiều phụ kiện. Họa tiết dày đặc, phủ kín từ trên xuống dưới được nhiều người lựa chọn. Không ít bạn nam diện đồ unisex, trang điểm và mang giày cao gót như phụ nữ. Quán quân Next Top 2016 Ngọc Châu chọn phong cách khá đơn giản so với nhiều tín đồ thời trang khác.', '14', '1');
-INSERT INTO "SMARTSHOP"."NEW" (TITLE, BRIEF, CONTENT, CATEGORY_ID, USERS_ID) VALUES ('Street style ''quái'' của giới trẻ Hà Nội trước thềm Tuần thời trang quốc tế Việt Nam', 'Nhiều tín đồ thời trang và cả các mẫu nhí chọn phong cách khác biệt để ghi dấu ấn trên đường phố.', 'Sau một thời gian dài bị nhấn chìm bởi các xu hướng mũ fedora, mũ snapback, mũ nồi xinh xắn đánh dấu sự trở lại của mình ở mùa mốt thu đông 2017. Góp phần khiến mẫu phụ kiện cổ điển trở nên thu hút hơn là sự lăng xê nhiệt tình của nhiều người đẹp Việt.', '15', '2');
-INSERT INTO "SMARTSHOP"."NEW" (TITLE, BRIEF, CONTENT, CATEGORY_ID, USERS_ID) VALUES ('Muôn kiểu áp dụng phong cách quân đội hấp dẫn', 'Không chỉ khắc họa hình ảnh cá tính, bụi bặm, những chiếc áo khoác form cứng cáp màu xanh quân đội còn có thể tạo nên style gợi cảm.', 'Sau một thời gian dài bị nhấn chìm bởi các xu hướng mũ fedora, mũ snapback, mũ nồi xinh xắn đánh dấu sự trở lại của mình ở mùa mốt thu đông 2017. Góp phần khiến mẫu phụ kiện cổ điển trở nên thu hút hơn là sự lăng xê nhiệt tình của nhiều người đẹp Việt.', '16', '3');
+  ALTER TABLE "SMARTSHOP"."CATEGORY" ADD PRIMARY KEY ("ID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "SYSTEM"  ENABLE;
+  ALTER TABLE "SMARTSHOP"."CATEGORY" MODIFY ("NAME" NOT NULL ENABLE);
+  ALTER TABLE "SMARTSHOP"."CATEGORY" MODIFY ("ID" NOT NULL ENABLE);
+--------------------------------------------------------
+--  Constraints for Table PRODUCT
+--------------------------------------------------------
 
---TABLE 'CONTACT'
-INSERT INTO "SMARTSHOP"."CONTACT" (NAME, EMAIL, PHONE, FAX, ADDRESS) VALUES ('Công ty Cổ phần giải pháp và nguồn lực công nghệ ITSOL', 'itsol@gmail.com', '09563856385', '09563856385', 'Tòa nhà 3A, 82 Duy Tân, Cầu Giấy, Hà Nội');
-INSERT INTO "SMARTSHOP"."CONTACT" (NAME, EMAIL, PHONE, FAX, ADDRESS) VALUES ('Tập đoàn NextTech', 'itsol@gmail.com', '09563856385', '09563856385', '18 Tam Trinh');
+  ALTER TABLE "SMARTSHOP"."PRODUCT" ADD PRIMARY KEY ("ID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "SYSTEM"  ENABLE;
+  ALTER TABLE "SMARTSHOP"."PRODUCT" MODIFY ("CATEGORY_ID" NOT NULL ENABLE);
+  ALTER TABLE "SMARTSHOP"."PRODUCT" MODIFY ("PRICE" NOT NULL ENABLE);
+  ALTER TABLE "SMARTSHOP"."PRODUCT" MODIFY ("NAME" NOT NULL ENABLE);
+  ALTER TABLE "SMARTSHOP"."PRODUCT" MODIFY ("ID" NOT NULL ENABLE);
+--------------------------------------------------------
+--  Constraints for Table ROLE
+--------------------------------------------------------
 
---TABLE 'FEEDBACK'
-INSERT INTO "SMARTSHOP"."FEEDBACK" (NAME, EMAIL, PHONE, NOTE) VALUES ('Nguyễn Thế Tuân', 'tuan87@gmail.com', '09563856385', 'Đưa hàng nhanh, chất lượng ok, cảm thấy tốt.');
-INSERT INTO "SMARTSHOP"."FEEDBACK" (NAME, EMAIL, PHONE, NOTE) VALUES ('Dương', 'duongml@gmail.com', '09563856385', 'Đưa hàng nhanh, chất lượng ok, cảm thấy tốt.');
+  ALTER TABLE "SMARTSHOP"."ROLE" ADD PRIMARY KEY ("ID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "SYSTEM"  ENABLE;
+  ALTER TABLE "SMARTSHOP"."ROLE" MODIFY ("ID" NOT NULL ENABLE);
+--------------------------------------------------------
+--  Constraints for Table USER_ROLE
+--------------------------------------------------------
+
+  ALTER TABLE "SMARTSHOP"."USER_ROLE" ADD PRIMARY KEY ("USER_ID", "ROLE_ID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "SYSTEM"  ENABLE;
+  ALTER TABLE "SMARTSHOP"."USER_ROLE" MODIFY ("ROLE_ID" NOT NULL ENABLE);
+  ALTER TABLE "SMARTSHOP"."USER_ROLE" MODIFY ("USER_ID" NOT NULL ENABLE);
+--------------------------------------------------------
+--  Constraints for Table FEEDBACK
+--------------------------------------------------------
+
+  ALTER TABLE "SMARTSHOP"."FEEDBACK" ADD PRIMARY KEY ("ID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "SYSTEM"  ENABLE;
+  ALTER TABLE "SMARTSHOP"."FEEDBACK" MODIFY ("NOTE" NOT NULL ENABLE);
+  ALTER TABLE "SMARTSHOP"."FEEDBACK" MODIFY ("PHONE" NOT NULL ENABLE);
+  ALTER TABLE "SMARTSHOP"."FEEDBACK" MODIFY ("EMAIL" NOT NULL ENABLE);
+  ALTER TABLE "SMARTSHOP"."FEEDBACK" MODIFY ("NAME" NOT NULL ENABLE);
+  ALTER TABLE "SMARTSHOP"."FEEDBACK" MODIFY ("ID" NOT NULL ENABLE);
+--------------------------------------------------------
+--  Constraints for Table CONTACT
+--------------------------------------------------------
+
+  ALTER TABLE "SMARTSHOP"."CONTACT" ADD PRIMARY KEY ("ID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "SYSTEM"  ENABLE;
+  ALTER TABLE "SMARTSHOP"."CONTACT" MODIFY ("ADDRESS" NOT NULL ENABLE);
+  ALTER TABLE "SMARTSHOP"."CONTACT" MODIFY ("FAX" NOT NULL ENABLE);
+  ALTER TABLE "SMARTSHOP"."CONTACT" MODIFY ("PHONE" NOT NULL ENABLE);
+  ALTER TABLE "SMARTSHOP"."CONTACT" MODIFY ("EMAIL" NOT NULL ENABLE);
+  ALTER TABLE "SMARTSHOP"."CONTACT" MODIFY ("NAME" NOT NULL ENABLE);
+  ALTER TABLE "SMARTSHOP"."CONTACT" MODIFY ("ID" NOT NULL ENABLE);
+--------------------------------------------------------
+--  Constraints for Table BILL
+--------------------------------------------------------
+
+  ALTER TABLE "SMARTSHOP"."BILL" ADD PRIMARY KEY ("ID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "SYSTEM"  ENABLE;
+  ALTER TABLE "SMARTSHOP"."BILL" MODIFY ("QUANTITY" NOT NULL ENABLE);
+  ALTER TABLE "SMARTSHOP"."BILL" MODIFY ("PRODUCT_ID" NOT NULL ENABLE);
+  ALTER TABLE "SMARTSHOP"."BILL" MODIFY ("ORDERS_ID" NOT NULL ENABLE);
+  ALTER TABLE "SMARTSHOP"."BILL" MODIFY ("ID" NOT NULL ENABLE);
+--------------------------------------------------------
+--  Constraints for Table NEW
+--------------------------------------------------------
+
+  ALTER TABLE "SMARTSHOP"."NEW" ADD PRIMARY KEY ("ID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "SYSTEM"  ENABLE;
+  ALTER TABLE "SMARTSHOP"."NEW" MODIFY ("USERS_ID" NOT NULL ENABLE);
+  ALTER TABLE "SMARTSHOP"."NEW" MODIFY ("CATEGORY_ID" NOT NULL ENABLE);
+  ALTER TABLE "SMARTSHOP"."NEW" MODIFY ("CONTENT" NOT NULL ENABLE);
+  ALTER TABLE "SMARTSHOP"."NEW" MODIFY ("BRIEF" NOT NULL ENABLE);
+  ALTER TABLE "SMARTSHOP"."NEW" MODIFY ("TITLE" NOT NULL ENABLE);
+  ALTER TABLE "SMARTSHOP"."NEW" MODIFY ("ID" NOT NULL ENABLE);
+--------------------------------------------------------
+--  Constraints for Table ORDERS
+--------------------------------------------------------
+
+  ALTER TABLE "SMARTSHOP"."ORDERS" ADD PRIMARY KEY ("ID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "SYSTEM"  ENABLE;
+  ALTER TABLE "SMARTSHOP"."ORDERS" MODIFY ("AMOUNT" NOT NULL ENABLE);
+  ALTER TABLE "SMARTSHOP"."ORDERS" MODIFY ("ADDRESS" NOT NULL ENABLE);
+  ALTER TABLE "SMARTSHOP"."ORDERS" MODIFY ("EMAIL" NOT NULL ENABLE);
+  ALTER TABLE "SMARTSHOP"."ORDERS" MODIFY ("PHONE" NOT NULL ENABLE);
+  ALTER TABLE "SMARTSHOP"."ORDERS" MODIFY ("NAME" NOT NULL ENABLE);
+  ALTER TABLE "SMARTSHOP"."ORDERS" MODIFY ("ID" NOT NULL ENABLE);
+--------------------------------------------------------
+--  Constraints for Table LOGIN_LOG
+--------------------------------------------------------
+
+  ALTER TABLE "SMARTSHOP"."LOGIN_LOG" ADD PRIMARY KEY ("ID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "SYSTEM"  ENABLE;
+  ALTER TABLE "SMARTSHOP"."LOGIN_LOG" MODIFY ("USER_ID" NOT NULL ENABLE);
+  ALTER TABLE "SMARTSHOP"."LOGIN_LOG" MODIFY ("ID" NOT NULL ENABLE);
+--------------------------------------------------------
+--  Constraints for Table USERS
+--------------------------------------------------------
+
+  ALTER TABLE "SMARTSHOP"."USERS" ADD PRIMARY KEY ("ID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "SYSTEM"  ENABLE;
+  ALTER TABLE "SMARTSHOP"."USERS" MODIFY ("ADDRESS" NOT NULL ENABLE);
+  ALTER TABLE "SMARTSHOP"."USERS" MODIFY ("PHONE" NOT NULL ENABLE);
+  ALTER TABLE "SMARTSHOP"."USERS" MODIFY ("PASSWORD" NOT NULL ENABLE);
+  ALTER TABLE "SMARTSHOP"."USERS" MODIFY ("FULLNAME" NOT NULL ENABLE);
+  ALTER TABLE "SMARTSHOP"."USERS" MODIFY ("USERNAME" NOT NULL ENABLE);
+  ALTER TABLE "SMARTSHOP"."USERS" MODIFY ("EMAIL" NOT NULL ENABLE);
+  ALTER TABLE "SMARTSHOP"."USERS" MODIFY ("ID" NOT NULL ENABLE);
+--------------------------------------------------------
+--  Ref Constraints for Table BILL
+--------------------------------------------------------
+
+  ALTER TABLE "SMARTSHOP"."BILL" ADD CONSTRAINT "FK_BILL_ODERS_ID" FOREIGN KEY ("ORDERS_ID")
+	  REFERENCES "SMARTSHOP"."ORDERS" ("ID") ENABLE;
+  ALTER TABLE "SMARTSHOP"."BILL" ADD CONSTRAINT "FK_BILL_PRODUCT_ID" FOREIGN KEY ("PRODUCT_ID")
+	  REFERENCES "SMARTSHOP"."PRODUCT" ("ID") ENABLE;
+--------------------------------------------------------
+--  Ref Constraints for Table LOGIN_LOG
+--------------------------------------------------------
+
+  ALTER TABLE "SMARTSHOP"."LOGIN_LOG" ADD CONSTRAINT "FK_LOGIN_LOG_USER_ID" FOREIGN KEY ("USER_ID")
+	  REFERENCES "SMARTSHOP"."USERS" ("ID") ENABLE;
+--------------------------------------------------------
+--  Ref Constraints for Table NEW
+--------------------------------------------------------
+
+  ALTER TABLE "SMARTSHOP"."NEW" ADD CONSTRAINT "FK_NEW_CATEGORY_ID" FOREIGN KEY ("CATEGORY_ID")
+	  REFERENCES "SMARTSHOP"."CATEGORY" ("ID") ENABLE;
+  ALTER TABLE "SMARTSHOP"."NEW" ADD CONSTRAINT "FK_NEW_USERS_ID" FOREIGN KEY ("USERS_ID")
+	  REFERENCES "SMARTSHOP"."USERS" ("ID") ENABLE;
+--------------------------------------------------------
+--  Ref Constraints for Table PRODUCT
+--------------------------------------------------------
+
+  ALTER TABLE "SMARTSHOP"."PRODUCT" ADD CONSTRAINT "FK_PRODUCT_CATEGORY_ID" FOREIGN KEY ("CATEGORY_ID")
+	  REFERENCES "SMARTSHOP"."CATEGORY" ("ID") ENABLE;
+--------------------------------------------------------
+--  Ref Constraints for Table USER_ROLE
+--------------------------------------------------------
+
+  ALTER TABLE "SMARTSHOP"."USER_ROLE" ADD CONSTRAINT "FK_USER_ROLE_ROLE_ID" FOREIGN KEY ("ROLE_ID")
+	  REFERENCES "SMARTSHOP"."ROLE" ("ID") ENABLE;
+  ALTER TABLE "SMARTSHOP"."USER_ROLE" ADD CONSTRAINT "FK_USER_ROLE_USER_ID" FOREIGN KEY ("USER_ID")
+	  REFERENCES "SMARTSHOP"."USERS" ("ID") ENABLE;
