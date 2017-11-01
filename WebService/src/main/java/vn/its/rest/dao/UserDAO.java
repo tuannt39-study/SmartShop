@@ -10,7 +10,7 @@ public interface UserDAO {
 
 	public void deleteUser(long id);
 
-	public void updateUser(User user);
+	public User updateUser(User user);
 
 	public User findById(long id);
 	

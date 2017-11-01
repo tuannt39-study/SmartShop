@@ -395,7 +395,10 @@
                                                     <td> {{u.createdTime}} </td>
                                                     <td> {{u.password}} </td>
                                                     <td> <span ng-bind="u.status" class="label label-sm label-success"></span> </td>
-                                                    <td> <button ng-click="ctrl.edit(u.id)" type="button" class="btn btn-circle"> Sửa </button> </td>
+                                                    <td> 
+                                                    	<button ng-click="ctrl.edit(u.id)" type="button" class="btn btn-circle"> Sửa </button>&emsp;
+                                                    	<button ng-click="ctrl.remove(u.id)" type="button" class="btn btn-circle red"> Xóa </button>
+                                                    </td>
                                                 </tr>
                                             </tbody>
                                         </table>

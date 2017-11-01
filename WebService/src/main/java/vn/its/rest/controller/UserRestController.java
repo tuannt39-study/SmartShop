@@ -50,8 +50,8 @@ public class UserRestController {
 			logger.error("Unable to Add. A User with email {} already exist", user.getEmail());
 			return new ResponseEntity<Void>(HttpStatus.CONFLICT);
 		} else {
-//			user.setAvartar("/assets/layouts/layout/img/avartar.png");
-//			user.setCreatedTime(new Date());
+			user.setAvartar("/assets/layouts/layout/img/avartar.png");
+			user.setCreatedTime(new Date());
 			userService.saveUser(user);
 			HttpHeaders headers = new HttpHeaders();
 			headers.setLocation(ucbuilder.path("{id}").buildAndExpand(user.getId()).toUri());
@@ -95,7 +95,7 @@ public class UserRestController {
 	public ResponseEntity<User> updateUser(@PathVariable("id") long id, @RequestBody User user) {
 		logger.info("Updating User with id {}", id);
 		User currentUser = userService.findById(id);
-		if (user == null) {
+		if (currentUser == null) {
 			logger.error("Unable to update. User with id " + id + " not found.");
 			return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
 		} else {
