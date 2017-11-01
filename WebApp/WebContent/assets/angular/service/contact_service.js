@@ -10,7 +10,8 @@ angular.module('myApp').factory('ContactService',['$http','$q', function($http,$
 	var factory={
 			fetchAllContacts:fetchAllContacts,
 			updateContact:updateContact,
-			createContact:createContact
+			createContact:createContact,
+			deleteContact:deleteContact
 	};
 	
 	return factory;

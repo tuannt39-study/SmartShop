@@ -73,7 +73,6 @@ public class ContactRestController {
 			return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
 		} else {
 			contactService.deleteContact(id);
-			;
 			ResponseEntity<Void> deleteContact = new ResponseEntity<Void>(HttpStatus.OK);
 			return deleteContact;
 		}

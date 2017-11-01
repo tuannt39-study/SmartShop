@@ -320,7 +320,7 @@
                                                     <div class="form-actions">
                                                         <div class="row">
                                                             <div class="col-md-offset-3 col-md-9">
-                                                                 <input value="{{!ctrl.contact.id ? 'Submit' : 'Cập nhật'}}" ng-disabled="myForm.$invalid" type="submit" class="btn btn-circle green" />
+                                                                 <input value="{{!ctrl.contact.id ? 'Thêm liên hệ' : 'Cập nhật'}}" ng-disabled="myForm.$invalid" type="submit" class="btn btn-circle green" />
                                                                 <button ng-click="ctrl.reset()" ng-disabled="" type="button" class="btn btn-circle grey-salsa btn-outline">Hủy</button>
                                                             </div>
                                                         </div>
@@ -367,8 +367,8 @@
                                                     <td><span ng-bind="cont.fax"></span></td>
                                                     <td><span ng-bind="cont.address"></span></td>
                                                     <td>
-                                                    	<button ng-click="ctrl.remove(cont.id)" type="button" class="btn btn-circle">Xóa</button>
-                                                        <button ng-click="ctrl.edit(cont.id)" type="button" class="btn btn-circle"> Sửa </button>
+                                                        <button ng-click="ctrl.edit(cont.id)" type="button" class="btn btn-circle"> Sửa </button>&emsp;
+                                                    	<button ng-click="ctrl.remove(cont.id)" type="button" class="btn btn-circle red"> Xóa </button>
                                                        
                                                     </td>
                                                 </tr>                                               
