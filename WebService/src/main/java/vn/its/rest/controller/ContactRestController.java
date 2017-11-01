@@ -65,11 +65,11 @@ public class ContactRestController {
 
 	@CrossOrigin
 	@DeleteMapping("/delete/{id}")
-	public ResponseEntity<Void> deleteContact(@PathVariable("id") long id, @RequestBody Contact contact) {
-		logger.info("Fetching & Deleting contact with id {} ", +id);
+	public ResponseEntity<Void> deleteContact(@PathVariable("id") long id) {
+		logger.info("Fetching & Deleting contact with id {} ", id);
 		Contact currentContact = contactService.findContactById(id);
 		if (currentContact == null) {
-			logger.error("Unable to delete. Contact with id " + id + " not found");
+			logger.error("Unable to delete. Contact with id {} not found.", id);
 			return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
 		} else {
 			contactService.deleteContact(id);
