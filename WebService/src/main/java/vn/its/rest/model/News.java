@@ -1,6 +1,6 @@
 package vn.its.rest.model;
 
-import java.sql.Timestamp;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -36,16 +36,15 @@ public class News {
 	@Column(name = "USERS_ID")
 	private long userID;
 
-	@JsonFormat(shape=Shape.STRING, pattern="dd-MM-yyyy hh:mm:ss")
+	@JsonFormat(shape = Shape.STRING, pattern = "dd-MM-yyyy hh:mm:ss")
 	@Column(name = "CREATED_TIME")
-	private Timestamp createdTime;
+	private Date createdTime;
 
 	public News() {
-
+		super();
 	}
 
-	public News(long id, String title, String brief, String content, long categoryID, long userID,
-			Timestamp createdTime) {
+	public News(long id, String title, String brief, String content, long categoryID, long userID, Date createdTime) {
 		super();
 		this.id = id;
 		this.title = title;
@@ -104,13 +103,12 @@ public class News {
 		this.userID = userID;
 	}
 
-	public Timestamp getCreatedTime() {
+	public Date getCreatedTime() {
 		return createdTime;
 	}
 
-	public void setCreatedTime(Timestamp createdTime) {
+	public void setCreatedTime(Date createdTime) {
 		this.createdTime = createdTime;
 	}
 
-	
 }

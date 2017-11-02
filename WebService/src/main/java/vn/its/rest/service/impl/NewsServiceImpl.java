@@ -19,44 +19,36 @@ public class NewsServiceImpl implements NewsService {
 
 	@Override
 	public List<News> findAllNews() {
-
 		return newsDAO.findAllNews();
 	}
 
 	@Override
 	public List<News> searchNewsByTitlte(String title) {
-
 		return newsDAO.searchNewsByTitlte(title);
 	}
 
 	@Override
 	public News searchNewsById(long id) {
-
 		return newsDAO.searchNewsById(id);
 	}
 
 	@Override
 	public void addNews(News news) {
-
 		newsDAO.addNews(news);
-
 	}
 
 	@Override
 	public void updateNews(News news) {
-
 		newsDAO.updateNews(news);
 	}
 
 	@Override
 	public void deleteNews(long id) {
-
 		newsDAO.deleteNews(id);
 	}
 
 	@Override
 	public boolean isNewsExist(News news) {
-
 		return newsDAO.isNewsExist(news);
 	}
 

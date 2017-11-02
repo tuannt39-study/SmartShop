@@ -30,127 +30,94 @@ public class NewsRestController {
 
 	@Autowired
 	private NewsService newsService;
-	
-//	http://localhost:8083/WebService/api/news/all
+
+//	http://localhost:8080/WebService/api/news/all
 	@CrossOrigin
 	@GetMapping("/all")
 	public ResponseEntity<List<News>> getAllNews() {
-
 		List<News> getAllNews = newsService.findAllNews();
-
 		if (getAllNews.isEmpty()) {
-
 			return new ResponseEntity<List<News>>(HttpStatus.NO_CONTENT);
 		}
-
 		ResponseEntity<List<News>> listNews = new ResponseEntity<List<News>>(getAllNews, HttpStatus.OK);
-
 		return listNews;
 	}
 
+//	http://localhost:8080/WebService/api/news/2
 	@CrossOrigin
 	@GetMapping("/{id}")
 	public ResponseEntity<News> getNewsById(@PathVariable("id") long id) {
-
 		logger.info("Fetching news with id {}", id);
-
 		News getNews = newsService.searchNewsById(id);
-
 		if (getNews == null) {
-
 			logger.error("News with id {} not found.", id);
-
 			return new ResponseEntity<News>(HttpStatus.NOT_FOUND);
 		}
-
 		ResponseEntity<News> news = new ResponseEntity<News>(getNews, HttpStatus.OK);
-
 		return news;
 	}
 
-	// http://localhost:8080/WebService/api/news/add
-	// {
-	// "title": "a2",
-	// "brief": "b2",
-	// "content": "c2",
-	// "categoryID": 1,
-	// "userID": 23,
-	// "createdTime": "30-10-2017 05:46:28"
-	// }
+//	http://localhost:8080/WebService/api/news/add
+//	{
+//	    "title": "Street style 'quái' của giới trẻ Hà Nội 23",
+//	    "brief": "Nhiều tín đồ thời trang và cả các mẫu nhí chọn phong cách khác biệt để ghi dấu ấn trên đường phố.1",
+//	    "content": "&lt;h2 style=\"text-align: center;\"&gt;The Flavorful Tuscany Meetup&lt;/h2&gt;",
+//	    "categoryID": 16,
+//	    "userID": 3,
+//	    "createdTime": "30-10-2017 11:07:11"
+//	}
 	@CrossOrigin
 	@PostMapping("/add")
 	public ResponseEntity<Void> addNews(@RequestBody News news, UriComponentsBuilder ucbuilder) {
-
 		logger.info("Add news : {}", news);
-
 		if (newsService.isNewsExist(news)) {
-
 			logger.error("Unable to Add. A news with email {} already exist", news.getTitle());
-
 			return new ResponseEntity<Void>(HttpStatus.CONFLICT);
 		}
-
 		newsService.addNews(news);
-
 		HttpHeaders headers = new HttpHeaders();
 		headers.setLocation(ucbuilder.path("{id}").buildAndExpand(news.getId()).toUri());
 		ResponseEntity<Void> addNews = new ResponseEntity<Void>(headers, HttpStatus.CREATED);
-
 		return addNews;
 	}
 
-	// http://localhost:8083/WebService/api/news/update/2
-	// {
-	// "title": "a23",
-	// "brief": "b2",
-	// "content": "c2",
-	// "categoryID": 1,
-	// "userID": 23,
-	// "createdTime": "30-10-2017 05:46:28"
-	// }
+//	http://localhost:8080/WebService/api/news/update/2
+//	{
+//	    "title": "Street style 'quái' của giới trẻ Hà Nội 2",
+//	    "brief": "Nhiều tín đồ thời trang và cả các mẫu nhí chọn phong cách khác biệt để ghi dấu ấn trên đường phố.1",
+//	    "content": "&lt;h2 style=\"text-align: center;\"&gt;The Flavorful Tuscany Meetup&lt;/h2&gt;",
+//	    "categoryID": 15,
+//	    "userID": 2,
+//	    "createdTime": "30-10-2017 11:07:11"
+//	}
 	@CrossOrigin
 	@PutMapping("update/{id}")
 	public ResponseEntity<News> updateNews(@PathVariable("id") long id, @RequestBody News news) {
-
 		logger.info("Updating news with id {}", id);
-
 		News currentNews = newsService.searchNewsById(id);
-
 		if (currentNews == null) {
-
 			logger.error("Unable to update. News with id " + id + " not found.");
-
 			return new ResponseEntity<News>(HttpStatus.NOT_FOUND);
 		}
-
-		currentNews.setBrief(news.getBrief() );
+		currentNews.setBrief(news.getBrief());
 		currentNews.setContent(news.getContent());
 		currentNews.setTitle(news.getTitle());
-
 		newsService.updateNews(currentNews);
-
 		ResponseEntity<News> newsUpdated = new ResponseEntity<News>(currentNews, HttpStatus.OK);
-
 		return newsUpdated;
-
 	}
 
+//	http://localhost:8080/WebService/api/news/delete/22
 	@CrossOrigin
 	@DeleteMapping("delete/{id}")
 	public ResponseEntity<Void> deleteNews(@PathVariable("id") long id) {
-
 		logger.info("Fetching & Deleting User with id {}", id);
-
 		News currentNews = newsService.searchNewsById(id);
-
 		if (currentNews == null) {
 			logger.error("Unable to update. News with id {} not found.", id);
-
 			return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
 		}
-
 		newsService.deleteNews(id);
-
 		ResponseEntity<Void> NewsIsDeleted = new ResponseEntity<Void>(HttpStatus.OK);
 		return NewsIsDeleted;
 	}

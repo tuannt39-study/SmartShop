@@ -13,10 +13,10 @@ public interface NewsService {
 	public News searchNewsById(long id);
 
 	public void addNews(News news);
-	
+
 	public void updateNews(News news);
 
 	public void deleteNews(long id);
-	
+
 	public boolean isNewsExist(News news);
 }
