@@ -1,67 +1,71 @@
 'use strict';
 
-angular.module('myApp').factory('CategoryNewsService', ['$http', '$q', function($http, $q){
+App.factory('UserService', ['$http', '$q', function($http, $q){
 
-    var REST_SERVICE_URI = 'http://localhost:8080/WebService/api/danh-muc/';
+    var REST_SERVICE_URI = 'http://localhost:8080/WebService/api/tai-khoan/';
 
 	var xhr = new XMLHttpRequest();
 	xhr.open("GET", REST_SERVICE_URI, true);
+	xhr.open("POST", REST_SERVICE_URI, true);
+	xhr.open("PUT", REST_SERVICE_URI, true);
+	xhr.open("DELETE", REST_SERVICE_URI, true);
 
     var factory = {
-        fetchAllCategoryNews: fetchAllCategoryNews,
-        createCategoryNews: createCategoryNews,
-        updateCategoryNews:updateCategoryNews,
-        deleteCategoryNews:deleteCategoryNews
+        fetchAllUsers: fetchAllUsers,
+        createUser: createUser,
+        updateUser:updateUser,
+        deleteUser:deleteUser
     };
 
     return factory;
-    
-    function fetchAllCategoryNews() {
+
+    function fetchAllUsers() {
         var deferred = $q.defer();
-        $http.get(REST_SERVICE_URI + "news/all")
+        $http.get(REST_SERVICE_URI + "all")
             .then(
             function (response) {
                 deferred.resolve(response.data);
             },
             function(errResponse){
-                console.error('Error while fetching CategoryNews');
+                console.error('Error while fetching Users');
                 deferred.reject(errResponse);
             }
         );
         return deferred.promise;
     }
 
-    function createCategoryNews(news) {
+    function createUser(user) {
         var deferred = $q.defer();
-        $http.post(REST_SERVICE_URI + "add", news)
+        $http.post(REST_SERVICE_URI + "add", user)
             .then(
             function (response) {
                 deferred.resolve(response.data);
             },
             function(errResponse){
-                console.error('Error while creating CategoryNews');
+                console.error('Error while creating User');
                 deferred.reject(errResponse);
             }
         );
         return deferred.promise;
     }
 
-    function updateCategoryNews(news, id) {
+
+    function updateUser(user, id) {
         var deferred = $q.defer();
-        $http.put(REST_SERVICE_URI + "update/" + id, news)
+        $http.put(REST_SERVICE_URI + "update/" + id, user)
             .then(
             function (response) {
                 deferred.resolve(response.data);
             },
             function(errResponse){
-                console.error('Error while updating CategoryNews');
+                console.error('Error while updating User');
                 deferred.reject(errResponse);
             }
         );
         return deferred.promise;
     }
 
-    function deleteCategoryNews(id) {
+    function deleteUser(id) {
         var deferred = $q.defer();
         $http.delete(REST_SERVICE_URI + "delete/" + id)
             .then(
@@ -69,7 +73,7 @@ angular.module('myApp').factory('CategoryNewsService', ['$http', '$q', function(
                 deferred.resolve(response.data);
             },
             function(errResponse){
-                console.error('Error while deleting CategoryNews');
+                console.error('Error while deleting User');
                 deferred.reject(errResponse);
             }
         );

@@ -2,7 +2,7 @@
 
 angular.module('myApp').factory('CategoryProductService', ['$http', '$q', function($http, $q){
 
-    var REST_SERVICE_URI = 'http://localhost:8083/WebService/api/danh-muc/';
+    var REST_SERVICE_URI = 'http://localhost:8080/WebService/api/danh-muc/';
 
 	var xhr = new XMLHttpRequest();
 	xhr.open("GET", REST_SERVICE_URI, true);

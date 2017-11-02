@@ -2,7 +2,7 @@
 
 angular.module('myApp').factory('NewsService', ['$http', '$q', function($http, $q){
 
-    var REST_SERVICE_URI = 'http://localhost:8083/WebService/api/news/';
+    var REST_SERVICE_URI = 'http://localhost:8080/WebService/api/news/';
 
 	var xhr = new XMLHttpRequest();
 	xhr.open("GET", REST_SERVICE_URI, true);

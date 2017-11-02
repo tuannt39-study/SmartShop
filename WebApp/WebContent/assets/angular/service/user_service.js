@@ -2,7 +2,7 @@
 
 angular.module('myApp').factory('UserService', ['$http', '$q', function($http, $q){
 
-    var REST_SERVICE_URI = 'http://localhost:8083/WebService/api/tai-khoan/';
+    var REST_SERVICE_URI = 'http://localhost:8080/WebService/api/tai-khoan/';
 
 	var xhr = new XMLHttpRequest();
 	xhr.open("GET", REST_SERVICE_URI, true);
