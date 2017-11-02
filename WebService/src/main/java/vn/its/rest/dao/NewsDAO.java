@@ -8,9 +8,9 @@ public interface NewsDAO {
 
 	public List<News> findAllNews();
 
-	public List<News> searchNewsByTitlte(String title);
+	public List<News> findNewsByTitlte(String title);
 
-	public News searchNewsById(long Id);
+	public News findNewsById(long Id);
 
 	public void addNews(News news);
 

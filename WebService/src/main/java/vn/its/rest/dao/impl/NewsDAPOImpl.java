@@ -26,7 +26,7 @@ public class NewsDAPOImpl implements NewsDAO {
 	}
 
 	@Override
-	public List<News> searchNewsByTitlte(String title) {
+	public List<News> findNewsByTitlte(String title) {
 		List<News> news = new ArrayList<>();
 		for (News listNews : findAllNews()) {
 			String titleTemp = listNews.getTitle();
@@ -39,7 +39,7 @@ public class NewsDAPOImpl implements NewsDAO {
 	}
 
 	@Override
-	public News searchNewsById(long id) {
+	public News findNewsById(long id) {
 		Session session = sessionFactory.getCurrentSession();
 		News news = session.get(News.class, id);
 		if (news == null) {
@@ -64,7 +64,7 @@ public class NewsDAPOImpl implements NewsDAO {
 	public void deleteNews(long id) {
 		Session session = sessionFactory.getCurrentSession();
 		News news = session.get(News.class, id);
-		if (searchNewsById(id) != null) {
+		if (findNewsById(id) != null) {
 			session.delete(news);
 		}
 	}

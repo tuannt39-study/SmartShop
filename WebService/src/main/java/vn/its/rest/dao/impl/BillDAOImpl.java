@@ -1,7 +1,9 @@
 package vn.its.rest.dao.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -14,40 +16,45 @@ public class BillDAOImpl implements BillDAO {
 	
 	@Autowired
 	private SessionFactory sessionFactory;
-	
-	@SuppressWarnings("unchecked")
+
 	@Override
 	public List<Bill> findAllBill() {
-		// TODO Auto-generated method stub
-		return sessionFactory.getCurrentSession().createQuery("from Bill").list();
+		List<Bill> listBill = new ArrayList<>();
+		String sql = "from Bill";
+		Session session = sessionFactory.getCurrentSession();
+		listBill = session.createQuery(sql, Bill.class).list();
+		return listBill;
 	}
 
 	@Override
 	public Bill findBillById(long id) {
-		// TODO Auto-generated method stub
-		return sessionFactory.getCurrentSession().get(Bill.class, id);
-	}
-
-	@Override
-	public Bill updateBill(Bill bill) {
-		// TODO Auto-generated method stub
-		sessionFactory.getCurrentSession().update(bill);
+		Session session = sessionFactory.getCurrentSession();
+		Bill bill = session.get(Bill.class, id);
+		if (bill == null) {
+			return null;
+		}
 		return bill;
 	}
 
 	@Override
+	public void updateBill(Bill bill) {
+		Session session = sessionFactory.getCurrentSession();
+		session.update(bill);
+	}
+
+	@Override
 	public void deleteBill(long id) {
-		// TODO Auto-generated method stub
-		Bill bill = sessionFactory.getCurrentSession().load(Bill.class, id);
-		if (bill != null) {
-			this.sessionFactory.getCurrentSession().delete(bill);
+		Session session = sessionFactory.getCurrentSession();
+		Bill bill = session.get(Bill.class, id);
+		if (findBillById(id) != null) {
+			session.delete(bill);
 		}
 	}
 
 	@Override
-	public void saveBill(Bill bill) {
-		// TODO Auto-generated method stub
-		sessionFactory.getCurrentSession().saveOrUpdate(bill);
+	public void addBill(Bill bill) {
+		Session session = sessionFactory.getCurrentSession();
+		session.save(bill);
 	}
 
 }

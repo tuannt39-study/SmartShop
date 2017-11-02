@@ -23,13 +23,13 @@ public class NewsServiceImpl implements NewsService {
 	}
 
 	@Override
-	public List<News> searchNewsByTitlte(String title) {
-		return newsDAO.searchNewsByTitlte(title);
+	public List<News> findNewsByTitlte(String title) {
+		return newsDAO.findNewsByTitlte(title);
 	}
 
 	@Override
-	public News searchNewsById(long id) {
-		return newsDAO.searchNewsById(id);
+	public News findNewsById(long id) {
+		return newsDAO.findNewsById(id);
 	}
 
 	@Override

@@ -16,39 +16,30 @@ public class BillServiceImpl implements BillService {
 	
 	@Autowired
 	private BillDAO billDAO;
-	
-	public void setBillDAO(BillDAO billDAO) {
-		this.billDAO = billDAO;
-	}
 
 	@Override
 	public List<Bill> findAllBill() {
-		// TODO Auto-generated method stub
 		return billDAO.findAllBill();
 	}
 
 	@Override
 	public Bill findBillById(long id) {
-		// TODO Auto-generated method stub
 		return billDAO.findBillById(id);
 	}
 
 	@Override
-	public Bill updateBill(Bill bill) {
-		// TODO Auto-generated method stub
-		return billDAO.updateBill(bill);
+	public void updateBill(Bill bill) {
+		billDAO.updateBill(bill);
 	}
 
 	@Override
 	public void deleteBill(long id) {
-		// TODO Auto-generated method stub
 		billDAO.deleteBill(id);
 	}
 
 	@Override
-	public void saveBill(Bill bill) {
-		// TODO Auto-generated method stub
-		billDAO.saveBill(bill);
+	public void addBill(Bill bill) {
+		billDAO.addBill(bill);
 	}
 
 }

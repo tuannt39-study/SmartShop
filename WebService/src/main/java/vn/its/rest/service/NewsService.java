@@ -8,9 +8,9 @@ public interface NewsService {
 
 	public List<News> findAllNews();
 
-	public List<News> searchNewsByTitlte(String title);
+	public List<News> findNewsByTitlte(String title);
 
-	public News searchNewsById(long id);
+	public News findNewsById(long id);
 
 	public void addNews(News news);
 

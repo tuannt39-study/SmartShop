@@ -48,7 +48,7 @@ public class NewsRestController {
 	@GetMapping("/{id}")
 	public ResponseEntity<News> getNewsById(@PathVariable("id") long id) {
 		logger.info("Fetching news with id {}", id);
-		News getNews = newsService.searchNewsById(id);
+		News getNews = newsService.findNewsById(id);
 		if (getNews == null) {
 			logger.error("News with id {} not found.", id);
 			return new ResponseEntity<News>(HttpStatus.NOT_FOUND);
@@ -94,7 +94,7 @@ public class NewsRestController {
 	@PutMapping("update/{id}")
 	public ResponseEntity<News> updateNews(@PathVariable("id") long id, @RequestBody News news) {
 		logger.info("Updating news with id {}", id);
-		News currentNews = newsService.searchNewsById(id);
+		News currentNews = newsService.findNewsById(id);
 		if (currentNews == null) {
 			logger.error("Unable to update. News with id " + id + " not found.");
 			return new ResponseEntity<News>(HttpStatus.NOT_FOUND);
@@ -112,7 +112,7 @@ public class NewsRestController {
 	@DeleteMapping("delete/{id}")
 	public ResponseEntity<Void> deleteNews(@PathVariable("id") long id) {
 		logger.info("Fetching & Deleting User with id {}", id);
-		News currentNews = newsService.searchNewsById(id);
+		News currentNews = newsService.findNewsById(id);
 		if (currentNews == null) {
 			logger.error("Unable to update. News with id {} not found.", id);
 			return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);

@@ -10,9 +10,10 @@ public interface BillDAO {
 
 	public Bill findBillById(long id);
 
-	public Bill updateBill(Bill bill);
+	public void updateBill(Bill bill);
 
 	public void deleteBill(long id);
 
-	public void saveBill(Bill bill);
+	public void addBill(Bill bill);
+
 }
