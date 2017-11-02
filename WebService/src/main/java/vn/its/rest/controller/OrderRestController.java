@@ -26,7 +26,7 @@ import vn.its.rest.service.OrderService;
 @RequestMapping("/api/don-dat-hang")
 public class OrderRestController {
 
-	public static final Logger logger = LoggerFactory.getLogger(UserRestController.class);
+	public static final Logger logger = LoggerFactory.getLogger(OrderRestController.class);
 
 	@Autowired
 	private OrderService orderService;

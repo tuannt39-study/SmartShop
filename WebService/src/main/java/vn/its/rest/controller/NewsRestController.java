@@ -23,10 +23,10 @@ import vn.its.rest.model.News;
 import vn.its.rest.service.NewsService;
 
 @RestController
-@RequestMapping("/api/news")
+@RequestMapping("/api/tin-tuc")
 public class NewsRestController {
 
-	public static final Logger logger = LoggerFactory.getLogger(UserRestController.class);
+	public static final Logger logger = LoggerFactory.getLogger(NewsRestController.class);
 
 	@Autowired
 	private NewsService newsService;
@@ -103,8 +103,8 @@ public class NewsRestController {
 		currentNews.setContent(news.getContent());
 		currentNews.setTitle(news.getTitle());
 		newsService.updateNews(currentNews);
-		ResponseEntity<News> newsUpdated = new ResponseEntity<News>(currentNews, HttpStatus.OK);
-		return newsUpdated;
+		ResponseEntity<News> updateNews = new ResponseEntity<News>(currentNews, HttpStatus.OK);
+		return updateNews;
 	}
 
 //	http://localhost:8080/WebService/api/news/delete/22
@@ -114,12 +114,12 @@ public class NewsRestController {
 		logger.info("Fetching & Deleting User with id {}", id);
 		News currentNews = newsService.findNewsById(id);
 		if (currentNews == null) {
-			logger.error("Unable to update. News with id {} not found.", id);
+			logger.error("Unable to delete. News with id {} not found.", id);
 			return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
 		}
 		newsService.deleteNews(id);
-		ResponseEntity<Void> NewsIsDeleted = new ResponseEntity<Void>(HttpStatus.OK);
-		return NewsIsDeleted;
+		ResponseEntity<Void> deleteNews = new ResponseEntity<Void>(HttpStatus.OK);
+		return deleteNews;
 	}
 
 }

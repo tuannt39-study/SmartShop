@@ -1,7 +1,9 @@
 package vn.its.rest.dao.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -15,65 +17,84 @@ public class CategoryDAOImpl implements CategoryDAO {
 	@Autowired
 	private SessionFactory sessionFactory;
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public List<Category> findAllCategory() {
-		// TODO Auto-generated method stub
-		return sessionFactory.getCurrentSession().createQuery("from Category").list();
+		List<Category> listCategory = new ArrayList<>();
+		String sql = "from Category";
+		Session session = sessionFactory.getCurrentSession();
+		listCategory = session.createQuery(sql, Category.class).list();
+		return listCategory;
+	}
+
+	@Override
+	public List<Category> findCategoryNews() {
+		List<Category> listCategoryNews = new ArrayList<>();
+		String sql = "from Category where note = 4";
+		Session session = sessionFactory.getCurrentSession();
+		listCategoryNews = session.createQuery(sql, Category.class).list();
+		return listCategoryNews;
+	}
+
+	@Override
+	public List<Category> findCategoryProducts() {
+		List<Category> listCategoryProducts = new ArrayList<>();
+		String sql = "from Category where note != 4";
+		Session session = sessionFactory.getCurrentSession();
+		listCategoryProducts = session.createQuery(sql, Category.class).list();
+		return listCategoryProducts;
 	}
 
 	@Override
 	public Category findCategoryById(long id) {
-		// TODO Auto-generated method stub
-		return sessionFactory.getCurrentSession().get(Category.class, id);
+		Session session = sessionFactory.getCurrentSession();
+		Category categoryById = session.get(Category.class, id);
+		if (categoryById == null) {
+			return null;
+		}
+		return categoryById;
 	}
 
 	@Override
-	public Category findCategoryByName(String name) {
-		// TODO Auto-generated method stub
-		return sessionFactory.getCurrentSession().get(Category.class, name);
-	}
-
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<Category> findCategoryNews() {
-		// TODO Auto-generated method stub
-		return sessionFactory.getCurrentSession().createQuery("from Category where note = 4").list();
-	}
-
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<Category> findCategoryProducts() {
-		// TODO Auto-generated method stub
-		return sessionFactory.getCurrentSession().createQuery("from Category where note != 4").list();
+	public List<Category> findCategoryByName(String name) {
+		List<Category> categoryByName = new ArrayList<>();
+		for (Category listCategoryByName : findAllCategory()) {
+			String nameTemp = listCategoryByName.getName();
+			if (nameTemp.contains(name)) {
+				categoryByName.add(listCategoryByName);
+				return categoryByName;
+			}
+		}
+		return null;
 	}
 
 	@Override
-	public Category updateCategory(Category category) {
-		// TODO Auto-generated method stub
-		sessionFactory.getCurrentSession().update(category);
-		return category;
+	public void addCategory(Category category) {
+		Session session = sessionFactory.getCurrentSession();
+		session.save(category);
+	}
+
+	@Override
+	public void updateCategory(Category category) {
+		Session session = sessionFactory.getCurrentSession();
+		session.update(category);
 	}
 
 	@Override
 	public void deleteCategory(long id) {
-		// TODO Auto-generated method stub
-		Category category = sessionFactory.getCurrentSession().load(Category.class, id);
-		if (category != null) {
-			this.sessionFactory.getCurrentSession().delete(category);
+		Session session = sessionFactory.getCurrentSession();
+		Category categoryById = session.get(Category.class, id);
+		if (findCategoryById(id) != null) {
+			session.delete(categoryById);
 		}
 	}
 
 	@Override
 	public boolean isCategoryExist(Category category) {
-		// TODO Auto-generated method stub
-		return findCategoryByName(category.getName()) != null;
-	}
-
-	@Override
-	public void saveCategory(Category category) {
-		// TODO Auto-generated method stub
-		sessionFactory.getCurrentSession().saveOrUpdate(category);
+		if (findCategoryByName(category.getName()) != null) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 }

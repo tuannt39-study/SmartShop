@@ -26,7 +26,7 @@ import vn.its.rest.service.ContactService;
 @RequestMapping("/api/lien-he")
 public class ContactRestController {
 	
-	public static final Logger logger = LoggerFactory.getLogger(UserRestController.class);
+	public static final Logger logger = LoggerFactory.getLogger(ContactRestController.class);
 	
 	@Autowired
 	private ContactService contactService;

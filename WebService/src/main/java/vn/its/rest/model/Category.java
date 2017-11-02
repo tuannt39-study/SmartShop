@@ -10,7 +10,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "CATEGORY")
 public class Category {
-	
+
 	@Id
 	@Column(name = "ID")
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -21,6 +21,17 @@ public class Category {
 
 	@Column(name = "NOTE")
 	private String note;
+
+	public Category() {
+		super();
+	}
+
+	public Category(long id, String name, String note) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.note = note;
+	}
 
 	public long getId() {
 		return id;
@@ -45,16 +56,5 @@ public class Category {
 	public void setNote(String note) {
 		this.note = note;
 	}
-
-	public Category() {
-		super();
-	}
-
-	public Category(long id, String name, String note) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.note = note;
-	}
-
+	
 }

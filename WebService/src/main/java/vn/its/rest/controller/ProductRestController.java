@@ -26,7 +26,8 @@ import vn.its.rest.service.ProductService;
 @RestController
 @RequestMapping("/api/san-pham")
 public class ProductRestController {
-	public static final Logger logger = LoggerFactory.getLogger(UserRestController.class);
+	
+	public static final Logger logger = LoggerFactory.getLogger(ProductRestController.class);
 
 	@Autowired
 	private ProductService productService;

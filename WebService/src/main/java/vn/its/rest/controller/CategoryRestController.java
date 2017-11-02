@@ -26,29 +26,10 @@ import vn.its.rest.service.CategoryService;
 @RequestMapping("/api/danh-muc")
 public class CategoryRestController {
 
-	public static final Logger logger = LoggerFactory.getLogger(UserRestController.class);
+	public static final Logger logger = LoggerFactory.getLogger(CategoryRestController.class);
 
 	@Autowired
 	private CategoryService categoryService;
-
-	@CrossOrigin
-	@PostMapping("/add")
-	public ResponseEntity<Void> createCategory(@RequestBody Category category, UriComponentsBuilder ucbuilder) {
-		logger.info("Add category : {}", category);
-
-		if (categoryService.isCategoryExist(category)) {
-			logger.error("Unable to add. A category with name " + category.getName() + " already exist.");
-			return new ResponseEntity<Void>(HttpStatus.CONFLICT);
-		} else {
-
-			categoryService.saveCategory(category);
-
-			HttpHeaders headers = new HttpHeaders();
-			headers.setLocation(ucbuilder.path("{id}").buildAndExpand(category.getId()).toUri());
-			ResponseEntity<Void> createCategory = new ResponseEntity<Void>(headers, HttpStatus.CREATED);
-			return createCategory;
-		}
-	}
 
 	// http://localhost:8080/WebService/api/danh-muc/all
 	@CrossOrigin
@@ -89,18 +70,32 @@ public class CategoryRestController {
 	}
 
 	@CrossOrigin
-	@DeleteMapping("/delete/{id}")
-	public ResponseEntity<Void> deleteCategory(@PathVariable("id") long id, @RequestBody Category category) {
-		logger.info("Fetching & Deleting category with id {} ", +id);
-		Category currentCategory = categoryService.findCategoryById(id);
-		if (currentCategory == null) {
-			logger.error("Unable to delete. Category with id " + id + " not found");
-			return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
+	@GetMapping("/{id}")
+	public ResponseEntity<Category> findCategory(@PathVariable("id") long id) {
+		logger.info("Fetching category with id {}", id);
+		Category findCategory = categoryService.findCategoryById(id);
+		if (findCategory == null) {
+			logger.error("Bill with id: " + id + " not found.");
+			return new ResponseEntity<Category>(HttpStatus.NO_CONTENT);
 		} else {
-			categoryService.deleteCategory(id);
-			;
-			ResponseEntity<Void> deleteCategory = new ResponseEntity<Void>(HttpStatus.OK);
-			return deleteCategory;
+			ResponseEntity<Category> category = new ResponseEntity<Category>(findCategory, HttpStatus.OK);
+			return category;
+		}
+	}
+
+	@CrossOrigin
+	@PostMapping("/add")
+	public ResponseEntity<Void> createCategory(@RequestBody Category category, UriComponentsBuilder ucbuilder) {
+		logger.info("Add category : {}", category);
+		if (categoryService.isCategoryExist(category)) {
+			logger.error("Unable to add. A category with name " + category.getName() + " already exist.");
+			return new ResponseEntity<Void>(HttpStatus.CONFLICT);
+		} else {
+			categoryService.addCategory(category);
+			HttpHeaders headers = new HttpHeaders();
+			headers.setLocation(ucbuilder.path("{id}").buildAndExpand(category.getId()).toUri());
+			ResponseEntity<Void> createCategory = new ResponseEntity<Void>(headers, HttpStatus.CREATED);
+			return createCategory;
 		}
 	}
 
@@ -122,16 +117,17 @@ public class CategoryRestController {
 	}
 
 	@CrossOrigin
-	@GetMapping("/{id}")
-	public ResponseEntity<Category> findCategory(@PathVariable("id") long id) {
-		logger.info("Fetching category with id {}", id);
-		Category findCategory = categoryService.findCategoryById(id);
-		if (findCategory == null) {
-			logger.error("Bill with id: " + id + " not found.");
-			return new ResponseEntity<Category>(HttpStatus.NO_CONTENT);
+	@DeleteMapping("/delete/{id}")
+	public ResponseEntity<Void> deleteCategory(@PathVariable("id") long id) {
+		logger.info("Fetching & Deleting category with id {} ", id);
+		Category currentCategory = categoryService.findCategoryById(id);
+		if (currentCategory == null) {
+			logger.error("Unable to delete. Category with id {} not found.", id);
+			return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
 		} else {
-			ResponseEntity<Category> category = new ResponseEntity<Category>(findCategory, HttpStatus.OK);
-			return category;
+			categoryService.deleteCategory(id);
+			ResponseEntity<Void> deleteCategory = new ResponseEntity<Void>(HttpStatus.OK);
+			return deleteCategory;
 		}
 	}
 }

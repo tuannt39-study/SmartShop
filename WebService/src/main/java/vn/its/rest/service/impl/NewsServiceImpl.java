@@ -49,7 +49,10 @@ public class NewsServiceImpl implements NewsService {
 
 	@Override
 	public boolean isNewsExist(News news) {
-		return newsDAO.isNewsExist(news);
+		if (newsDAO.isNewsExist(news) == true) {
+			return true;
+		}
+		return false;
 	}
 
 }

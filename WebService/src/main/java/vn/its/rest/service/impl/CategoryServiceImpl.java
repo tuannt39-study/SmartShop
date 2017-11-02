@@ -23,50 +23,50 @@ public class CategoryServiceImpl implements CategoryService{
 
 	@Override
 	public List<Category> findAllCategory() {
-		// TODO Auto-generated method stub
 		return categoryDAO.findAllCategory();
 	}
 
 	@Override
-	public Category findCategoryById(long id) {
-		// TODO Auto-generated method stub
-		return categoryDAO.findCategoryById(id);
-	}
-
-	@Override
-	public Category updateCategory(Category category) {
-		// TODO Auto-generated method stub
-		return categoryDAO.updateCategory(category);
-	}
-
-	@Override
-	public void deleteCategory(long id) {
-		// TODO Auto-generated method stub
-		categoryDAO.deleteCategory(id);
-	}
-
-	@Override
-	public boolean isCategoryExist(Category category) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public void saveCategory(Category category) {
-		// TODO Auto-generated method stub
-		categoryDAO.saveCategory(category);
-	}
-
-	@Override
 	public List<Category> findCategoryNews() {
-		// TODO Auto-generated method stub
 		return categoryDAO.findCategoryNews();
 	}
 
 	@Override
 	public List<Category> findCategoryProducts() {
-		// TODO Auto-generated method stub
 		return categoryDAO.findCategoryProducts();
+	}
+
+	@Override
+	public Category findCategoryById(long id) {
+		return categoryDAO.findCategoryById(id);
+	}
+
+	@Override
+	public void addCategory(Category category) {
+		categoryDAO.addCategory(category);
+	}
+
+	@Override
+	public List<Category> findCategoryByName(String name) {
+		return categoryDAO.findCategoryByName(name);
+	}
+
+	@Override
+	public void updateCategory(Category category) {
+		categoryDAO.updateCategory(category);
+	}
+
+	@Override
+	public void deleteCategory(long id) {
+		categoryDAO.deleteCategory(id);
+	}
+
+	@Override
+	public boolean isCategoryExist(Category category) {
+		if (categoryDAO.isCategoryExist(category) == true) {
+			return true;
+		}
+		return false;
 	}
 
 }

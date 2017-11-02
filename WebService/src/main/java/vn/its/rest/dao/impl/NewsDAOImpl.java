@@ -11,7 +11,7 @@ import vn.its.rest.dao.NewsDAO;
 import vn.its.rest.model.News;
 
 @Repository
-public class NewsDAPOImpl implements NewsDAO {
+public class NewsDAOImpl implements NewsDAO {
 
 	@Autowired
 	private SessionFactory sessionFactory;
@@ -71,15 +71,11 @@ public class NewsDAPOImpl implements NewsDAO {
 
 	@Override
 	public boolean isNewsExist(News news) {
-		String titleTemp = news.getTitle().toLowerCase();
-		List<News> newsTemp = new ArrayList<>();
-		String sql = "from News where LOWER(title)=?";
-		Session session = sessionFactory.getCurrentSession();
-		newsTemp = session.createQuery(sql, News.class).setParameter(0, titleTemp).list();
-		if (newsTemp.size() > 0) {
+		if (findNewsByTitlte(news.getTitle()) != null) {
 			return true;
+		} else {
+			return false;
 		}
-		return false;
 	}
 
 }
