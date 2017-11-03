@@ -1,6 +1,5 @@
 package vn.its.rest.controller;
 
-
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -32,6 +31,46 @@ public class ProductRestController {
 	@Autowired
 	private ProductService productService;
 	
+//	http://localhost:8080/WebService/api/san-pham/all
+	@CrossOrigin
+	@GetMapping("/all")
+	public ResponseEntity<List<Product>> findAllProduct(){
+		List<Product> findAllProduct = productService.findAllProduct();
+		if(findAllProduct.isEmpty()) {
+			return new ResponseEntity<List<Product>>(HttpStatus.NO_CONTENT);
+		} else {
+			ResponseEntity<List<Product>> list = new ResponseEntity<List<Product>>(findAllProduct, HttpStatus.OK);
+			return list;
+		}
+	}
+	
+//	http://localhost:8080/WebService/api/san-pham/3
+	@CrossOrigin
+	@GetMapping("/{id}")
+	public ResponseEntity<Product> findProduct(@PathVariable("id") long id){
+		logger.info("Fetching product with id {}", id);
+		Product findProduct = productService.findProductById(id);
+		if(findProduct == null) {
+			logger.error("Product with id: " + id + " not found.");
+			return new ResponseEntity<Product>(HttpStatus.NO_CONTENT);
+		} else {
+			ResponseEntity<Product> product = new ResponseEntity<Product>(findProduct, HttpStatus.OK);
+			return product;
+		}
+	}
+	
+//	http://localhost:8080/WebService/api/san-pham/add
+//	{
+//	    "name": "Thắt lưng da nam 5",
+//	    "price": 125000,
+//	    "image": "/assets/users/images/cart/that-lung-da-nam-cao-cap-tlg-hk203880.jpg",
+//	    "description": "Chất liệu da bền đẹp An toàn cho người dùng Kiểu dáng thời trang Dễ dàng phối trang phục",
+//	    "discount": "20",
+//	    "quantity": 10,
+//	    "views": 100,
+//	    "status": "NORMAL",
+//	    "categoryId": 6
+//	}
 	@CrossOrigin
 	@PostMapping("/add")
 	public ResponseEntity<Void> createProduct(@RequestBody Product product, UriComponentsBuilder ucbuilder){
@@ -48,38 +87,10 @@ public class ProductRestController {
 			return createProduct;
 		}
 	}
-	
-	//http://localhost:8080/WebService/san-pham/all
-	@CrossOrigin
-	@GetMapping("/all")
-	public ResponseEntity<List<Product>> findAllProduct(){
-		List<Product> findAllProduct = productService.findAllProduct();
-		if(findAllProduct.isEmpty()) {
-			return new ResponseEntity<List<Product>>(HttpStatus.NO_CONTENT);
-		} else {
-			ResponseEntity<List<Product>> list = new ResponseEntity<List<Product>>(findAllProduct, HttpStatus.OK);
-			return list;
-		}
-	}
-	
-	@CrossOrigin
-	@DeleteMapping("/delete/{id}")
-	public  ResponseEntity<Void> deleteProduct(@PathVariable("id") long id, @RequestBody Product product){
-		logger.info("Fetching & Deleting product with id {} ", + id);
-		Product currentProduct = productService.findProductById(id);
-		if (currentProduct == null) {
-			logger.error("Unable to delete. Product with id " + id + " not found");
-			return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
-		} else {
-			productService.deleteProduct(id);;
-			ResponseEntity<Void> deleteProduct = new ResponseEntity<Void>(HttpStatus.OK);
-			return deleteProduct;
-		}
-	}
-	
-//	http://localhost:8083/WebService/api/san-pham/update/3
+
+//	http://localhost:8080/WebService/api/san-pham/update/5
 //	{
-//	    "name": " 33 Thắt lưng da nam cao cấp TLG HK203880-24",
+//	    "name": "Thắt lưng da nam 55",
 //	    "price": 125000,
 //	    "image": "/assets/users/images/cart/that-lung-da-nam-cao-cap-tlg-hk203880.jpg",
 //	    "description": "Chất liệu da bền đẹp An toàn cho người dùng Kiểu dáng thời trang Dễ dàng phối trang phục",
@@ -112,17 +123,19 @@ public class ProductRestController {
 		}
 	}
 	
+//	http://localhost:8080/WebService/api/san-pham/delete/4
 	@CrossOrigin
-	@GetMapping("/{id}")
-	public ResponseEntity<Product> findProduct(@PathVariable("id") long id){
-		logger.info("Fetching product with id {}", id);
-		Product findProduct = productService.findProductById(id);
-		if(findProduct == null) {
-			logger.error("Product with id: " + id + " not found.");
-			return new ResponseEntity<Product>(HttpStatus.NO_CONTENT);
+	@DeleteMapping("/delete/{id}")
+	public  ResponseEntity<Void> deleteProduct(@PathVariable("id") long id){
+		logger.info("Fetching & Deleting Product with id {} ", id);
+		Product currentProduct = productService.findProductById(id);
+		if (currentProduct == null) {
+			logger.error("Unable to delete. Product with id {} not found.", id);
+			return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
 		} else {
-			ResponseEntity<Product> product = new ResponseEntity<Product>(findProduct, HttpStatus.OK);
-			return product;
+			productService.deleteProduct(id);
+			ResponseEntity<Void> deleteProduct = new ResponseEntity<Void>(HttpStatus.OK);
+			return deleteProduct;
 		}
 	}
 }
