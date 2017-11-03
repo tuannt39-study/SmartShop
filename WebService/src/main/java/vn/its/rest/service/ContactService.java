@@ -10,11 +10,13 @@ public interface ContactService {
 
 	public Contact findContactById(long id);
 
-	public Contact updateContact(Contact contact);
+	public List<Contact> findContactByName(String name);
+
+	public void addContact(Contact contact);
+
+	public void updateContact(Contact contact);
 
 	public void deleteContact(long id);
 
 	public boolean isContactExist(Contact contact);
-
-	public void saveContact(Contact contact);
 }

@@ -1,7 +1,9 @@
 package vn.its.rest.dao.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -15,51 +17,66 @@ public class ContactDAOImpl implements ContactDAO{
 	@Autowired
 	private SessionFactory sessionFactory; 
 	
-	@SuppressWarnings("unchecked")
 	@Override
 	public List<Contact> findAllContact() {
-		// TODO Auto-generated method stub
-		return sessionFactory.getCurrentSession().createQuery("from Contact").list();
+		List<Contact> listContact = new ArrayList<>();
+		String sql = "from Contact";
+		Session session = sessionFactory.getCurrentSession();
+		listContact = session.createQuery(sql, Contact.class).list();
+		return listContact;
 	}
 
 	@Override
 	public Contact findContactById(long id) {
-		// TODO Auto-generated method stub
-		return sessionFactory.getCurrentSession().get(Contact.class, id);
+		Session session = sessionFactory.getCurrentSession();
+		Contact contactById = session.get(Contact.class, id);
+		if (contactById == null) {
+			return null;
+		}
+		return contactById;
 	}
 
 	@Override
-	public Contact findContactByName(String name) {
-		// TODO Auto-generated method stub
-		return sessionFactory.getCurrentSession().get(Contact.class, name);
+	public List<Contact> findContactByName(String name) {
+		List<Contact> contactByName = new ArrayList<>();
+		for (Contact listContactByName : findAllContact()) {
+			String nameTemp = listContactByName.getName();
+			if (nameTemp.contains(name)) {
+				contactByName.add(listContactByName);
+				return contactByName;
+			}
+		}
+		return null;
 	}
 
 	@Override
-	public Contact updateContact(Contact contact) {
-		// TODO Auto-generated method stub
-		sessionFactory.getCurrentSession().update(contact);
-		return contact;
+	public void addContact(Contact contact) {
+		Session session = sessionFactory.getCurrentSession();
+		session.save(contact);
+	}
+
+	@Override
+	public void updateContact(Contact contact) {
+		Session session = sessionFactory.getCurrentSession();
+		session.update(contact);
 	}
 
 	@Override
 	public void deleteContact(long id) {
-		// TODO Auto-generated method stub
-		Contact contact = sessionFactory.getCurrentSession().load(Contact.class, id);
-		if (contact != null) {
-			this.sessionFactory.getCurrentSession().delete(contact);
+		Session session = sessionFactory.getCurrentSession();
+		Contact contactById = session.get(Contact.class, id);
+		if (findContactById(id) != null) {
+			session.delete(contactById);
 		}
 	}
 
 	@Override
 	public boolean isContactExist(Contact contact) {
-		// TODO Auto-generated method stub
-		return findContactByName(contact.getName()) != null;
-	}
-
-	@Override
-	public void saveContact(Contact contact) {
-		// TODO Auto-generated method stub
-		sessionFactory.getCurrentSession().saveOrUpdate(contact);
+		if (findContactByName(contact.getName()) != null) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 }

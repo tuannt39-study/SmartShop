@@ -16,10 +16,6 @@ public class CategoryServiceImpl implements CategoryService{
 	
 	@Autowired
 	private CategoryDAO categoryDAO;
-	
-	public void setCategoryDAO(CategoryDAO categoryDAO) {
-		this.categoryDAO = categoryDAO;
-	}
 
 	@Override
 	public List<Category> findAllCategory() {

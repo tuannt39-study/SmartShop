@@ -31,7 +31,7 @@ public class CategoryRestController {
 	@Autowired
 	private CategoryService categoryService;
 
-	// http://localhost:8080/WebService/api/danh-muc/all
+//	http://localhost:8080/WebService/api/danh-muc/all
 	@CrossOrigin
 	@GetMapping("/all")
 	public ResponseEntity<List<Category>> findAllCategory() {
@@ -44,6 +44,7 @@ public class CategoryRestController {
 		}
 	}
 	
+//	http://localhost:8080/WebService/api/danh-muc/news/all
 	@CrossOrigin
 	@GetMapping("/news/all")
 	public ResponseEntity<List<Category>> findCategoryNews() {
@@ -55,8 +56,8 @@ public class CategoryRestController {
 			return list;
 		}
 	}
-	
-//	http://localhost:8083/WebService/api/danh-muc/product/all
+
+//	http://localhost:8080/WebService/api/danh-muc/product/all
 	@CrossOrigin
 	@GetMapping("/product/all")
 	public ResponseEntity<List<Category>> findCategoryProducts() {
@@ -69,6 +70,7 @@ public class CategoryRestController {
 		}
 	}
 
+//	http://localhost:8080/WebService/api/danh-muc/19
 	@CrossOrigin
 	@GetMapping("/{id}")
 	public ResponseEntity<Category> findCategory(@PathVariable("id") long id) {
@@ -83,6 +85,11 @@ public class CategoryRestController {
 		}
 	}
 
+//	http://localhost:8080/WebService/api/danh-muc/add
+//	{
+//	    "name": "Bộ sưu tập 99",
+//	    "note": "4"
+//	}
 	@CrossOrigin
 	@PostMapping("/add")
 	public ResponseEntity<Void> createCategory(@RequestBody Category category, UriComponentsBuilder ucbuilder) {
@@ -99,6 +106,11 @@ public class CategoryRestController {
 		}
 	}
 
+//	http://localhost:8080/WebService/api/danh-muc/update/18
+//	{
+//	    "name": "Bộ sưu tập 99",
+//	    "note": "4"
+//	}
 	@CrossOrigin
 	@PutMapping("/update/{id}")
 	public ResponseEntity<Category> updateCategory(@PathVariable("id") long id, @RequestBody Category category) {
@@ -116,6 +128,7 @@ public class CategoryRestController {
 		}
 	}
 
+//	http://localhost:8080/WebService/api/danh-muc/delete/16
 	@CrossOrigin
 	@DeleteMapping("/delete/{id}")
 	public ResponseEntity<Void> deleteCategory(@PathVariable("id") long id) {

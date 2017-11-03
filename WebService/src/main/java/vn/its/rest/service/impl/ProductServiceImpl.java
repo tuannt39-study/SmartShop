@@ -16,10 +16,6 @@ public class ProductServiceImpl implements ProductService {
 	
 	@Autowired
 	private ProductDAO productDAO;
-	
-	public void setProductDAO(ProductDAO productDAO) {
-		this.productDAO = productDAO;
-	}
 
 	@Override
 	public List<Product> findAllProduct() {

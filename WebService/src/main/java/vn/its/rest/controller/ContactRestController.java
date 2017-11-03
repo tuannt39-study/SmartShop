@@ -30,27 +30,8 @@ public class ContactRestController {
 	
 	@Autowired
 	private ContactService contactService;
-	
-	@CrossOrigin
-	@PostMapping("/add")
-	public ResponseEntity<Void> createContact(@RequestBody Contact contact, UriComponentsBuilder ucbuilder) {
-		logger.info("Add contact : {}", contact);
 
-		if (contactService.isContactExist(contact)) {
-			logger.error("Unable to add. A contact with name " + contact.getName() + " already exist.");
-			return new ResponseEntity<Void>(HttpStatus.CONFLICT);
-		} else {
-
-			contactService.saveContact(contact);
-
-			HttpHeaders headers = new HttpHeaders();
-			headers.setLocation(ucbuilder.path("{id}").buildAndExpand(contact.getId()).toUri());
-			ResponseEntity<Void> createContact = new ResponseEntity<Void>(headers, HttpStatus.CREATED);
-			return createContact;
-		}
-	}
-
-	// http://localhost:8083/WebService/api/lien-he/all
+//	http://localhost:8080/WebService/api/lien-he/all
 	@CrossOrigin
 	@GetMapping("/all")
 	public ResponseEntity<List<Contact>> findAllContact() {
@@ -63,21 +44,53 @@ public class ContactRestController {
 		}
 	}
 
+//	http://localhost:8080/WebService/api/lien-he/3
 	@CrossOrigin
-	@DeleteMapping("/delete/{id}")
-	public ResponseEntity<Void> deleteContact(@PathVariable("id") long id) {
-		logger.info("Fetching & Deleting contact with id {} ", id);
-		Contact currentContact = contactService.findContactById(id);
-		if (currentContact == null) {
-			logger.error("Unable to delete. Contact with id {} not found.", id);
-			return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
+	@GetMapping("/{id}")
+	public ResponseEntity<Contact> findContact(@PathVariable("id") long id) {
+		logger.info("Fetching contact with id {}", id);
+		Contact findContact = contactService.findContactById(id);
+		if (findContact== null) {
+			logger.error("Contact with id: " + id + " not found.");
+			return new ResponseEntity<Contact>(HttpStatus.NO_CONTENT);
 		} else {
-			contactService.deleteContact(id);
-			ResponseEntity<Void> deleteContact = new ResponseEntity<Void>(HttpStatus.OK);
-			return deleteContact;
+			ResponseEntity<Contact> contact = new ResponseEntity<Contact>(findContact, HttpStatus.OK);
+			return contact;
+		}
+	}
+	
+//	http://localhost:8080/WebService/api/lien-he/add
+//	{
+//	    "name": "Công ty ITSOL 7",
+//	    "email": "itsol@gmail.com",
+//	    "phone": "09563856385",
+//	    "fax": "09563856385",
+//	    "address": "Tòa nhà 3A, 82 Duy Tân, Cầu Giấy, Hà Nội"
+//	}
+	@CrossOrigin
+	@PostMapping("/add")
+	public ResponseEntity<Void> createContact(@RequestBody Contact contact, UriComponentsBuilder ucbuilder) {
+		logger.info("Add contact : {}", contact);
+		if (contactService.isContactExist(contact)) {
+			logger.error("Unable to add. A contact with name " + contact.getName() + " already exist.");
+			return new ResponseEntity<Void>(HttpStatus.CONFLICT);
+		} else {
+			contactService.addContact(contact);
+			HttpHeaders headers = new HttpHeaders();
+			headers.setLocation(ucbuilder.path("{id}").buildAndExpand(contact.getId()).toUri());
+			ResponseEntity<Void> createContact = new ResponseEntity<Void>(headers, HttpStatus.CREATED);
+			return createContact;
 		}
 	}
 
+//	http://localhost:8080/WebService/api/lien-he/update/3
+//	{
+//	    "name": "Công ty ITSOL 3",
+//	    "email": "itsol@gmail.com",
+//	    "phone": "09563856385",
+//	    "fax": "09563856385",
+//	    "address": "Tòa nhà 3A, 82 Duy Tân, Cầu Giấy, Hà Nội"
+//	}
 	@CrossOrigin
 	@PutMapping("/update/{id}")
 	public ResponseEntity<Contact> updateContact(@PathVariable("id") long id, @RequestBody Contact contact) {
@@ -91,7 +104,6 @@ public class ContactRestController {
 			currentContact.setEmail(contact.getEmail());
 			currentContact.setPhone(contact.getPhone());
 			currentContact.setFax(contact.getFax());
-			currentContact.setNote(contact.getNote());
 			currentContact.setAddress(contact.getAddress());
 			contactService.updateContact(currentContact);
 			ResponseEntity<Contact> updateContact = new ResponseEntity<Contact>(currentContact, HttpStatus.OK);
@@ -99,17 +111,19 @@ public class ContactRestController {
 		}
 	}
 
+//	http://localhost:8080/WebService/api/lien-he/delete/5
 	@CrossOrigin
-	@GetMapping("/{id}")
-	public ResponseEntity<Contact> findContact(@PathVariable("id") long id) {
-		logger.info("Fetching contact with id {}", id);
-		Contact findContact = contactService.findContactById(id);
-		if (findContact== null) {
-			logger.error("Bill with id: " + id + " not found.");
-			return new ResponseEntity<Contact>(HttpStatus.NO_CONTENT);
+	@DeleteMapping("/delete/{id}")
+	public ResponseEntity<Void> deleteContact(@PathVariable("id") long id) {
+		logger.info("Fetching & Deleting contact with id {} ", id);
+		Contact currentContact = contactService.findContactById(id);
+		if (currentContact == null) {
+			logger.error("Unable to delete. Contact with id {} not found.", id);
+			return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
 		} else {
-			ResponseEntity<Contact> contact = new ResponseEntity<Contact>(findContact, HttpStatus.OK);
-			return contact;
+			contactService.deleteContact(id);
+			ResponseEntity<Void> deleteContact = new ResponseEntity<Void>(HttpStatus.OK);
+			return deleteContact;
 		}
 	}
 }

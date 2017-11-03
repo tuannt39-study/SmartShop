@@ -16,41 +16,43 @@ public class ContactServiceImpl implements ContactService {
 	
 	@Autowired
 	private ContactDAO contactDAO;
-	
+
 	@Override
 	public List<Contact> findAllContact() {
-		// TODO Auto-generated method stub
 		return contactDAO.findAllContact();
 	}
 
 	@Override
 	public Contact findContactById(long id) {
-		// TODO Auto-generated method stub
 		return contactDAO.findContactById(id);
 	}
 
 	@Override
-	public Contact updateContact(Contact contact) {
-		// TODO Auto-generated method stub
-		return contactDAO.updateContact(contact);
+	public List<Contact> findContactByName(String name) {
+		return contactDAO.findContactByName(name);
+	}
+
+	@Override
+	public void addContact(Contact contact) {
+		contactDAO.addContact(contact);
+	}
+
+	@Override
+	public void updateContact(Contact contact) {
+		contactDAO.updateContact(contact);
 	}
 
 	@Override
 	public void deleteContact(long id) {
-		// TODO Auto-generated method stub
 		contactDAO.deleteContact(id);
 	}
 
 	@Override
 	public boolean isContactExist(Contact contact) {
-		// TODO Auto-generated method stub
+		if (contactDAO.isContactExist(contact) == true) {
+			return true;
+		}
 		return false;
-	}
-
-	@Override
-	public void saveContact(Contact contact) {
-		// TODO Auto-generated method stub
-		contactDAO.saveContact(contact);
 	}
 
 }

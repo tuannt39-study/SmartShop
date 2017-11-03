@@ -10,13 +10,13 @@ public interface ContactDAO {
 
 	public Contact findContactById(long id);
 
-	public Contact findContactByName(String name);
+	public List<Contact> findContactByName(String name);
 
-	public Contact updateContact(Contact contact);
+	public void addContact(Contact contact);
+
+	public void updateContact(Contact contact);
 
 	public void deleteContact(long id);
 
 	public boolean isContactExist(Contact contact);
-
-	public void saveContact(Contact contact);
 }
