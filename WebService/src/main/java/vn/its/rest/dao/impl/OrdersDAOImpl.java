@@ -8,17 +8,17 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import vn.its.rest.dao.OrderDAO;
+import vn.its.rest.dao.OrdersDAO;
 import vn.its.rest.model.Orders;
 
 @Repository
-public class OrderDAOImpl implements OrderDAO {
+public class OrdersDAOImpl implements OrdersDAO {
 	
 	@Autowired
-	private SessionFactory sessionFactory;
-	
+	private SessionFactory sessionFactory; 
+
 	@Override
-	public List<Orders> findAllOrder() {
+	public List<Orders> findAllOrders() {
 		List<Orders> listOrders = new ArrayList<>();
 		String sql = "from Orders";
 		Session session = sessionFactory.getCurrentSession();
@@ -27,34 +27,33 @@ public class OrderDAOImpl implements OrderDAO {
 	}
 
 	@Override
-	public Orders findOrderById(long id) {
+	public Orders findOrdersById(long id) {
 		Session session = sessionFactory.getCurrentSession();
-		Orders orderById = session.get(Orders.class, id);
-		if (orderById == null) {
+		Orders OrdersById = session.get(Orders.class, id);
+		if (OrdersById == null) {
 			return null;
 		}
-		return orderById;
+		return OrdersById;
 	}
 
 	@Override
-	public void addOrder(Orders order) {
+	public void addOrders(Orders orders) {
 		Session session = sessionFactory.getCurrentSession();
-		session.save(order);
+		session.save(orders);
 	}
 
 	@Override
-	public void updateOrder(Orders order) {
+	public void updateOrders(Orders orders) {
 		Session session = sessionFactory.getCurrentSession();
-		session.update(order);
+		session.update(orders);
 	}
 
 	@Override
-	public void deleteOrder(long id) {
+	public void deleteOrders(long id) {
 		Session session = sessionFactory.getCurrentSession();
-		Orders orderById = session.get(Orders.class, id);
-		if (findOrderById(id) != null) {
-			session.delete(orderById);
+		Orders OrdersById = session.get(Orders.class, id);
+		if (findOrdersById(id) != null) {
+			session.delete(OrdersById);
 		}
 	}
-
 }

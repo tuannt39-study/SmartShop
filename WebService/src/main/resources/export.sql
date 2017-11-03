@@ -106,7 +106,7 @@
 	"ADDRESS" VARCHAR2(50 BYTE), 
 	"NOTE" NVARCHAR2(500), 
 	"AMOUNT" NUMBER, 
-	"USER_ID" NUMBER, 
+	"USER_ID" NUMBER DEFAULT 0, 
 	"CREATED_TIME" TIMESTAMP (6) DEFAULT CURRENT_TIMESTAMP, 
 	"STATUS" VARCHAR2(10 BYTE) DEFAULT 'WAITING'
    ) SEGMENT CREATION IMMEDIATE 
@@ -276,9 +276,9 @@ Insert into SMARTSHOP.NEW (ID,TITLE,BRIEF,CONTENT,CATEGORY_ID,USERS_ID,CREATED_T
 Insert into SMARTSHOP.NEW (ID,TITLE,BRIEF,CONTENT,CATEGORY_ID,USERS_ID,CREATED_TIME) values (4,'Muôn kiểu áp dụng phong cách quân đội hấp dẫn','Không chỉ khắc họa hình ảnh cá tính, bụi bặm, những chiếc áo khoác form cứng cáp màu xanh quân đội còn có thể tạo nên style gợi cảm.','Sau một thời gian dài bị nhấn chìm bởi các xu hướng mũ fedora, mũ snapback, mũ nồi xinh xắn đánh dấu sự trở lại của mình ở mùa mốt thu đông 2017. Góp phần khiến mẫu phụ kiện cổ điển trở nên thu hút hơn là sự lăng xê nhiệt tình của nhiều người đẹp Việt.',15,3,to_timestamp('03-NOV-17 10.31.11.940000000 AM','DD-MON-RR HH.MI.SSXFF AM'));
 REM INSERTING into SMARTSHOP.ORDERS
 SET DEFINE OFF;
-Insert into SMARTSHOP.ORDERS (ID,NAME,PHONE,EMAIL,ADDRESS,NOTE,AMOUNT,USER_ID,CREATED_TIME,STATUS) values (1,'Lê Minh Dương','04857895749','duongml@gmail.com','Hà Nội','Chuyển nhanh em nhé',1288000,null,to_timestamp('03-NOV-17 10.29.26.626000000 AM','DD-MON-RR HH.MI.SSXFF AM'),'WAITING');
-Insert into SMARTSHOP.ORDERS (ID,NAME,PHONE,EMAIL,ADDRESS,NOTE,AMOUNT,USER_ID,CREATED_TIME,STATUS) values (2,'Trần Trung Đức','03485789453543','ductr@gmail.com','HÀ Nội','Chuyển thứ 3 tuần này nhé',1304000,null,to_timestamp('03-NOV-17 10.29.26.632000000 AM','DD-MON-RR HH.MI.SSXFF AM'),'WAITING');
-Insert into SMARTSHOP.ORDERS (ID,NAME,PHONE,EMAIL,ADDRESS,NOTE,AMOUNT,USER_ID,CREATED_TIME,STATUS) values (3,'Nguyễn Linh','05736979','linhhg@gmail.com','Hà Nội','Chuyển nhanh đê',936000,null,to_timestamp('03-NOV-17 10.29.26.648000000 AM','DD-MON-RR HH.MI.SSXFF AM'),'WAITING');
+Insert into SMARTSHOP.ORDERS (ID,NAME,PHONE,EMAIL,ADDRESS,NOTE,AMOUNT,USER_ID,CREATED_TIME,STATUS) values (1,'Lê Minh Dương','04857895749','duongml@gmail.com','Hà Nội','Chuyển nhanh em nhé',1288000,0,to_timestamp('03-NOV-17 10.29.26.626000000 AM','DD-MON-RR HH.MI.SSXFF AM'),'WAITING');
+Insert into SMARTSHOP.ORDERS (ID,NAME,PHONE,EMAIL,ADDRESS,NOTE,AMOUNT,USER_ID,CREATED_TIME,STATUS) values (2,'Trần Trung Đức','03485789453543','ductr@gmail.com','HÀ Nội','Chuyển thứ 3 tuần này nhé',1304000,0,to_timestamp('03-NOV-17 10.29.26.632000000 AM','DD-MON-RR HH.MI.SSXFF AM'),'WAITING');
+Insert into SMARTSHOP.ORDERS (ID,NAME,PHONE,EMAIL,ADDRESS,NOTE,AMOUNT,USER_ID,CREATED_TIME,STATUS) values (3,'Nguyễn Linh','05736979','linhhg@gmail.com','Hà Nội','Chuyển nhanh đê',936000,0,to_timestamp('03-NOV-17 10.29.26.648000000 AM','DD-MON-RR HH.MI.SSXFF AM'),'WAITING');
 REM INSERTING into SMARTSHOP.PRODUCT
 SET DEFINE OFF;
 Insert into SMARTSHOP.PRODUCT (ID,NAME,PRICE,IMAGE,DESCRIPTION,DISCOUNT,QUANTITY,VIEWS,STATUS,CATEGORY_ID) values (1,'ÁO KHOÁC KAKI BOMBER OCEAN NAM (ĐEN)  ',230000,'/assets/users/images/cart/ao-khoac-kaki-bomber-ocean-nam-den.jpg','Thiết kế tinh tế với cổ bẻ, tay dài phối bo tay sành điệu, cá tính, form dáng khỏe khoắn cho bạn phong cách trẻ trung, chỉnh chu và không kém phần lịch lãm','20',10,100,'NORMAL',4);
