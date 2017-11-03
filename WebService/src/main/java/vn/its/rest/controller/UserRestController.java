@@ -32,13 +32,43 @@ public class UserRestController {
 	@Autowired
 	private UserService userService;
 
-//	http://localhost:8083/WebService/api/tai-khoan/add
+//	http://localhost:8080/WebService/api/tai-khoan/all
+	@CrossOrigin
+	@GetMapping("/all")
+	public ResponseEntity<List<User>> getAllUsers(){
+		List<User> getAllUsers = userService.getAllUsers();
+		if (getAllUsers.isEmpty()) {
+			return new ResponseEntity<List<User>>(HttpStatus.NO_CONTENT);
+		} else {
+			ResponseEntity<List<User>> list = new ResponseEntity<List<User>>(getAllUsers, HttpStatus.OK);
+			return list;
+		}
+	}
+
+//	http://localhost:8080/WebService/api/tai-khoan/5
+	@CrossOrigin
+	@GetMapping("/{id}")
+	public ResponseEntity<User> getUser(@PathVariable("id") long id){
+		logger.info("Fetching user with id {}", id);
+		User getUser = userService.findById(id);
+		if (getUser == null) {
+			logger.error("User with id {} not found.", id);
+			return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
+		} else {
+			ResponseEntity<User> user = new ResponseEntity<User>(getUser, HttpStatus.OK);
+			return user;
+		}
+	}
+
+//	http://localhost:8080/WebService/api/tai-khoan/add
 //	{
-//	    "email": "duong10@gmail.com",
-//	    "username": "duong10",
-//	    "fullname": "Mặt Dương",
-//	    "phone": "0963349512",
+//	    "email": "thinh@gmail.com",
+//	    "username": "thinh 7",
+//	    "fullname": "Nguyễn Thịnh",
+//	    "phone": "0963349515",
 //	    "address": "Hà Nội",
+//	    "avartar": "/assets/layouts/layout/img/avartar.png",
+//	    "createdTime": "03-11-2017 03:29:01",
 //	    "status": "ACTIVE",
 //	    "password": "1234"
 //	}
@@ -60,36 +90,18 @@ public class UserRestController {
 		}
 	}
 
-//	http://localhost:8083/WebService/api/tai-khoan/all
-	@CrossOrigin
-	@GetMapping("/all")
-	public ResponseEntity<List<User>> getAllUsers(){
-		List<User> getAllUsers = userService.getAllUsers();
-		if (getAllUsers.isEmpty()) {
-			return new ResponseEntity<List<User>>(HttpStatus.NO_CONTENT);
-		} else {
-			ResponseEntity<List<User>> list = new ResponseEntity<List<User>>(getAllUsers, HttpStatus.OK);
-			return list;
-		}
-	}
-
-//	http://localhost:8083/WebService/api/tai-khoan/delete/6
-	@CrossOrigin
-	@DeleteMapping("/delete/{id}")
-	public ResponseEntity<Void> deleteUser(@PathVariable("id") long id){
-		logger.info("Fetching & Deleting User with id {}", id);
-		User currentUser = userService.findById(id);
-		if (currentUser == null) {
-			logger.error("Unable to delete. User with id {} not found.", id);
-			return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
-		} else {
-			userService.deleteUser(id);
-			ResponseEntity<Void> deleteUser = new ResponseEntity<Void>(HttpStatus.OK);
-			return deleteUser;
-		}
-	}
-
-//	http://localhost:8083/WebService/api/tai-khoan/update/25
+//	http://localhost:8080/WebService/api/tai-khoan/update/7
+//	{
+//	    "email": "thinh@gmail.com",
+//	    "username": "thinh 71",
+//	    "fullname": "Nguyễn Thịnh",
+//	    "phone": "0963349515",
+//	    "address": "Hà Nội",
+//	    "avartar": "/assets/layouts/layout/img/avartar.png",
+//	    "createdTime": "03-11-2017 03:29:01",
+//	    "status": "ACTIVE",
+//	    "password": "1234"
+//	}
 	@CrossOrigin
 	@PutMapping("/update/{id}")
 	public ResponseEntity<User> updateUser(@PathVariable("id") long id, @RequestBody User user) {
@@ -114,18 +126,19 @@ public class UserRestController {
 		}
 	}
 
-//	http://localhost:8083/WebService/api/tai-khoan/1
+//	http://localhost:8080/WebService/api/tai-khoan/delete/6
 	@CrossOrigin
-	@GetMapping("/{id}")
-	public ResponseEntity<User> getUser(@PathVariable("id") long id){
-		logger.info("Fetching user with id {}", id);
-		User getUser = userService.findById(id);
-		if (getUser == null) {
-			logger.error("User with id {} not found.", id);
-			return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
+	@DeleteMapping("/delete/{id}")
+	public ResponseEntity<Void> deleteUser(@PathVariable("id") long id){
+		logger.info("Fetching & Deleting User with id {}", id);
+		User currentUser = userService.findById(id);
+		if (currentUser == null) {
+			logger.error("Unable to delete. User with id {} not found.", id);
+			return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
 		} else {
-			ResponseEntity<User> user = new ResponseEntity<User>(getUser, HttpStatus.OK);
-			return user;
+			userService.deleteUser(id);
+			ResponseEntity<Void> deleteUser = new ResponseEntity<Void>(HttpStatus.OK);
+			return deleteUser;
 		}
 	}
 
