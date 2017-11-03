@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import vn.its.rest.model.Order;
+import vn.its.rest.model.Orders;
 import vn.its.rest.service.OrderService;
 
 @RestController
@@ -32,37 +32,69 @@ public class OrderRestController {
 	private OrderService orderService;
 	
 	@CrossOrigin
-	@PostMapping("/add")
-	public ResponseEntity<Void> createOrder(@RequestBody Order order, UriComponentsBuilder ucbuilder){
-		logger.info("Add order : {}", order);
-		
-			orderService.saveOrder(order);
-			
-			HttpHeaders headers = new HttpHeaders();
-			headers.setLocation(ucbuilder.path("{id}").buildAndExpand(order.getId()).toUri());
-			ResponseEntity<Void> createOrder = new ResponseEntity<Void>(headers, HttpStatus.CREATED);
-			return createOrder;
-		
-	}
-	
-	//http://localhost:8080/WebService/api/don-dat-hang/all
-	@CrossOrigin
 	@GetMapping("/all")
-	public ResponseEntity<List<Order>> findAllOrder(){
-		List<Order> findAllOrder = orderService.findAllOrder();
-		if(findAllOrder.isEmpty()) {
-			return new ResponseEntity<List<Order>>(HttpStatus.NO_CONTENT);
+	public ResponseEntity<List<Orders>> findAllOrder(){
+		List<Orders> findAllOrders = orderService.findAllOrder();
+		if (findAllOrders.isEmpty()) {
+			return new ResponseEntity<List<Orders>>(HttpStatus.NO_CONTENT);
 		} else {
-			ResponseEntity<List<Order>> list = new ResponseEntity<List<Order>>(findAllOrder, HttpStatus.OK);
+			ResponseEntity<List<Orders>> list = new ResponseEntity<List<Orders>>(findAllOrders, HttpStatus.OK);
 			return list;
 		}
 	}
 	
 	@CrossOrigin
+	@GetMapping("/{id}")
+	public ResponseEntity<Orders> findBill(@PathVariable("id") long id){
+		logger.info("Fetching order with id {}", id);
+		Orders findOrder = orderService.findOrderById(id);
+		if(findOrder == null) {
+			logger.error("Order with id: " + id + " not found.");
+			return new ResponseEntity<Orders>(HttpStatus.NO_CONTENT);
+		} else {
+			ResponseEntity<Orders> order = new ResponseEntity<Orders>(findOrder, HttpStatus.OK);
+			return order;
+		}
+	}
+	
+	@CrossOrigin
+	@PostMapping("/add")
+	public ResponseEntity<Void> createOrder(@RequestBody Orders order, UriComponentsBuilder ucbuilder){
+		logger.info("Add order : {}", order);
+			orderService.addOrder(order);
+			HttpHeaders headers = new HttpHeaders();
+			headers.setLocation(ucbuilder.path("{id}").buildAndExpand(order.getId()).toUri());
+			ResponseEntity<Void> createOrder = new ResponseEntity<Void>(headers, HttpStatus.CREATED);
+			return createOrder;
+	}
+	
+	@CrossOrigin
+	@PutMapping("/update/{id}")
+	public ResponseEntity<Orders> updateOrder(@PathVariable("id") long id, @RequestBody Orders order){
+		logger.info("Update order with id {}", id);
+		Orders currentOrder = orderService.findOrderById(id);
+		if (currentOrder == null) {
+			logger.error("Unable to update. Order with id " + id + " not found.");
+			return new ResponseEntity<Orders>(HttpStatus.NOT_FOUND);
+		} else {
+			currentOrder.setName(order.getName());
+			currentOrder.setPhone(order.getPhone());
+			currentOrder.setEmail(order.getEmail());
+			currentOrder.setAddress(order.getAddress());
+			currentOrder.setNote(order.getNote());
+			currentOrder.setAmount(order.getAmount());
+			currentOrder.setStatus(order.getStatus());
+			orderService.updateOrder(currentOrder);
+			ResponseEntity<Orders> updateOrder = new ResponseEntity<Orders>(currentOrder, HttpStatus.OK);
+			return updateOrder;
+		}
+	}
+	
+	@CrossOrigin
 	@DeleteMapping("/delete/{id}")
-	public  ResponseEntity<Void> deleteBill(@PathVariable("id") long id, @RequestBody Order order){
+	public  ResponseEntity<Void> deleteBill(@PathVariable("id") long id, @RequestBody Orders order){
 		logger.info("Fetching & Deleting order with id {} ", + id);
-		Order currentOrder = orderService.findOrderById(id);
+		Orders currentOrder = orderService.findOrderById(id);
 		if (currentOrder == null) {
 			logger.error("Unable to delete. Order with id " + id + " not found");
 			return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
@@ -70,45 +102,6 @@ public class OrderRestController {
 			orderService.deleteOrder(id);;
 			ResponseEntity<Void> deleteOrder = new ResponseEntity<Void>(HttpStatus.OK);
 			return deleteOrder;
-		}
-	}
-	
-	@CrossOrigin
-	@PutMapping("/update/{id}")
-	public ResponseEntity<Order> updateOrder(@PathVariable("id") long id, @RequestBody Order order){
-		logger.info("Update order with id {}", id);
-		Order currentOrder = orderService.findOrderById(id);
-		if (currentOrder == null) {
-			logger.error("Unable to update. Order with id " + id + " not found.");
-			return new ResponseEntity<Order>(HttpStatus.NOT_FOUND);
-		} else {
-			
-			currentOrder.setName(order.getName());
-			currentOrder.setAddress(order.getAddress());
-			currentOrder.setAmount(order.getAmount());
-			currentOrder.setEmail(order.getEmail());
-			currentOrder.setPayment(order.getPayment());
-			currentOrder.setPaymentInfo(order.getPaymentInfo());
-			currentOrder.setNote(order.getNote());
-			currentOrder.setPhone(order.getPhone());
-			currentOrder.setUserID(order.getUserID());
-			orderService.updateOrder(currentOrder);
-			ResponseEntity<Order> updateOrder = new ResponseEntity<Order>(currentOrder, HttpStatus.OK);
-			return updateOrder;
-		}
-	}
-	
-	@CrossOrigin
-	@GetMapping("/{id}")
-	public ResponseEntity<Order> findBill(@PathVariable("id") long id){
-		logger.info("Fetching order with id {}", id);
-		Order findOrder = orderService.findOrderById(id);
-		if(findOrder == null) {
-			logger.error("Order with id: " + id + " not found.");
-			return new ResponseEntity<Order>(HttpStatus.NO_CONTENT);
-		} else {
-			ResponseEntity<Order> order = new ResponseEntity<Order>(findOrder, HttpStatus.OK);
-			return order;
 		}
 	}
 }

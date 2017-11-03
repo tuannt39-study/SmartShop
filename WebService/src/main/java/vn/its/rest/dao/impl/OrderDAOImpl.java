@@ -1,13 +1,15 @@
 package vn.its.rest.dao.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import vn.its.rest.dao.OrderDAO;
-import vn.its.rest.model.Order;
+import vn.its.rest.model.Orders;
 
 @Repository
 public class OrderDAOImpl implements OrderDAO {
@@ -15,39 +17,44 @@ public class OrderDAOImpl implements OrderDAO {
 	@Autowired
 	private SessionFactory sessionFactory;
 	
-	@SuppressWarnings("unchecked")
 	@Override
-	public List<Order> findAllOrder() {
-		// TODO Auto-generated method stub
-		return sessionFactory.getCurrentSession().createQuery("from Order").list();
+	public List<Orders> findAllOrder() {
+		List<Orders> listOrders = new ArrayList<>();
+		String sql = "from Orders";
+		Session session = sessionFactory.getCurrentSession();
+		listOrders = session.createQuery(sql, Orders.class).list();
+		return listOrders;
 	}
 
 	@Override
-	public Order findOrderById(long id) {
-		// TODO Auto-generated method stub
-		return sessionFactory.getCurrentSession().get(Order.class, id);
+	public Orders findOrderById(long id) {
+		Session session = sessionFactory.getCurrentSession();
+		Orders orderById = session.get(Orders.class, id);
+		if (orderById == null) {
+			return null;
+		}
+		return orderById;
 	}
 
 	@Override
-	public Order updateOrder(Order order) {
-		// TODO Auto-generated method stub
-	    sessionFactory.getCurrentSession().update(order);
-		return order;
+	public void addOrder(Orders order) {
+		Session session = sessionFactory.getCurrentSession();
+		session.save(order);
+	}
+
+	@Override
+	public void updateOrder(Orders order) {
+		Session session = sessionFactory.getCurrentSession();
+		session.update(order);
 	}
 
 	@Override
 	public void deleteOrder(long id) {
-		// TODO Auto-generated method stub
-		Order order = sessionFactory.getCurrentSession().load(Order.class, id);
-		if (order != null) {
-			this.sessionFactory.getCurrentSession().delete(order);
+		Session session = sessionFactory.getCurrentSession();
+		Orders orderById = session.get(Orders.class, id);
+		if (findOrderById(id) != null) {
+			session.delete(orderById);
 		}
 	}
 
-	@Override
-	public void saveOrder(Order order) {
-		// TODO Auto-generated method stub
-		sessionFactory.getCurrentSession().saveOrUpdate(order);
-	}
-	
 }

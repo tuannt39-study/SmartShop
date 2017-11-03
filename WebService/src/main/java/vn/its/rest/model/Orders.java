@@ -1,6 +1,6 @@
 package vn.its.rest.model;
 
-import java.sql.Timestamp;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,7 +11,8 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "ORDERS")
-public class Order {
+public class Orders {
+	
 	@Id
 	@Column(name = "ID")
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -35,30 +36,21 @@ public class Order {
 	@Column(name = "AMOUNT")
 	private long amount;
 	
-	@Column(name = "PAYMENT")
-	private String payment;
-	
-	@Column(name = "PAYMENT_INFO")
-	private String paymentInfo;
-	
-	@Column(name = "SECURITY")
-	private String security;
-	
 	@Column(name = "USER_ID")
 	private long userID;
 	
-	@Column(name = "CREATE_TIME")
-	private Timestamp createdTime;
+	@Column(name = "CREATED_TIME")
+	private Date createdTime;
 	
 	@Column(name = "STATUS")
 	private String status;
 
-	public Order() {
+	public Orders() {
 		super();
 	}
 
-	public Order(long id, String name, String email, String phone, String address, String note, long amount,
-			String payment, String paymentInfo, String security, long userID, Timestamp createdTime, String status) {
+	public Orders(long id, String name, String email, String phone, String address, String note, long amount,
+			long userID, Date createdTime, String status) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -67,9 +59,6 @@ public class Order {
 		this.address = address;
 		this.note = note;
 		this.amount = amount;
-		this.payment = payment;
-		this.paymentInfo = paymentInfo;
-		this.security = security;
 		this.userID = userID;
 		this.createdTime = createdTime;
 		this.status = status;
@@ -131,30 +120,6 @@ public class Order {
 		this.amount = amount;
 	}
 
-	public String getPayment() {
-		return payment;
-	}
-
-	public void setPayment(String payment) {
-		this.payment = payment;
-	}
-
-	public String getPaymentInfo() {
-		return paymentInfo;
-	}
-
-	public void setPaymentInfo(String paymentInfo) {
-		this.paymentInfo = paymentInfo;
-	}
-
-	public String getSecurity() {
-		return security;
-	}
-
-	public void setSecurity(String security) {
-		this.security = security;
-	}
-
 	public long getUserID() {
 		return userID;
 	}
@@ -163,11 +128,11 @@ public class Order {
 		this.userID = userID;
 	}
 
-	public Timestamp getCreatedTime() {
+	public Date getCreatedTime() {
 		return createdTime;
 	}
 
-	public void setCreatedTime(Timestamp createdTime) {
+	public void setCreatedTime(Date createdTime) {
 		this.createdTime = createdTime;
 	}
 
@@ -178,7 +143,5 @@ public class Order {
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	
-	
 
 }
