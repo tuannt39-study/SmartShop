@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="myApp" lang="en">
+<html lang="en">
 
 <head>
     <meta charset="utf-8">
@@ -47,7 +47,7 @@
                         <a href="home.html" class="waves-effect"><i class="glyphicon glyphicon-fire fa-fw"></i>Trang chủ</a>
                     </li>
                     <li>
-                        <a href="acc.html" class="active waves-effect"><i class="ti-user fa-fw"></i>Tài khoản<span class="fa arrow"></span></a>
+                        <a href="acc.html" class="waves-effect"><i class="ti-user fa-fw"></i>Tài khoản<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li><a href="account.html">Quản lý tài khoản</a></li>
                             <li><a href="login_log.html">Quản lý đăng nhập</a></li>
@@ -61,7 +61,7 @@
                         </ul>
                     </li>
                     <li>
-                        <a href="new.html" class="waves-effect"><i class="ti-pencil-alt fa-fw"></i>Tin tức<span class="fa arrow"></span></a>
+                        <a href="new.html" class="active waves-effect"><i class="ti-pencil-alt fa-fw"></i>Tin tức<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li><a href="news.html">Quản lý bài viết</a></li>
                             <li><a href="news_category.html">Chuyên mục tin tức</a></li>
@@ -85,14 +85,14 @@
             <!-- /.sidebar-collapse -->
         </div>
         <!-- Page Content -->
-        <div ng-controller="UserController as ctrl" id="page-wrapper">
+        <div id="page-wrapper">
             <div class="container-fluid">
                 <div class="row bg-title">
                     <div class="col-lg-12">
-                        <h4 class="page-title">Quản lý tài khoản</h4>
+                        <h4 class="page-title">Quản lý bài viết</h4>
                         <ol class="breadcrumb">
                             <li><a>Trang chủ</a></li>
-                            <li class="active">Tài khoản</li>
+                            <li class="active">Tin tức</li>
                         </ol>
                     </div>
                     <!-- /.col-lg-12 -->
@@ -101,75 +101,42 @@
                 <div class="row">
                     <div class="col-md-8 col-xs-12">
                         <div class="white-box">
-                            <form ng-submit="ctrl.submit()" name="myForm" class="form-horizontal form-material">
-                            	<input type="hidden" ng-model="ctrl.user.id" />
+                            <form name="myForm" class="form-horizontal form-material">
+                            	<input type="hidden"/>
                                 <div class="form-group">
-                                    <label class="col-md-12">Tên tài khoản</label>
+                                    <label class="col-md-12">Tiêu đề</label>
                                     <div class="col-md-12">
-                                        <input ng-model="ctrl.user.username" name="uusername" type="text" class="form-control form-control-line">
-                                        <div ng-show="myForm.$dirty">
-                                            <span ng-show="myForm.uusername.$error.required">Bắt buộc</span>
-                                        </div>
+                                        <input name="uusername" type="text" class="form-control form-control-line">
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="example-email" class="col-md-12">Email</label>
+                                    <label for="example-email" class="col-md-12">Chuyên mục</label>
                                     <div class="col-md-12">
-                                        <input ng-model="ctrl.user.email" name="uemail" type="email" class="form-control form-control-line">
-                                        <div ng-show="myForm.$dirty">
-                                            <span ng-show="myForm.uemail.$error.required">Bắt buộc</span>
-                                        </div>
+                                        <input name="uemail" type="email" class="form-control form-control-line">
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-md-12">Mật khẩu</label>
+                                    <label class="col-md-12">Mã người đăng</label>
                                     <div class="col-md-12">
-                                        <input ng-model="ctrl.user.password" name="upassword" type="password" class="form-control form-control-line">
-                                        <div ng-show="myForm.$dirty">
-                                            <span ng-show="myForm.upassword.$error.required">Bắt buộc</span>
-                                        </div>
+                                        <input name="uaddress" type="text" class="form-control form-control-line">
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-md-12">Họ tên</label>
+                                    <label class="col-md-12">Tóm tắt</label>
                                     <div class="col-md-12">
-                                        <input ng-model="ctrl.user.fullname" name="ufullname" type="text" class="form-control form-control-line">
-                                        <div ng-show="myForm.$dirty">
-                                            <span ng-show="myForm.ufullname.$error.required">Bắt buộc</span>
-                                        </div>
+                                        <input name="upassword" type="text" class="form-control form-control-line">
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-md-12">Địa chỉ</label>
+                                    <label class="col-md-12">Nội dung</label>
                                     <div class="col-md-12">
-                                        <input ng-model="ctrl.user.address" name="uaddress" type="text" class="form-control form-control-line">
-                                        <div ng-show="myForm.$dirty">
-                                            <span ng-show="myForm.uaddress.$error.required">Bắt buộc</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-md-12">Số điện thoại</label>
-                                    <div class="col-md-12">
-                                        <input ng-model="ctrl.user.phone" name="uphone" type="text" class="form-control form-control-line">
-                                        <div ng-show="myForm.$dirty">
-                                            <span ng-show="myForm.uphone.$error.required">Bắt buộc</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-md-12">Trạng thái</label>
-                                    <div class="col-md-12">
-                                        <input ng-model="ctrl.user.status" name="ustatus" type="text" class="form-control form-control-line">
-                                        <div ng-show="myForm.$dirty">
-                                            <span ng-show="myForm.ustatus.$error.required">Bắt buộc</span>
-                                        </div>
+                                        <textarea id="mymce" name="area"></textarea>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="col-sm-12">
-                                        <input value="{{!ctrl.user.id ? 'Thêm tài khoản' : 'Cập nhật'}}" ng-disabled="myForm.$invalid" class="btn btn-info btn-rounded" type="submit"/>
-                                        <button ng-click="ctrl.reset()" ng-disabled="myForm.$pristine" class="btn btn-warning btn-rounded">Hủy</button>
+                                        <input value="Thêm tài khoản" class="btn btn-info btn-rounded" type="submit"/>
+                                        <button class="btn btn-warning btn-rounded">Hủy</button>
                                     </div>
                                 </div>
                             </form>
@@ -180,38 +147,28 @@
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="white-box">
-                        <h3>Quản lý tài khoản</h3>
-                        <table ui-jq="dataTable" class="table table-striped">
+                        <h3>Quản lý bài viết</h3>
+                        <table class="table table-striped">
                             <thead>
                             <tr>
-                                <th> Mã </th>
-                                <th> Tên tài khoản </th>
-                                <th> Email </th>
-                                <th> Họ tên </th>
-                                <th> Điện thoại </th>
-                                <th> Địa chỉ </th>
-                                <th> Avatar </th>
-                                <th> Ngày tạo </th>
-                                <th> Mật khẩu </th>
-                                <th> Trạng thái </th>
+                                <th> Mã bài viết </th>
+                                <th> Tiêu đề </th>
+                                <th> Chuyên mục </th>
+                                <th> Thời gian đăng </th>
+                                <th> Mã người đăng </th>
                                 <th> Thao tác </th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr ng-repeat="u in ctrl.users">
-                                <td> {{u.id}} </td>
-                                <td> {{u.username}} </td>
-                                <td> {{u.email}} </td>
-                                <td> {{u.fullname}} </td>
-                                <td> {{u.phone}} </td>
-                                <td> {{u.address}} </td>
-                                <td> {{u.avartar}} </td>
-                                <td> {{u.createdTime}} </td>
-                                <td> {{u.password}} </td>
-                                <td> {{u.status}} </td>
+                            <tr>
+                                <td> 1 </td>
+                                <td> 1 </td>
+                                <td> 1 </td>
+                                <td> 1 </td>
+                                <td> 1 </td>
                                 <td>
-                                    <button ng-click="ctrl.edit(u.id)" class="btn btn-warning btn-rounded">Sửa</button>&emsp;
-                                    <button ng-click="ctrl.remove(u.id)" class="btn btn-danger btn-rounded">Xóa</button>
+                                    <button class="btn btn-warning btn-rounded">Sửa</button>&emsp;
+                                    <button class="btn btn-danger btn-rounded">Xóa</button>
                                 </td>
                             </tr>
                             </tbody>
@@ -237,9 +194,23 @@
     <script src="../assets/admin/plugins/datatables/jquery.dataTables.min.js"></script>
     <script src="../assets/admin/js/waves.js"></script>
     <script src="../assets/admin/js/myadmin.js"></script>
+    <script src="../assets/admin/plugins/tinymce/tinymce.min.js"></script>
     <script src="../assets/angular/app.js"></script>
     <script src="../assets/angular/controller/user_controller.js"></script>
     <script src="../assets/angular/service/user_service.js"></script>
+    <script>
+        tinymce.init({
+            selector: 'textarea',
+            height: 250,
+            menubar: false,
+            plugins: [
+            "advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker",
+            "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
+            "save table contextmenu directionality emoticons template paste textcolor"
+            ],
+            toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | l      ink image | print preview media fullpage | forecolor backcolor emoticons",
+          });       
+    </script>
 </body>
 
 </html>
