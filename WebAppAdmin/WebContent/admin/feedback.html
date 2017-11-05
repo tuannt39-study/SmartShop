@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html ng-app="myApp" lang="en">
 
 <head>
     <meta charset="utf-8">
@@ -85,14 +85,14 @@
             <!-- /.sidebar-collapse -->
         </div>
         <!-- Page Content -->
-        <div id="page-wrapper">
+        <div ng-controller="FeedbackController as ctrl" id="page-wrapper">
             <div class="container-fluid">
                 <div class="row bg-title">
                     <div class="col-lg-12">
                         <h4 class="page-title">Quản lý phản hồi</h4>
                         <ol class="breadcrumb">
                             <li><a>Trang chủ</a></li>
-                            <li class="active">liên hệ</li>
+                            <li class="active">Liên hệ</li>
                         </ol>
                     </div>
                     <!-- /.col-lg-12 -->
@@ -101,7 +101,7 @@
                     <div class="col-sm-12">
                         <div class="white-box">
                         <h3>Quản lý phản hồi</h3>
-                        <table class="table table-striped">
+                        <table ui-jq="dataTable" class="table table-striped">
                             <thead>
                             <tr>
                                 <th> Mã </th>
@@ -113,13 +113,13 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td> 1 </td>
-                                <td> 1 </td>
-                                <td> 1 </td>
-                                <td> 1 </td>
-                                <td> 1 </td>
-                                <td> 1 </td>
+                            <tr ng-repeat="fback in ctrl.feedbacks">
+	                            <td><span ng-bind="fback.id"></span></td>
+	                            <td><span ng-bind="fback.name"></span></td>
+	                            <td><span ng-bind="fback.email"></span></td>
+	                            <td><span ng-bind="fback.phone"></span></td>
+	                            <td><span ng-bind="fback.note"></span></td>
+	                            <td><span ng-bind="fback.createTime"></span></td>
                             </tr>
                             </tbody>
                         </table>
@@ -144,9 +144,10 @@
     <script src="../assets/admin/plugins/datatables/jquery.dataTables.min.js"></script>
     <script src="../assets/admin/js/waves.js"></script>
     <script src="../assets/admin/js/myadmin.js"></script>
+    <script src="../assets/admin/plugins/tinymce/tinymce.js"></script>
     <script src="../assets/angular/app.js"></script>
-    <script src="../assets/angular/controller/user_controller.js"></script>
-    <script src="../assets/angular/service/user_service.js"></script>
+    <script src="../assets/angular/controller/feedback_controller.js"></script>
+    <script src="../assets/angular/service/feedback_service.js"></script>
 </body>
 
 </html>

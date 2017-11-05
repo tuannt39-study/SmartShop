@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html ng-app='myApp' lang="en">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,13 +12,14 @@
     <link href="../assets/users/css/price-range.css" rel="stylesheet">
     <link href="../assets/users/css/animate.css" rel="stylesheet">
 	<link href="../assets/users/css/main.css" rel="stylesheet">
-	<link href="../assets/users/css/responsive.css" rel="stylesheet">
-    <!--[if lt IE 9]>
-    <script src="../assets/users/js/html5shiv.js"></script>
-    <script src="../assets/users/js/respond.min.js"></script>
-    <![endif]-->       
+	<link href="../assets/users/css/responsive.css" rel="stylesheet">         
     <link rel="shortcut icon" href="../assets/users/images/home/icon.png">
-</head><!--/head-->
+   
+   <script src="../assets/angular/angular.min.js" type="text/javascript"></script>
+        <script src="../assets/angular/app.js" type="text/javascript"></script>
+        <script src="../assets/angular/controller/feedbackUser_controller.js" type="text/javascript"></script>
+        <script src="../assets/angular/service/feedbackUser_service.js" type="text/javascript"></script>
+</head>
 
 <body>
 	<header id="header"><!--header-->
@@ -53,7 +54,7 @@
 				<div class="row">
 					<div class="col-sm-4">
 						<div class="logo pull-left">
-							<a href="../index.html"><img src="../assets/users/images/home/logo.png" alt="" /></a>
+							<a href="index.html"><img src="../assets/users/images/home/logo.png" alt="" /></a>
 						</div>
 						<div class="btn-group pull-right">
 						</div>
@@ -66,7 +67,6 @@
 								<li><a href="cart.html"><i class="fa fa-shopping-cart"></i> Giỏ hàng</a></li>
 								<li><a href="login.html"><i class="fa fa-lock"></i> Đăng nhập</a></li>
 								<li><a href="register.html"><i class="fa fa-unlock"></i> Đăng ký</a></li>
-								<li><a href="../admin/home.html"> ADMIN</a></li>
 							</ul>
 						</div>
 					</div>
@@ -88,7 +88,7 @@
 						</div>
 						<div class="mainmenu pull-left">
 							<ul class="nav navbar-nav collapse navbar-collapse">
-								<li><a href="../index.html" class="active">Trang chủ</a></li>
+								<li><a href="index.html" class="active">Trang chủ</a></li>
 								<li class="dropdown"><a href="#">Nam<i class="fa fa-angle-down"></i></a>
                                     <ul role="menu" class="sub-menu">
                                         <li><a href="products.html">Quần áo</a></li>
@@ -105,50 +105,43 @@
 								<li><a href="contact.html">Liên hệ</a></li>
 							</ul>
 						</div>
-					</div>
-					<div class="col-sm-3">
-						<div class="search_box pull-right">
-							<input type="text" placeholder="Tìm kiếm..."/>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div><!--/header-bottom-->
-	</header><!--/header-->
-	 
-	 <div id="contact-page" class="container">
-    	<div class="bg">
-	    	<div class="row">    		
-	    		<div class="col-sm-12">    			   			
-					<h2 class="title text-center">Contact <strong>Us</strong></h2>    			    				    				
-					<div id="gmap" class="contact-map">
-					</div>
-				</div>			 		
-			</div>    	
-    		<div class="row">
+					</div>		 		
+			</div>             
+             <!-- BEGIN FORM-->
+            <div ng-controller="UserFeedbackController as ctrl" class="row">  	
 	    		<div class="col-sm-8">
 	    			<div class="contact-form">
 	    				<h2 class="title text-center">Mẫu Điền Thông Tin</h2>
+	    				
 	    				<div class="status alert alert-success" style="display: none"></div>
-				    	<form id="main-contact-form" class="contact-form row" name="contact-form" method="post">
+	    					    				
+				    	<form ng-submit="ctrl.submit()" name="myForm" id="main-contact-form" class="contact-form row" name="contact-form" action="#">
+				           
 				            <div class="form-group col-md-6">
-				                <input type="text" name="name" class="form-control" required="required" placeholder="Tên">
+				                <input ng-model="ctrl.feedback.name" type="text" name="fbackName" class="form-control" required="required" placeholder="Tên">
 				            </div>
+				            
 				            <div class="form-group col-md-6">
-				                <input type="email" name="email" class="form-control" required="required" placeholder="Email">
+				                <input ng-model="ctrl.feedback.email" type="email" name="fbackEmail" class="form-control" required="required" placeholder="Email">
 				            </div>
+				            				            
 				            <div class="form-group col-md-12">
-				                <input type="text" name="subject" class="form-control" required="required" placeholder="Chủ Đề">
+				                <input ng-model="ctrl.feedback.phone" type="text" name="fbackPhone" class="form-control" required="required" placeholder="Số điện thoại liên lạc">
 				            </div>
+				            
 				            <div class="form-group col-md-12">
-				                <textarea name="message" id="message" required="required" class="form-control" rows="8" placeholder="Ý kiến của bạn"></textarea>
-				            </div>                        
+				                <textarea ng-model="ctrl.feedback.note" name="fbackNote" id="message" required="required" class="form-control" rows="8" placeholder="Ý kiến của bạn"></textarea>
+				            </div>
+				                                    
 				            <div class="form-group col-md-12">
-				                <input type="submit" name="submit" class="btn btn-primary pull-right" value="Gửi">
+				                <input value="Gửi" ng-disabled="myForm.$invalid" type="submit" class="btn btn-primary pull-right">
 				            </div>
 				        </form>
 	    			</div>
 	    		</div>
+              </div>                        
+              
+              
 	    		<div class="col-sm-4">
 	    			<div class="contact-info">
 	    				<h2 class="title text-center">Thông Tin Liên Lạc</h2>
@@ -179,9 +172,7 @@
 	    				</div>
 	    			</div>
     			</div>    			
-	    	</div>  
-    	</div>	
-    </div><!--/#contact-page-->
+	    	</header>
 	
 	<footer id="footer"><!--Footer-->
 		<div class="footer-top">
@@ -196,12 +187,14 @@
 					<div class="col-sm-7">
 						<div class="col-sm-3">
 							<div class="video-gallery text-center">
-								<div class="iframe-img">
-									<a href="#"><img src="../assets/users/images/home/iframe1.png" alt="" /></a>
-								</div>
-								<div class="overlay-icon">
-									<i class="fa fa-play-circle-o"></i>
-								</div>
+								<a href="#">
+									<div class="iframe-img">
+										<img src="../assets/users/images/home/iframe1.png" alt="" />
+									</div>
+									<div class="overlay-icon">
+										<i class="fa fa-play-circle-o"></i>
+									</div>
+								</a>
 								<p>Le Minh Duong</p>
 								<h2>24 DEC 2014</h2>
 							</div>
@@ -209,12 +202,14 @@
 						
 						<div class="col-sm-3">
 							<div class="video-gallery text-center">
-								<div class="iframe-img">
-									<a href="#"><img src="../assets/users/images/home/iframe2.png" alt="" /></a>
-								</div>
-								<div class="overlay-icon">
-									<i class="fa fa-play-circle-o"></i>
-								</div>
+								<a href="#">
+									<div class="iframe-img">
+										<img src="../assets/users/images/home/iframe2.png" alt="" />
+									</div>
+									<div class="overlay-icon">
+										<i class="fa fa-play-circle-o"></i>
+									</div>
+								</a>
 								<p>Giao su Tuan</p>
 								<h2>24 DEC 2014</h2>
 							</div>
@@ -222,12 +217,14 @@
 						
 						<div class="col-sm-3">
 							<div class="video-gallery text-center">
-								<div class="iframe-img">
-									<a href="#"><img src="../assets/users/images/home/iframe3.png" alt="" /></a>
-								</div>
-								<div class="overlay-icon">
-									<i class="fa fa-play-circle-o"></i>
-								</div>
+								<a href="#">
+									<div class="iframe-img">
+										<img src="../assets/users/images/home/iframe3.png" alt="" />
+									</div>
+									<div class="overlay-icon">
+										<i class="fa fa-play-circle-o"></i>
+									</div>
+								</a>
 								<p>Bui Van Duc</p>
 								<h2>24 DEC 2014</h2>
 							</div>
@@ -235,12 +232,14 @@
 						
 						<div class="col-sm-3">
 							<div class="video-gallery text-center">
-								<div class="iframe-img">
-									<a href="#"><img src="../assets/users/images/home/iframe4.png" alt="" /></a>
-								</div>
-								<div class="overlay-icon">
-									<i class="fa fa-play-circle-o"></i>
-								</div>
+								<a href="#">
+									<div class="iframe-img">
+										<img src="../assets/users/images/home/iframe4.png" alt="" />
+									</div>
+									<div class="overlay-icon">
+										<i class="fa fa-play-circle-o"></i>
+									</div>
+								</a>
 								<p>Circle of Hands</p>
 								<h2>24 DEC 2014</h2>
 							</div>
