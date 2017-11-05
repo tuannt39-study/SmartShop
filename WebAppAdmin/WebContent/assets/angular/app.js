@@ -1,3 +1,3 @@
 'use strict';
 
-var App = angular.module('myApp',['ui.bootstrap','ui.utils']);
+var App = angular.module('myApp',['ui.bootstrap','ui.utils','ui.tinymce']);

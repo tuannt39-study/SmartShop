@@ -101,7 +101,7 @@
                 <div class="row">
                     <div class="col-md-8 col-xs-12">
                         <div class="white-box">
-                            <form ng-submit="ctrl.submit()" name="myForm" class="form-horizontal form-material">
+                            <form ng-submit="ctrl.submit()" name="myForm" class="form-horizontal form-material" method="post">
                             	<input type="hidden" ng-model="ctrl.user.id" />
                                 <div class="form-group">
                                     <label class="col-md-12">Tên tài khoản</label>
@@ -237,6 +237,7 @@
     <script src="../assets/admin/plugins/datatables/jquery.dataTables.min.js"></script>
     <script src="../assets/admin/js/waves.js"></script>
     <script src="../assets/admin/js/myadmin.js"></script>
+    <script src="../assets/admin/plugins/tinymce/tinymce.js"></script>
     <script src="../assets/angular/app.js"></script>
     <script src="../assets/angular/controller/user_controller.js"></script>
     <script src="../assets/angular/service/user_service.js"></script>
